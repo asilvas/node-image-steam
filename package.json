@@ -1,0 +1,53 @@
+{
+  "name": "image-steam",
+  "version": "0.1.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check-cov": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100 || node scripts/launch-coverage-in-browser",
+    "start": "node ./scripts/server.js",
+    "jscs": "jscs test/",
+    "jshint": "jshint test/",
+    "lint": "npm run jshint && npm run jscs",
+    "mocha": "mocha -w -R spec",
+    "report": "istanbul report cobertura && istanbul report lcov",
+    "pretest": "npm run lint",
+    "test": "npm run test-and-check && npm outdated",
+    "test-and-check": "npm run unit && npm run report && npm run check-cov",
+    "unit": "npm run unit-cov",
+    "unit-cov": "istanbul cover --dir coverage-unit ./node_modules/mocha/bin/_mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asilvas/node-image-steam.git"
+  },
+  "keywords": [
+    "image",
+    "steam",
+    "processor"
+  ],
+  "author": "Aaron Silvas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asilvas/node-image-steam/issues"
+  },
+  "homepage": "https://github.com/asilvas/node-image-steam#readme",
+  "dependencies": {
+    "async": "^1.3.0",
+    "lodash": "^3.10.0",
+    "semaphore": "^1.0.3",
+    "sharp": "^0.10.1",
+    "xxhash": "^0.2.2"
+  },
+  "devDependencies": {
+    "browser-launcher": "^1.0.0",
+    "chai": "^3.0.0",
+    "istanbul": "^0.3.17",
+    "jscs": "^1.13.1",
+    "jshint": "^2.8.0",
+    "mocha": "^2.2.5",
+    "mocha-istanbul": "^0.2.0",
+    "open": "0.0.5",
+    "should": "^7.0.2"
+  }
+}

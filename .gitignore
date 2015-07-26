@@ -1,0 +1,41 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+
+npm-debug.log
+
+# Netbeans
+/nbproject/
+
+# Webstorm Settings
+.idea/
+!.idea/inspectionProfiles
+!.idea/jsLinters
+
+# Istanbul Output
+coverage*/
+
+# NPM Dependencies
+node_modules/
+
+# Visual Studio files
+*.suo
+*.sln
+*.nsproj
+
+# Sublime Project files
+*.sublime-project
+*.sublime-workspace
+
+# Eclipse
+.project
