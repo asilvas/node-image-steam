@@ -39,3 +39,5 @@ node_modules/
 
 # Eclipse
 .project
+
+test/files/UP_steam_loco.jpg-*
