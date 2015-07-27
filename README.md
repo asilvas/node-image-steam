@@ -25,6 +25,16 @@ There are a number of options out there, but IS differentiates itself by:
   Compression and Accepts header (i.e. WebP) being examples.
 
 
+# Installation
+
+The speed and power of this module would not be possible without the incredible
+work of libvips (low level image processor), Sharp (depends on libvips), and xxHash
+for lightning-fast hashing.
+
+1. Install libvips via http://www.vips.ecs.soton.ac.uk/index.php?title=Supported
+2. Install Sharp via http://sharp.dimens.io/en/stable/install/
+3. Run `npm install` as sudo (*nix) or admin (windows) 
+
 
 # Basic Usage
 
