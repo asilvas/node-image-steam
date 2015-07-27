@@ -26,13 +26,15 @@ While Routing, Throttling, and Storage are all independently usable and configur
 a basic usage example that pulls everything together can be as simple as:
 
 ```
-var is = require('image-steam');
+var imageSteam = require('image-steam');
 
 http.createServer(
-  new is.http.Connect({ /* using default options */ }))
+  new imageSteam.http.Connect({ /* using default options */ }))
   .listen(13337, '127.0.0.1')
 ;
 ```
+
+Which is equivalent of cloning this repo and invoking `npm start`.
 
 
 # Storage
@@ -96,9 +98,9 @@ Arguments:
 
 ### Examples
 
-1. `cr=t10%:l10%:w80%:h80%` - Crop 10% around the edges
-2. `cr=w64:h64:a=cc` - Crop 64x64 anchored from center.
-3. `cr=l10:w64:h64` - Crops 64x64 from the left at 10px (ignoring the horizontal
+1. `cr=t:10%,l:10%,w:80%,h:80%` - Crop 10% around the edges
+2. `cr=w:64,h:64,a=cc` - Crop 64x64 anchored from center.
+3. `cr=l:10,w:64,h:64` - Crops 64x64 from the left at 10px (ignoring the horizontal
    axis value of `c`), and vertically anchors from center since top is not provided.
 
 
@@ -173,7 +175,7 @@ not be used otherwise to save bandwidth.
 
 ### Examples
 
-1. `rs=w3840/pg` - Create a big 4K-ish image and use progressive rendering
+1. `rs=w:3840/pg` - Create a big 4K-ish image and use progressive rendering
    to see demonstrate value in some use cases.
 
 
@@ -229,7 +231,7 @@ Arguments:
 
 ### Examples
 
-1. `fx-bl=s5`
+1. `fx-bl=s:5`
 
 
 ## Greyscale (fx-gs)
@@ -255,9 +257,9 @@ Any numeric value around measurement without explicit unit type
 specified is implicitly of type px.
 
 ### Examples
-1. `rs=w200:h300`
-2. `rs=w200px:h300px` - (identical to #1)
-3. `cr=t15:l10:w-10:h-15`
+1. `rs=w:200,h:300`
+2. `rs=w:200px,h:300px` - (identical to #1)
+3. `cr=t:15,l:10,w:-10,h:-15`
 
 
 ## Percentage
@@ -265,8 +267,8 @@ specified is implicitly of type px.
 A percentage applied to original value by supplying the percentage (%) modifier.
 
 ### Examples
-1. `rs=w50%:h50%` - 50% of source width and height
-2. `cr=t15%:l10%:w-10%:h-15%`
+1. `rs=w:50%,h:50%` - 50% of source width and height
+2. `cr=t:15%,l:10%,w:-10%,h:-15%`
 
 ## Offset
 
@@ -275,21 +277,21 @@ a plus (+) or minus (-) may be used to imply offset from original.
 
 ### Examples
 
-1. `rs=w+50px:h-50px` - 50px wider than original, 50px shorter than original
-2. `rs=w+10%:h-10%` - 10% wider than original, 10% shorter than original
+1. `rs=w:+50px,h:-50px` - 50px wider than original, 50px shorter than original
+2. `rs=w:+10%,h:-10%` - 10% wider than original, 10% shorter than original
 
 
 
 # Things to try:
 
-* `rs=w640` - Resize to 640 width, retain aspect
-* `rs=w640/cr=l5%:t10%:w90%:h80%` - Same as above, and
+* `rs=w:640` - Resize to 640 width, retain aspect
+* `rs=w:640/cr=l:5%,t:10%,w:90%,h:80%` - Same as above, and
   crop 5% of the sides and 10% of the top and bottom
-* `rs=w640/cr=l5%:t10%:w90%:h80%/fx-gs` - Same as above, and
+* `rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs` - Same as above, and
   apply greyscale effect.
-* `rs=w640/cr=l5%:t10%:w90%:h80%/fx-gs/qt=q20` - Same as above, and
+* `rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs/qt=q:20` - Same as above, and
   use a low quality of 20.
-* `rs=w64:h64:m/cr=w64:h64/fx-gs` - Resize image to a *minimum* of 64x64
+* `rs=w:64,h:64,m/cr=w:64,h:64/fx-gs` - Resize image to a *minimum* of 64x64
   w/o breaking aspect so that we can then crop the image and apply
   greyscale.
-* `fx-bl=s5` - Apply a blur
+* `fx-bl=s:5` - Apply a blur
