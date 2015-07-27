@@ -3,7 +3,7 @@
 A simple, fast, and highly customizable on-the-fly image manipulation
 web server built atop Node.js
 
-***In an alpha state***
+***State: Alpha***
 
 
 # Why Image Steam?
