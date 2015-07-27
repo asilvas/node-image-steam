@@ -42,6 +42,7 @@ While Routing, Throttling, and Storage are all independently usable and configur
 a basic usage example that pulls everything together can be as simple as:
 
 ```
+var http = require('http');
 var imgSteam = require('image-steam');
 
 http.createServer(new imgSteam.http.Connect({ /* using default options */ }))
