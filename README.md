@@ -31,7 +31,7 @@ Bundled storage support includes:
 
 Additional storage types can easily be added via exporting `fetch` and `store`.
 
-See `lib/storage/fs.js` for reference.
+See `lib/storage/fs` for reference.
 
 
 
@@ -39,10 +39,9 @@ See `lib/storage/fs.js` for reference.
 
 Routing is left-to-right for legibility.
 
-Examples:
+  `/my-path/my-nice-file-name/:/rs=w:200,h:200`
 
-* /bucket-id/my-nice-file-name/rs:w200:h200/bg:#ffffff
-
+See [Things to Try](#things-to-try) for many more examples.
 
 
 # Supported Operations
