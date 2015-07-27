@@ -20,6 +20,21 @@ There are a number of options out there, but IS differentiates itself by:
 
 
 
+# Basic Usage
+
+While Routing, Throttling, and Storage are all independently usable and configurable,
+a basic usage example that pulls everything together can be as simple as:
+
+```
+var is = require('image-steam');
+
+http.createServer(
+  new is.http.Connect({ /* using default options */ }))
+  .listen(13337, '127.0.0.1')
+;
+```
+
+
 # Storage
 
 Bundled storage support includes:
