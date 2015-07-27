@@ -1,7 +1,7 @@
 # About
 
 A simple, fast, and highly customizable on-the-fly image manipulation
-web server built atop Node.js
+web server built atop Node.js.
 
 ***State: Alpha***
 
@@ -23,6 +23,7 @@ There are a number of options out there, but IS differentiates itself by:
 * Good *Nix & Windows support. 
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
+
 
 
 # Installation
@@ -51,6 +52,14 @@ http.createServer(new imgSteam.http.Connect({ /* using default options */ }))
 ```
 
 Which is equivalent of cloning this repo and invoking `npm start`.
+
+
+# Performance
+
+While this module provides granular control over HTTP throttling to provide
+the highest quality of service possible, performance is entirely from Sharp
+and libvips: http://sharp.dimens.io/en/stable/performance/#performance
+
 
 
 # Storage
