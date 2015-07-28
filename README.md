@@ -96,7 +96,7 @@ Arguments:
 
 * Width (w, optional*) - Width of new size. Supports Dimension Modifiers.
 * Height (h, optional*) - Height of new size. Supports Dimension Modifiers.
-* Max (M, default) - Retain aspect and use dimensions as the maximum
+* Max (mx, default) - Retain aspect and use dimensions as the maximum
   permitted during resize.
 * Min (m, optional) - Retain aspect and use dimensions as the minimum
   permitted during resize. Set to any value to enable.
