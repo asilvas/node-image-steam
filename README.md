@@ -233,6 +233,15 @@ Arguments:
 * Format (f, required) - Format to output: "jpeg", "png", or "webp".
 
 
+## Metadata (md)
+
+Carry metadata from the original image into the outputted image. Enabled by default.
+
+Arguments:
+
+* Enabled (e, default: 'true') - Set to 'false' to disable metadata.
+
+
 ## Sharpen (fx-sp)
 
 ***Not yet supported***
