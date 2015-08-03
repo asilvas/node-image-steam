@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var path = require("path");
+var spawn = require("child_process").spawn;
+var args = process.argv.slice(2);
+var binPath = path.resolve(__dirname, '..', 'bin', 'isteam');
+var proc;
+
+proc = spawn(process.execPath, args, {
+  stdio: "ignore",
+  detached: true
+});
+
+proc.on('exit', function (code) {
+  console.error('image-steam exited: ' + code);
+});
+
+proc.unref(); // unreference so we may exit
+
