@@ -37,10 +37,21 @@ for lightning-fast hashing.
 3. Run `npm install` as sudo (*nix) or admin (windows) 
 
 
-# Basic Usage
+# Usage
+
+## Standalone Server
 
 While Routing, Throttling, and Storage are all independently usable and configurable,
 a basic usage example that pulls everything together can be as simple as:
+
+```
+npm install image-steam -g
+isteam --isConfig './myconfig.json'
+```
+
+## Connect Middleware
+
+Or if you prefer to incorporate into your own app:
 
 ```
 var http = require('http');
