@@ -1,6 +1,6 @@
 # image-steam
 
-[![Build Status](https://travis-ci.org/asilvas/node-image-steam.png)](https://travis-ci.org/asilvas/node-image-steam) [![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
 
