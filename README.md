@@ -77,14 +77,21 @@ and libvips: http://sharp.dimens.io/en/stable/performance/#performance
 
 Bundled storage support includes:
 
-* File System (type "fs")
-* S3 (type "s3") - Should work with any S3-compatible storage.
+* File System (driver "fs")
+  * path (***required***) - Root path on file system.
+* S3 (driver "s3") - Should work with any S3-compatible storage.
+  * endpoint (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
+  * port (default: `443`) - Non-443 port will auto-default secure to `false`.
+  * secure (default: `true` only if port `443`) - Override as needed.
+  * accessKey (***required***) - S3 access key.
+  * secretKey (***required***) - S3 secret key.
+  * style (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
 
 # Custom Storage
 
 Additional storage types can easily be added via exporting `fetch` and `store`.
 
-See `lib/storage/fs` for reference.
+See `lib/storage/fs` or `lib/storage/s3` for reference.
 
 
 
