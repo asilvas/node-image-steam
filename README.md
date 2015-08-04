@@ -4,10 +4,9 @@
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
 
-# About
+## About
 
-A simple, fast, and highly customizable on-the-fly image manipulation
-web server built atop Node.js.
+  A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
 
 ***State: Alpha***
 
