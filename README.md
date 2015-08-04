@@ -57,7 +57,7 @@ Or if you prefer to incorporate into your own app:
 var http = require('http');
 var imgSteam = require('image-steam');
 
-http.createServer(new imgSteam.http.Connect({ /* using default options */ }))
+http.createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
   .listen(13337, '127.0.0.1')
 ;
 ```
@@ -331,6 +331,58 @@ a plus (+) or minus (-) may be used to imply offset from original.
 
 1. `rs=w:+50px,h:-50px` - 50px wider than original, 50px shorter than original
 2. `rs=w:+10%,h:-10%` - 10% wider than original, 10% shorter than original
+
+
+# Error Handling
+
+All major classes inherit from EventEmitter. By default `http.start` will
+log errors to `stderr`, but can be disabled in options by setting
+`log.errors` to `false` if you want more fine grained control.
+
+## Connect Errors
+
+The next level down is Connect, and all child classes (shown below) will
+bubble up through this class:
+
+```
+var http = require('image-steam').http;
+var connect = new http.Connect();
+connect.on('error', function(err) { /* do something */ });
+```
+
+
+## Throttle Errors
+
+A lower level class with no children:
+
+```
+var http = require('image-steam').http;
+var throttle = new http.Throttle();
+throttle.on('error', function(err) { /* do something */ });
+```
+
+
+## Processor Errors
+
+A lower level class with no children:
+
+```
+var Processor = require('image-steam').Processor;
+var processor = new Processor();
+processor.on('error', function(err) { /* do something */ });
+```
+
+
+## Storage Errors
+
+A lower level class with no children:
+
+```
+var Storage = require('image-steam').Storage;
+var storage = new Storage();
+storage.on('error', function(err) { /* do something */ });
+```
+
 
 
 
