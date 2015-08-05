@@ -1,12 +1,10 @@
 # image-steam
 
+A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
+
 [![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
-
-## About
-
-  A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
 
 ***State: Beta***
 
@@ -59,6 +57,12 @@ npm install image-steam -g
 isteam --isConfig './myconfig.json'
 ```
 
+Config can also be a CommonJS file:
+
+```
+isteam --isConfig './myconfig.js'
+```
+
 ## Connect Middleware
 
 Or if you prefer to incorporate into your own app:
@@ -75,6 +79,81 @@ http.createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
 Which is equivalent of cloning this repo and invoking `npm start`.
 
 
+
+# Options
+
+```
+isteam --isConfig './myconfig.json'
+```
+
+## Http Options
+
+```
+{ "http": { "port": 80 } }
+```
+
+* `http.port` (default: `13337`) - Port to bind to.
+* `http.host` (default: `"localhost"`) - Host to bind to.
+* `http.backlog` (default: `511`) - [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback).
+* `http.ssl` (optional) - If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener).
+* `http.ssl.pfx` - If string, will auto-load from file system.
+* `http.ssl.key` - If string, will auto-load from file system.
+* `http.ssl.cert` - If string, will auto-load from file system.
+
+## Storage Options
+
+```
+{ "storage": { "driver": "s3", "endpoint": "s3.amazonaws.com", "accessKey": "abc", "secretKey": "123" } }
+```
+
+Bundled storage support includes:
+
+* `storage.driver=fs` - File System driver
+  * `path` (***required***) - Root path on file system.
+* `storage.driver=s3` - Should work with any S3-compatible storage.
+  * `endpoint` (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
+  * `port` (default: `443`) - Non-443 port will auto-default secure to `false`.
+  * `secure` (default: `true` only if port `443`) - Override as needed.
+  * `accessKey` (***required***) - S3 access key.
+  * `secretKey` (***required***) - S3 secret key.
+  * `style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
+
+Custom storage types can easily be added via exporting `fetch` and `store`.
+See `lib/storage/fs` or `lib/storage/s3` for reference.
+
+
+## Router Options
+
+```
+{ "router": { "originalSteps": { "resize": { "width": "2560", "height": "1440", "max": "true", "canGrow": "false" } } } }
+```
+
+Most router defaults should suffice, but you have full control over routing. See [Routing](#Routing) for more details.
+
+Options:
+* `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
+* `router.cmdKeyDelimiter` (default: `"/"`) - Seperator between commands (aka image steps).
+* `router.cmdValDelimiter` (default: `"="`) - Seperator between a command and its parameters.
+* `router.paramKeyDelimiter` (default: `","`) - Seperator between command parameters.
+* `router.paramValDelimiter` (default: `":"`) - Seperator between a parameter key and its value.
+* `router.originalSteps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images.
+* `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
+
+
+# Routing
+
+Routing format:
+```
+{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}?{queryString}
+```
+
+Example URI using [Default Options](#RouterOptions):
+```
+some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false
+```
+
+
+
 # Performance
 
 While this module provides granular control over HTTP throttling to provide
@@ -83,25 +162,6 @@ and libvips: http://sharp.dimens.io/en/stable/performance/#performance
 
 
 
-# Storage
-
-Bundled storage support includes:
-
-* File System (driver "fs")
-  * path (***required***) - Root path on file system.
-* S3 (driver "s3") - Should work with any S3-compatible storage.
-  * endpoint (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
-  * port (default: `443`) - Non-443 port will auto-default secure to `false`.
-  * secure (default: `true` only if port `443`) - Override as needed.
-  * accessKey (***required***) - S3 access key.
-  * secretKey (***required***) - S3 secret key.
-  * style (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
-
-# Custom Storage
-
-Additional storage types can easily be added via exporting `fetch` and `store`.
-
-See `lib/storage/fs` or `lib/storage/s3` for reference.
 
 
 
@@ -409,3 +469,9 @@ storage.on('error', function(err) { /* do something */ });
   w/o breaking aspect so that we can then crop the image and apply
   greyscale.
 * `fx-bl=s:5` - Apply a blur
+
+
+
+## License
+
+[MIT](https://github.com/asilvas/node-image-steam/blob/master/LICENSE.txt)
