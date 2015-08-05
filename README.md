@@ -8,23 +8,27 @@
 
   A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
 
-***State: Alpha***
+***State: Beta***
 
 
 # Why Image Steam?
 
-There are a number of options out there, but IS differentiates itself by:
+There are a number of options out there, but differentiates itself by:
 
 * Separating itself from a Web Server, so core logic can be used elsewhere.
-  Routing, mapping, image processing, storage make up the core components.
+  Routing, throttling, image processing, storage make up the core components.
+* Optimizes originally uploaded asset to account for large uploads, enabling
+  a higher quality service by making the pipeline for image operations
+  substantially faster.
+* Quality of service features such as throttling and memory thresholds, to best
+  take advantage of your hardware under ideal and non ideal scenarios.
 * Highly configurable. Everything all the way down to how image operations are mapped
   can be overridden. Most solutions are very prescriptive on how it must work.
+* Supports, but does not require a CDN to front it.
 * Provides an abstraction atop image processing libraries, enabling per-operation
   level of control to enable using the right tool for the given operation. Bugs,
   features, performance are a few of the factors that may influence this.
-* Quality of service features such as throttling and memory thresholds, to best
-  take advantage of your hardware under ideal and non ideal scenarios.
-* Friendly CLI to create your web server. No forking necessary. 
+* Friendly CLI to create your web server. No forking necessary.
 * Good *Nix & Windows support. 
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
@@ -37,9 +41,10 @@ The speed and power of this module would not be possible without the incredible
 work of libvips (low level image processor), Sharp (depends on libvips), and xxHash
 for lightning-fast hashing.
 
-1. Install libvips via http://www.vips.ecs.soton.ac.uk/index.php?title=Supported
-2. Install Sharp via http://sharp.dimens.io/en/stable/install/
-3. Run `npm install` as sudo (*nix) or admin (windows) 
+1. Install Sharp via http://sharp.dimens.io/en/stable/install/ -
+   This should take care of the libvips dependency.
+2. Run `npm install`
+   * May need to run as Admin on Windows.
 
 
 # Usage
