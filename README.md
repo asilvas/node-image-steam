@@ -5,8 +5,9 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 [![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
+[![NPM](https://nodei.co/npm-dl/image-steam.png?months=1&height=2)](https://nodei.co/npm/image-steam/)
 
-***State: Beta***
+***Status: Alpha***
 
 
 # Why Image Steam?
@@ -26,7 +27,7 @@ There are a number of options out there, but differentiates itself by:
 * Provides an abstraction atop image processing libraries, enabling per-operation
   level of control to enable using the right tool for the given operation. Bugs,
   features, performance are a few of the factors that may influence this.
-* Friendly CLI to create your web server. No forking necessary.
+* Friendly CLI to create your web server. No custom app required.
 * Good *Nix & Windows support. 
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
@@ -273,25 +274,23 @@ Arguments:
 
 ## Background (bg)
 
-***Not yet supported***
-
 Arguments:
 
 * Red (`r`) - Red component of the RGB(A) spectrum.
+  Value between 0 and 255.
   Do not use in conjunction with Hex color.
 * Green (`g`) - Green component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color. 
 * Blue (`b`) - Blue component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color.
 * Alpha (`a`) - Optional Alpha component of the RGB(A) spectrum.
-  Do not use in conjunction with Hex color.
-* Hex (`#`) - Full hex color (i.e. #ffffff).
-  Do not use in conjunction with RGB(A) color.
+  Can be used in conjunction with Hex color.
+* Hex (`#`) - Full hex color (i.e. `ffffff`).
+  Partial (i.e. `fff`) not supported.
+  Do not use in conjunction with RGB color. Alpha is OK.
 
 
 ## Flatten (ft)
-
-***Not yet supported***
 
 Merge alpha transparency channel, if any, with background.
 
@@ -357,13 +356,11 @@ not be used otherwise to save bandwidth.
 
 ## Interpolation (ip)
 
-***Not yet supported***
-
 Use the given interpolator for image resizing. Defaults to "bilinear".
 
 Arguments:
 
-* Interpolator (`i`, optional) - Process to use for resizing, from fastest to slowest:
+* Interpolator (`i`, default: `bilinear`) - Process to use for resizing, from fastest to slowest:
   * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
   * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
   * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
@@ -374,7 +371,9 @@ Arguments:
 
 ## Format (fm) 
 
-***Not yet supported***
+Supported, but not enabled by default in [Router Options](#router-options).
+Recommended to keep disabled in router, as internally format will be
+best determined by the individual request.
 
 Override the auto-detected optimal format to output. Do not use this unless
 you have good reason.
@@ -395,14 +394,16 @@ Arguments:
 
 ## Sharpen (fx-sp)
 
-***Not yet supported***
-
 Arguments:
 
-* Radius (r) - Optional sharpening mask to apply in pixels, but comes at
+* Radius (`r`, optional) - Sharpening mask to apply in pixels, but comes at
   a performance cost.
-* Flat (f) - Optional sharpening to apply to flat areas. Defaults to 1.0.
-* Jagged (j) - Optional sharpening to apply to jagged areas. Defaults to 2.0.
+* Flat (`f`, default: `1.0`) - Sharpening to apply to flat areas.
+* Jagged (`j`, default: `2.0`) - Sharpening to apply to jagged areas.
+
+### Examples
+
+1. `fx-sp=r:3,f:5,j:5` - 
  
  
 ## Blur (fx-bl)
@@ -425,8 +426,6 @@ Convert to 8-bit greyscale.
 
 
 ## Normalize (fx-nm)
-
-***Not yet supported***
 
 Enhance output image contrast by stretching its luminance to cover the full
 dynamic range. This typically reduces performance by 30%.
