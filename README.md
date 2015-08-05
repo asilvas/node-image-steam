@@ -123,6 +123,18 @@ isteam --isConfig './myconfig.json'
 Bundled storage support includes:
 
 * `storage.driver` (default: `"fs"`) - Storage driver to use.
+* `storage.driverPath` (optional) - If provided, will load a custom driver
+  from the desired path, ignoring the `driver` option.
+* `storage.domain` (object) - If provided, allows for driver-specific
+  options to be applied on a per-request basis, based on the host header.
+  If no match is found, the original options provided at initialization
+  will be used.
+  Example: `{ "somedomain.com": { /* opts */ } }`
+* `storage.header` (object) - If provided, allows for driver-specific
+  options to be applied on a per-request basis, based on `x-isteam-app` header.
+  If no match is found, the original options provided at initialization
+  will be used.
+  Example: `{ "some-other-app": { /* opts */ } }`
 * `storage.driver=fs` - File System driver.
   * `storage.path` (***required***) - Root path on file system.
 * `storage.driver=s3` - Should work with any S3-compatible storage.
