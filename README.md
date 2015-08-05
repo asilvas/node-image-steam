@@ -110,26 +110,36 @@ isteam --isConfig './myconfig.json'
 ## Storage Options
 
 ```
-{ "storage": { "driver": "s3", "endpoint": "s3.amazonaws.com", "accessKey": "abc", "secretKey": "123" } }
+{
+  "storage": {
+    "driver": "s3",
+    "endpoint": "s3.amazonaws.com",
+    "accessKey": "abc",
+    "secretKey": "123"
+  }
+}
 ```
 
 Bundled storage support includes:
 
-* `storage.driver=fs` - File System driver
-  * `path` (***required***) - Root path on file system.
+* `storage.driver` (default: `"fs"`) - Storage driver to use.
+* `storage.driver=fs` - File System driver.
+  * `storage.path` (***required***) - Root path on file system.
 * `storage.driver=s3` - Should work with any S3-compatible storage.
-  * `endpoint` (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
-  * `port` (default: `443`) - Non-443 port will auto-default secure to `false`.
-  * `secure` (default: `true` only if port `443`) - Override as needed.
-  * `accessKey` (***required***) - S3 access key.
-  * `secretKey` (***required***) - S3 secret key.
-  * `style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
+  * `storage.endpoint` (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
+  * `storage.port` (default: `443`) - Non-443 port will auto-default secure to `false`.
+  * `storage.secure` (default: `true` only if port `443`) - Override as needed.
+  * `storage.accessKey` (***required***) - S3 access key.
+  * `storage.secretKey` (***required***) - S3 secret key.
+  * `storage.style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or `lib/storage/s3` for reference.
 
 
 ## Throttle Options
+
+Throttling allows for fine grain control over quality of service, as well as optimizing to your hardware.
 
 ```
 {
@@ -140,8 +150,6 @@ See `lib/storage/fs` or `lib/storage/s3` for reference.
   }
 }
 ```
-
-Throttling allows for fine grain control over quality of service, as well as optimizing to your hardware.
 
 * `throttle.ccProcessors` (default: `4`) - Number of concurrent image processing operations.
   Anything to exceed this value will wait (via semaphore) for next availability.
@@ -155,6 +163,8 @@ Throttling allows for fine grain control over quality of service, as well as opt
 
 ## Router Options
 
+Most router defaults should suffice, but you have full control over routing. See [Routing](#routing) for more details.
+
 ```
 {
   "router": {
@@ -166,8 +176,6 @@ Throttling allows for fine grain control over quality of service, as well as opt
   }
 }
 ```
-
-Most router defaults should suffice, but you have full control over routing. See [Routing](#routing) for more details.
 
 Options:
 * `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
@@ -185,7 +193,6 @@ Options:
 # Routing
 
 Routing is left-to-right for legibility.
-
 
 Routing format:
 
