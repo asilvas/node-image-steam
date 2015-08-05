@@ -79,6 +79,13 @@ http.createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
 Which is equivalent of cloning this repo and invoking `npm start`.
 
 
+# Performance
+
+While this module provides granular control over HTTP throttling to provide
+the highest quality of service possible, performance is entirely from Sharp
+and libvips: http://sharp.dimens.io/en/stable/performance/#performance
+
+
 
 # Options
 
@@ -122,13 +129,45 @@ Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or `lib/storage/s3` for reference.
 
 
+## Throttle Options
+
+```
+{
+  "throttle": {
+    "ccProcessors": 4,
+    "ccPrefetchers": 20,
+    "ccRequests": 100
+  }
+}
+```
+
+Throttling allows for fine grain control over quality of service, as well as optimizing to your hardware.
+
+* `throttle.ccProcessors` (default: `4`) - Number of concurrent image processing operations.
+  Anything to exceed this value will wait (via semaphore) for next availability.
+* `throttle.ccPrefetchers` (default: `20`) - Number of concurrent storage request operations.
+  This helps prevent saturation of your storage and/or networking interfaces to provide the
+  optimal experience.
+  Anything to exceed this value will wait (via semaphore) for next availability.
+* `throttle.ccRequests` (default: `100`) - Number of concurrent http requests.
+  Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup.
+
+
 ## Router Options
 
 ```
-{ "router": { "originalSteps": { "resize": { "width": "2560", "height": "1440", "max": "true", "canGrow": "false" } } } }
+{
+  "router": {
+    "originalSteps": {
+      "resize": {
+        "width": "2560", "height": "1440", "max": "true", "canGrow": "false"
+      }
+    }
+  }
+}
 ```
 
-Most router defaults should suffice, but you have full control over routing. See [Routing](#Routing) for more details.
+Most router defaults should suffice, but you have full control over routing. See [Routing](#routing) for more details.
 
 Options:
 * `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
@@ -140,28 +179,6 @@ Options:
 * `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
 
 
-# Routing
-
-Routing format:
-```
-{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}?{queryString}
-```
-
-Example URI using [Default Options](#RouterOptions):
-```
-some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false
-```
-
-
-
-# Performance
-
-While this module provides granular control over HTTP throttling to provide
-the highest quality of service possible, performance is entirely from Sharp
-and libvips: http://sharp.dimens.io/en/stable/performance/#performance
-
-
-
 
 
 
@@ -169,7 +186,18 @@ and libvips: http://sharp.dimens.io/en/stable/performance/#performance
 
 Routing is left-to-right for legibility.
 
-  `/my-path/my-nice-file-name/:/rs=w:200,h:200`
+
+Routing format:
+
+  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}?{queryString}`
+
+Example URI using [Default Options](#router-options):
+
+  `some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false`
+
+Or a more real-world example:  
+  
+  `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%,h:90%`
 
 See [Things to Try](#things-to-try) for many more examples.
 
@@ -182,16 +210,23 @@ Resize an image, preserving aspect or not.
 
 Arguments:
 
-* Width (w, optional*) - Width of new size. Supports Dimension Modifiers.
-* Height (h, optional*) - Height of new size. Supports Dimension Modifiers.
-* Max (mx, default) - Retain aspect and use dimensions as the maximum
+* Width (`w`, optional*) - Width of new size. Supports Dimension Modifiers.
+* Height (`h`, optional*) - Height of new size. Supports Dimension Modifiers.
+* Max (`mx`, default) - Retain aspect and use dimensions as the maximum
   permitted during resize.
-* Min (m, optional) - Retain aspect and use dimensions as the minimum
+* Min (`m`, optional) - Retain aspect and use dimensions as the minimum
   permitted during resize. Set to any value to enable.
-* Ignore Aspect Ratio (i, default: 'false') - If true will break aspect and
+* Ignore Aspect Ratio (`i`, default: `false`) - If true will break aspect and
   resize to exact dimensions.
+* Can Grow (`cg`, default: `false`) - If `true`, will allow image to exceed the dimensions of the original.
 
 Note: Width or Height are optional, but at least one must be provided.
+
+### Examples
+
+1. `rs=w:640` - Resize up to 640px wide, preserving aspect.
+2. `rs=h:480` - Resize up to 480px tall, preserving aspect.
+3. `rs=w:1024,h:768,m,cg=true` - Resize to a minimum of 1024 by 768, preserving aspect, and allow it to exceed size of original.
 
 
 ## Crop (cr)
@@ -200,11 +235,11 @@ Crop an image to an exact size.
 
 Arguments:
 
-* Top (t, default:0) - Offset from top. Supports Dimension Modifiers.
-* Left (l, default:0) - Offset from left. Supports Dimension Modifiers.
-* Width (w, default:width-left) - Width of new size. Supports Dimension Modifiers.
-* Height (h, default:height-top) - Height of new size. Supports Dimension Modifiers.
-* Anchor (a, default:cc) - Where to anchor from, using center-center by default. Top
+* Top (`t`, default: `0`) - Offset from top. Supports Dimension Modifiers.
+* Left (`l`, default: `0`) - Offset from left. Supports Dimension Modifiers.
+* Width (`w`, default: width-left) - Width of new size. Supports Dimension Modifiers.
+* Height (`h`, default: height-top) - Height of new size. Supports Dimension Modifiers.
+* Anchor (`a`, default: `cc`) - Where to anchor from, using center-center by default. Top
   and Left are applied from the anchor. Possible horizontal axis
   values include left (l), center (c), and right (r). Possible vertical axis
   values include top (t), center (c), and bottom (b).
@@ -223,15 +258,15 @@ Arguments:
 
 Arguments:
 
-* Red (r) - Red component of the RGB(A) spectrum.
+* Red (`r`) - Red component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color.
-* Green (g) - Green component of the RGB(A) spectrum.
+* Green (`g`) - Green component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color. 
-* Blue (b) - Blue component of the RGB(A) spectrum.
+* Blue (`b`) - Blue component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color.
-* Alpha (a) - Optional Alpha component of the RGB(A) spectrum.
+* Alpha (`a`) - Optional Alpha component of the RGB(A) spectrum.
   Do not use in conjunction with Hex color.
-* Hex (#) - Full hex color (i.e. #ffffff).
+* Hex (`#`) - Full hex color (i.e. #ffffff).
   Do not use in conjunction with RGB(A) color.
 
 
@@ -246,8 +281,12 @@ Merge alpha transparency channel, if any, with background.
 
 Arguments:
 
-* Degrees (d) - Degrees to rotate the image, in increments of 90.
+* Degrees (`d`) - Degrees to rotate the image, in increments of 90.
   Future implementations may support non-optimized degrees of rotation.
+
+### Examples
+
+1. `rt=d=90` - Rotate 90 degrees.
 
 
 ## Flip (fl)
@@ -257,15 +296,20 @@ an image on its horizontal and/or vertical axis.
 
 Arguments:
 
-* X (x) - Flip on the horizontal axis. No value required.
-* Y (y) - Flip on the vertical axis. No value required.
+* X (`x`) - Flip on the horizontal axis. No value required.
+* Y (`y`) - Flip on the vertical axis. No value required.
+
+### Examples
+
+1. `fl=x` - Flip horizontally.
+2. `fl=x,y` - Flip on x and y axis.
 
 
 ## Quality (qt)
 
 The output quality to use for lossy JPEG, WebP and TIFF output formats. 
 
-* Quality (q, default: 80) - Value between 1 (worst, smallest) and
+* Quality (`q`, default: `80`) - Value between 1 (worst, smallest) and
   100 (best, largest).  
 
 
@@ -274,7 +318,7 @@ The output quality to use for lossy JPEG, WebP and TIFF output formats.
 An advanced setting for the zlib compression level of the lossless
 PNG output format. The default level is 6.
 
-* Compression (c, default: 6) - Number between 0 and 9.  
+* Compression (`c`, default: `6`) - Number between 0 and 9.  
 
 
 ## Progressive (pg)
@@ -289,7 +333,7 @@ not be used otherwise to save bandwidth.
 ### Examples
 
 1. `rs=w:3840/pg` - Create a big 4K-ish image and use progressive rendering
-   to see demonstrate value in some use cases.
+   to demonstrate value in some use cases.
 
 
 ## Interpolation (ip)
@@ -300,7 +344,7 @@ Use the given interpolator for image resizing. Defaults to "bilinear".
 
 Arguments:
 
-* Interpolator (i, optional) - Process to use for resizing, from fastest to slowest:
+* Interpolator (`i`, optional) - Process to use for resizing, from fastest to slowest:
   * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
   * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
   * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
@@ -318,7 +362,7 @@ you have good reason.
 
 Arguments:
 
-* Format (f, required) - Format to output: "jpeg", "png", or "webp".
+* Format (`f`, required) - Format to output: "jpeg", "png", or "webp".
 
 
 ## Metadata (md)
@@ -327,7 +371,7 @@ Carry metadata from the original image into the outputted image. Enabled by defa
 
 Arguments:
 
-* Enabled (e, default: 'true') - Set to 'false' to disable metadata.
+* Enabled (`e`, default: 'true') - Set to `false` to not preserve metadata from original.
 
 
 ## Sharpen (fx-sp)
@@ -353,12 +397,13 @@ Arguments:
 
 ### Examples
 
-1. `fx-bl=s:5`
+1. `fx-bl=s:5` - Blur using a stima radius of 5 pixels.
 
 
 ## Greyscale (fx-gs)
 
 Convert to 8-bit greyscale.
+
 
 ## Normalize (fx-nm)
 
@@ -379,9 +424,9 @@ Any numeric value around measurement without explicit unit type
 specified is implicitly of type px.
 
 ### Examples
-1. `rs=w:200,h:300`
-2. `rs=w:200px,h:300px` - (identical to #1)
-3. `cr=t:15,l:10,w:-10,h:-15`
+1. `rs=w:200,h:300` - 200x300 pixels
+2. `rs=w:200px,h:300px` - Identical to #1
+3. `cr=t:15,l:10,w:-10,h:-15` - Using pixel offsets
 
 
 ## Percentage
@@ -390,7 +435,8 @@ A percentage applied to original value by supplying the percentage (%) modifier.
 
 ### Examples
 1. `rs=w:50%,h:50%` - 50% of source width and height
-2. `cr=t:15%,l:10%,w:-10%,h:-15%`
+2. `cr=t:15%,l:10%,w:80%,h:70%` - 15% from top and bottom, 10% from left and right
+
 
 ## Offset
 
