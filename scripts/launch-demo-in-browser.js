@@ -9,5 +9,5 @@ function start() {
   var open = require('open');
 
   console.log("Opening coverage report in browser.\n");
-  open('http://localhost:13337/UP_steam_loco.jpg/:/rs=w640/cr=l:5%,t:10%,w:90%,h:90%?cache=false');
+  open('http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=l:50,t:50,w:-100,h:-100?cache=false');
 }

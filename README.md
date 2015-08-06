@@ -40,10 +40,9 @@ The speed and power of this module would not be possible without the incredible
 work of libvips (low level image processor), Sharp (depends on libvips), and xxHash
 for lightning-fast hashing.
 
-1. Install Sharp via http://sharp.dimens.io/en/stable/install/ -
-   This should take care of the libvips dependency.
-2. Run `npm install`
-   * May need to run as Admin on Windows.
+Install Sharp via http://sharp.dimens.io/en/stable/install/ - This should also take care of the libvips dependency.
+
+
 
 
 # Usage
@@ -78,6 +77,19 @@ http.createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
 ```
 
 Which is equivalent of cloning this repo and invoking `npm start`.
+
+## Cloning
+
+If you plan to hack on isteam:
+
+```
+git clone git@github.com:asilvas/node-image-steam.git
+cd ./node-image-steam
+npm install
+npm start
+```
+
+***^ May require sudo or admin rights.***
 
 
 # Performance
