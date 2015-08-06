@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "check-cov": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100 || node scripts/launch-coverage-in-browser",
-    "start": "node ./scripts/server.js",
+    "start": "node ./scripts/server.js --isConfig ./scripts/dev.js",
     "jscs": "jscs test/",
     "jshint": "jshint test/",
     "lint": "npm run jshint && npm run jscs",

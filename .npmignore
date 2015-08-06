@@ -42,3 +42,4 @@ node_modules/
 
 test/
 scripts/launch*
+scripts/dev*
