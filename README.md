@@ -2,12 +2,12 @@
 
 A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
 
-[![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam)
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
 [![NPM](https://nodei.co/npm-dl/image-steam.png?months=1&height=2)](https://nodei.co/npm/image-steam/)
 
-***Status: Alpha***
+***Status: Beta***
 
 
 # Why Image Steam?
@@ -425,7 +425,7 @@ control (at cost of performance).
 
 Arguments:
 
-* Sigma (s) - The approximate blur radius in pixels, from 0.3 to 1000.
+* Sigma (`s`, default: `2.0`) - The approximate blur radius in pixels, from 0.3 to 1000.
 
 ### Examples
 
