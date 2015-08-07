@@ -12,6 +12,8 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 
 # Why Image Steam?
 
+![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
+
 There are a number of options out there, but differentiates itself by:
 
 * Separating itself from a Web Server, so core logic can be used elsewhere.
