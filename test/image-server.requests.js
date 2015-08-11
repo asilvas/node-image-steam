@@ -1,5 +1,6 @@
 module.exports = [
   { steps: 'rs=w:640', etag: '3964115639', label: 'resize max to 640 width' },
+  { steps: 'rs=w:640', etag: '453261696', imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
   { steps: 'rs=w:640/fx-sp=r:5', etag: '2705928248', label: 'resize & apply sharpening' },
   { steps: 'rs=w:128,h:128,m/cr=w:128,h:128/fx-gs', etag: '1379431774', label: 'create thumbnail and apply greyscale' },
   { steps: 'cr=l:5%,t:10%,w:90%,h:80%', etag: '1407268791', label: 'crop using percentages' },
@@ -24,6 +25,7 @@ module.exports = [
   { steps: 'rs=w:640/ip=i:bilinear', etag: '3964115639', label: 'resize using bilinear interpolation' },
   { steps: 'rs=w:640/ip', etag: '3964115639', label: 'resize using default interpolation' },
   { steps: 'rs=w:640/ip=i:bicubic', etag: '3331505898', label: 'resize using bicubic interpolation' },
+  { steps: 'rs=w:640', etag: '2124673468', imageName: 'steam-engine11.png', label: 'resize transparent image and retain alpha channel' },
   // { steps: 'fx-nm', etag: '3964115639', label: 'normalize' },
   { steps: 'fx-bl', etag: '3544083260', label: 'default blur' },
   { steps: 'fx-bl=s:5', etag: '3461864060', label: 'sigma 5 blur' }

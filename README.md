@@ -9,6 +9,8 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 
 ***Status: Beta***
 
+***Critical bug in v0.12.x -- Upgrade to v0.13 or later!***
+
 
 # Why Image Steam?
 
@@ -291,13 +293,16 @@ Arguments:
 Arguments:
 
 * Red (`r`) - Red component of the RGB(A) spectrum.
-  Value between 0 and 255.
+  An integer between 0 and 255.
   Do not use in conjunction with Hex color.
 * Green (`g`) - Green component of the RGB(A) spectrum.
+  An integer between 0 and 255.
   Do not use in conjunction with Hex color. 
 * Blue (`b`) - Blue component of the RGB(A) spectrum.
+  An integer between 0 and 255.
   Do not use in conjunction with Hex color.
 * Alpha (`a`) - Optional Alpha component of the RGB(A) spectrum.
+  A float value between 0 (transparent) and 1 (opaque).
   Can be used in conjunction with Hex color.
 * Hex (`#`) - Full hex color (i.e. `ffffff`).
   Partial (i.e. `fff`) not supported.

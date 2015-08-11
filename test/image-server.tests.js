@@ -23,7 +23,7 @@ describe('#Image Server', function () {
 
   serverRequests.forEach(function (serverRequest) {
     it(serverRequest.label, function (cb) {
-      getResponseFromImageSteps(serverRequest.steps, function (err, res) {
+      getResponseFromImageSteps(serverRequest, function (err, res) {
         expect(res.statusCode).to.be.equal(200);
         expect(res.headers.etag).to.be.equal(serverRequest.etag);
         if (serverRequest.contentType) {
@@ -36,12 +36,14 @@ describe('#Image Server', function () {
 
 });
 
-function getResponseFromImageSteps(steps, cb) {
-  var fmt = /fm\=f\:/.test(steps) ? '' : '/fm=f:jpeg';
+function getResponseFromImageSteps(serverRequest, cb) {
+  var steps = serverRequest.steps;
+  var imgName = serverRequest.imageName || 'UP_steam_loco.jpg';
+  var fmt = (serverRequest.imageName || /fm\=f\:/.test(steps)) ? '' : '/fm=f:jpeg';
   if (steps.length === 0) {
     fmt = fmt.substr(1);
   }
-  var url = 'http://localhost:13337/UP_steam_loco.jpg/:/' + steps + fmt + '?cache=false';
+  var url = 'http://localhost:13337/' + imgName + '/:/' + steps + fmt + '?cache=false';
   http.get(url, function (res) {
     cb(null, res);
   }).on('error', function (err) {
