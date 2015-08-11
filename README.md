@@ -142,6 +142,11 @@ Bundled storage support includes:
 * `storage.driver` (default: `"fs"`) - Storage driver to use.
 * `storage.driverPath` (optional) - If provided, will load a custom driver
   from the desired path, ignoring the `driver` option.
+* `storage.app` (object) - If provided, allows for driver-specific
+  options to be applied on a per-request basis, based on the route.
+  If no match is found, the original options provided at initialization
+  will be used.
+  Example: `/some-app/file-path/:/image-options`
 * `storage.domain` (object) - If provided, allows for driver-specific
   options to be applied on a per-request basis, based on the host header.
   If no match is found, the original options provided at initialization
