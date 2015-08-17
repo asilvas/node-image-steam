@@ -293,6 +293,24 @@ Arguments:
    axis value of `c`), and vertically anchors from center since top is not provided.
 
 
+## Gamma (gm)
+
+Apply a gamma correction by reducing the encoding (darken) pre-resize
+at a factor of 1/gamma then increasing the encoding (brighten) post-resize
+at a factor of gamma.
+
+This can improve the perceived brightness of a resized image
+in non-linear colour spaces.
+
+Arguments:
+
+* Gamma (`g`, default: `2.2`) - A float between 1 and 3. The default value is 2.2,
+  a suitable approximation for sRGB images.
+
+JPEG input images will not take advantage of the shrink-on-load
+performance optimisation when applying a gamma correction.
+
+
 ## Background (bg)
 
 Arguments:

@@ -3,6 +3,8 @@ module.exports = [
   { steps: 'rs=w:640', etag: '453261696', imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
   { steps: 'rs=w:640/fx-sp=r:5', etag: '2705928248', label: 'resize & apply sharpening' },
   { steps: 'rs=w:128,h:128,m/cr=w:128,h:128/fx-gs', etag: '1379431774', label: 'create thumbnail and apply greyscale' },
+  { steps: 'gm=g:1', etag: '1268352518', label: 'apply min gamma' },
+  { steps: 'gm=g:3', etag: '621370588', label: 'apply max gamma' },
   { steps: 'cr=l:5%,t:10%,w:90%,h:80%', etag: '1407268791', label: 'crop using percentages' },
   { steps: 'cr=l:50,t:50,w:-100,h:-100', etag: '3986946466', label: 'crop with offsets' },
   { steps: 'cr=l:50,t:50', etag: '393804626', label: 'crop left and top using default width/height' },

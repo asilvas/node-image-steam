@@ -41,3 +41,4 @@ node_modules/
 .project
 
 test/files/UP_steam_loco.jpg-*
+test/files/huge_file.jpg*
