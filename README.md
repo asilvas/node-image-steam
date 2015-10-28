@@ -124,6 +124,8 @@ isteam --isConfig './myconfig.json'
 * `http.ssl.key` - If string, will auto-load from file system.
 * `http.ssl.cert` - If string, will auto-load from file system.
 
+***Optionally an array of bindings may be passed in ala `"http": [{ "port": 80 }, { "port": 443, "ssl": {} }]`***
+
 ## Storage Options
 
 ```
