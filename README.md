@@ -166,6 +166,7 @@ Bundled storage support includes:
   * `storage.accessKey` (***required***) - S3 access key.
   * `storage.secretKey` (***required***) - S3 secret key.
   * `storage.style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
+  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or `lib/storage/s3` for reference.
