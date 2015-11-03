@@ -12,6 +12,23 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 ***Critical bug in v0.12.x -- Upgrade to v0.13 or later!***
 
 
+# What is Image Steam?
+
+***Rough order of layers:***
+
+* node.js http(s) - RESTful interface
+* routing layer - URI pathing that make up the desired image operations
+  * device aware - Supports implied optimizations based on the given request (notably `webp` support)
+* throttling layer - Quality of service management
+* optimized original - Optimization of uploaded originals
+* storage - Storage engine for reads (original or cache) and writes (cache)
+  * caching - Don't re-process the same operation more than once
+  * s3, fs, custom, etc
+* processor layer - Image operations (resize, crop, etc) go here
+  * sharp - High level, fast image processing wrapper - http://sharp.dimens.io/en/stable/
+    * libvips - Low level, fast image processing library, optimized for on-demand requests - https://github.com/jcupitt/libvips/
+
+
 # Why Image Steam?
 
 ![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
