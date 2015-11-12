@@ -25,7 +25,16 @@ describe('#Image Server', function () {
     it(serverRequest.label, function (cb) {
       getResponseFromImageSteps(serverRequest, function (err, res) {
         expect(res.statusCode).to.be.equal(200);
-        expect(res.headers.etag).to.be.equal(serverRequest.etag);
+        if (typeof serverRequest.etag === 'string') {
+          expect(res.headers.etag).to.be.equal(serverRequest.etag);
+        } else {
+          var filterEtags = function (etag) {
+            return etag === res.headers.etag;
+          };
+          if (serverRequest.etag.filter(filterEtags).length === 0) {
+            expect(res.headers.etag).to.be.equal(serverRequest.etag[0]);
+          }
+        }
         if (serverRequest.contentType) {
           expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
         }
