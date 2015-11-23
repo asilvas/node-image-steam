@@ -5,7 +5,7 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 [![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam)
 
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
-[![NPM](https://nodei.co/npm-dl/image-steam.png?months=1&height=2)](https://nodei.co/npm/image-steam/)
+[![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
 
 ***Status: Beta***
 
