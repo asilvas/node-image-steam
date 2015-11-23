@@ -9,8 +9,6 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 
 ***Status: Beta***
 
-***Critical bug in v0.12.x -- Upgrade to v0.13 or later!***
-
 
 # What is Image Steam?
 
