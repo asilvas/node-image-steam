@@ -1,8 +1,8 @@
 module.exports = [
-  { steps: 'rs=w:640', etag: ['3964115639','2750257702'], label: 'resize max to 640 width' },
+  { steps: 'rs=w:640', etag: ['3964115639','2750257702','2202896264'], label: 'resize max to 640 width' },
   { steps: 'rs=w:640', etag: ['453261696','408652712'], imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
-  { steps: 'rs=w:640/fx-sp=r:5', etag: ['2705928248','1645480787'], label: 'resize & apply sharpening' },
-  { steps: 'rs=w:128,h:128,m/cr=w:128,h:128/fx-gs', etag: ['1379431774','3664714726'], label: 'create thumbnail and apply greyscale' },
+  { steps: 'rs=w:640/fx-sp=r:5', etag: ['2705928248','1645480787','3224631183'], label: 'resize & apply sharpening' },
+  { steps: 'rs=w:128,h:128,m/cr=w:128,h:128/fx-gs', etag: ['1379431774','3664714726','1774412202'], label: 'create thumbnail and apply greyscale' },
   { steps: 'gm=g:1', etag: ['1268352518','1164774836'], label: 'apply min gamma' },
   { steps: 'gm=g:3', etag: ['621370588','1067004678'], label: 'apply max gamma' },
   { steps: 'cr=l:5%,t:10%,w:90%,h:80%', etag: ['1407268791','1704398164'], label: 'crop using percentages' },
@@ -27,7 +27,7 @@ module.exports = [
   { steps: 'rs=w:640/ip=i:bilinear', etag: ['3964115639','2750257702'], label: 'resize using bilinear interpolation' },
   { steps: 'rs=w:640/ip', etag: ['3964115639','2750257702'], label: 'resize using default interpolation' },
   { steps: 'rs=w:640/ip=i:bicubic', etag: ['3331505898','2202896264'], label: 'resize using bicubic interpolation' },
-  { steps: 'rs=w:640', etag: ['2124673468','163491143'], imageName: 'steam-engine11.png', label: 'resize transparent image and retain alpha channel' },
+  { steps: 'rs=w:640', etag: ['2124673468','163491143','264228593'], imageName: 'steam-engine11.png', label: 'resize transparent image and retain alpha channel' },
   // { steps: 'fx-nm', etag: '3964115639', label: 'normalize' },
   { steps: 'fx-bl', etag: ['3544083260','1952563386'], label: 'default blur' },
   { steps: 'fx-bl=s:5', etag: ['3461864060','3359591671'], label: 'sigma 5 blur' }
