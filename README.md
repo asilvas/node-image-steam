@@ -184,13 +184,16 @@ Bundled storage support includes:
   * `storage.secretKey` (***required***) - S3 secret key.
   * `storage.style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
   * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
+* `storage.driver=http` - ***Read-Only*** driver for web resource.
+  * `storage.endpoint` (***required***) - Endpoint of http(s) service.
+  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
 * `storage.cache` (object) - If provided, allows for driver-specific
   options to be applied for all cache objects. This effectively puts the api
   into a read-only mode for original assets, with all writes going exclusively
   to a single cache store.
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
-See `lib/storage/fs` or `lib/storage/s3` for reference.
+See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
 
 
 ## Throttle Options
