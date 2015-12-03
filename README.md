@@ -431,8 +431,8 @@ Arguments:
   * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
   * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
   * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
-  * vertexSplitQuadraticBasisSpline - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
-  * locallyBoundedBicubic - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
+  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
+  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
   * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
 
 
