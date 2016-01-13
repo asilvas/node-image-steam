@@ -16,6 +16,9 @@ module.exports = {
   },
   storage: {
     driver: 'fs',
-    path: path.resolve(__dirname, '../test/files')
+    path: path.resolve(__dirname, '../test/files'),
+    cache: {
+      path: path.resolve(__dirname, '../test/cache')
+    }
   }
 };
