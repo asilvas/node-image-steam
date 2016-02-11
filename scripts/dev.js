@@ -8,10 +8,10 @@ module.exports = {
   }],
   router: {
     steps: {
-/*      fm: {
+      fm: {
         name: 'format',
         f: 'format'
-      }*/
+      }
     }
   },
   storage: {
