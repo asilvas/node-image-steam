@@ -534,6 +534,33 @@ a plus (+) or minus (-) may be used to imply offset from original.
 2. `rs=w:+10%,h:-10%` - 10% wider than original, 10% shorter than original
 
 
+## Processor Options
+
+Relying on sharp/libvips, and potentially other image processors in the future.
+
+```
+{
+  "processor": {
+    "sharp": {
+      "cache": {
+        "memory": 50, "files": 20, "items": 200
+      },
+      "concurrency": 0,
+      "simd": false
+    }
+  }
+}
+```
+
+Options:
+* `processor.sharp.cache.memory` (default: `50`) - Maximum memory in MB to use for this cache.
+* `processor.sharp.cache.files` (default: `20`) - Maximum number of files to hold open.
+* `processor.sharp.cache.items` (default: `200`) - Maximum number of operations to cache.
+* `processor.sharp.concurrency` (default: `0`) - Defaults to number of cores. http://sharp.dimens.io/en/stable/api/#sharpconcurrencythreads
+* `processor.sharp.simd` (default: `false`) - SIMD vector optimization. http://sharp.dimens.io/en/stable/api/#sharpsimdenable
+
+
+
 # Error Handling
 
 All major classes inherit from EventEmitter. By default `http.start` will
