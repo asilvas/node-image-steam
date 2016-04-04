@@ -3,9 +3,12 @@ var path = require('path');
 module.exports = {
   http: [{
     port: 13337
-  }, {
-    port: 13338
   }],
+  processor: {
+    cache: false,
+    concurrency: 0,
+    simd: true
+  },
   router: {
     steps: {
       fm: {
