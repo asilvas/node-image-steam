@@ -292,7 +292,7 @@ Note: Width or Height are optional, but at least one must be provided.
 
 1. `rs=w:640` - Resize up to 640px wide, preserving aspect.
 2. `rs=h:480` - Resize up to 480px tall, preserving aspect.
-3. `rs=w:1024,h:768,m,cg=true` - Resize to a minimum of 1024 by 768, preserving aspect, and allow it to exceed size of original.
+3. `rs=w:1024,h:768,m,cg:true` - Resize to a minimum of 1024 by 768, preserving aspect, and allow it to exceed size of original.
 
 
 ## Crop (cr)
@@ -313,7 +313,7 @@ Arguments:
 ### Examples
 
 1. `cr=t:10%,l:10%,w:80%,h:80%` - Crop 10% around the edges
-2. `cr=w:64,h:64,a=cc` - Crop 64x64 anchored from center.
+2. `cr=w:64,h:64,a:cc` - Crop 64x64 anchored from center.
 3. `cr=l:10,w:64,h:64` - Crops 64x64 from the left at 10px (ignoring the horizontal
    axis value of `c`), and vertically anchors from center since top is not provided.
 
@@ -371,7 +371,7 @@ Arguments:
 
 ### Examples
 
-1. `rt=d=90` - Rotate 90 degrees.
+1. `rt=d:90` - Rotate 90 degrees.
 
 
 ## Flip (fl)
