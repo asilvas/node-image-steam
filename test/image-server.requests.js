@@ -38,5 +38,12 @@ module.exports = [
   { steps: '', etag: ['2980993474'], imageName: 'Portrait_5.jpg', label: 'Verify Orientation 5' },
   { steps: '', etag: ['2719630768'], imageName: 'Portrait_6.jpg', label: 'Verify Orientation 6' },
   { steps: '', etag: ['541924617'], imageName: 'Portrait_7.jpg', label: 'Verify Orientation 7' },
-  { steps: '', etag: ['3668383360'], imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8' }
+  { steps: '', etag: ['3668383360'], imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8' },
+  { steps: 'rs=w:320', etag: ['982955382'], imageName: 'Portrait_2.jpg', label: 'Verify Orientation 2 resized' },
+  { steps: 'rs=w:320', etag: ['1775560043'], imageName: 'Portrait_3.jpg', label: 'Verify Orientation 3 resized' },
+  { steps: 'rs=w:320', etag: ['457827965'], imageName: 'Portrait_4.jpg', label: 'Verify Orientation 4 resized' },
+  { steps: 'rs=w:320', etag: ['3973206089'], imageName: 'Portrait_5.jpg', label: 'Verify Orientation 5 resized' },
+  { steps: 'rs=w:320', etag: ['692576754'], imageName: 'Portrait_6.jpg', label: 'Verify Orientation 6 resized' },
+  { steps: 'rs=w:320', etag: ['738314518'], imageName: 'Portrait_7.jpg', label: 'Verify Orientation 7 resized' },
+  { steps: 'rs=w:320', etag: ['638032787'], imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8 resized' }
 ];
