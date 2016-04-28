@@ -30,5 +30,13 @@ module.exports = [
   { steps: 'rs=w:640', etag: ['2413619165', '3288492973', '2124673468','163491143','264228593'], imageName: 'steam-engine11.png', label: 'resize transparent image and retain alpha channel' },
   // { steps: 'fx-nm', etag: '3964115639', label: 'normalize' },
   { steps: 'fx-bl', etag: ['678872211', '2523298293', '3758089319', '3544083260','1952563386'], label: 'default blur' },
-  { steps: 'fx-bl=s:5', etag: ['1851962348', '1547234246', '1135554584', '3461864060','3359591671'], label: 'sigma 5 blur' }
+  { steps: 'fx-bl=s:5', etag: ['1851962348', '1547234246', '1135554584', '3461864060','3359591671'], label: 'sigma 5 blur' },
+  { steps: '', etag: ['3685915511'], imageName: 'Portrait_1.jpg', label: 'Verify Orientation 1' },
+  { steps: '', etag: ['3296610211'], imageName: 'Portrait_2.jpg', label: 'Verify Orientation 2' },
+  { steps: '', etag: ['1355930843'], imageName: 'Portrait_3.jpg', label: 'Verify Orientation 3' },
+  { steps: '', etag: ['2044323575'], imageName: 'Portrait_4.jpg', label: 'Verify Orientation 4' },
+  { steps: '', etag: ['2980993474'], imageName: 'Portrait_5.jpg', label: 'Verify Orientation 5' },
+  { steps: '', etag: ['2719630768'], imageName: 'Portrait_6.jpg', label: 'Verify Orientation 6' },
+  { steps: '', etag: ['541924617'], imageName: 'Portrait_7.jpg', label: 'Verify Orientation 7' },
+  { steps: '', etag: ['3668383360'], imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8' }
 ];

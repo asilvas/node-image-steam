@@ -368,6 +368,7 @@ Arguments:
 
 * Degrees (`d`) - Degrees to rotate the image, in increments of 90.
   Future implementations may support non-optimized degrees of rotation.
+  Specify `auto` to auto-rotate based on orientation.
 
 ### Examples
 
