@@ -9,6 +9,8 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 
 ***Status: Beta***
 
+***Breaking Change***: `v0.27` and later requires URL to be properly encoded, including `%` units as `%25`
+
 
 # What is Image Steam?
 
@@ -269,7 +271,7 @@ Example URI using [Default Options](#router-options):
 
 Or a more real-world example:  
   
-  `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%,h:90%`
+  `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
 
 See [Things to Try](#things-to-try) for many more examples.
 
@@ -318,7 +320,7 @@ Arguments:
 
 ### Examples
 
-1. `cr=t:10%,l:10%,w:80%,h:80%` - Crop 10% around the edges
+1. `cr=t:10%25,l:10%25,w:80%25,h:80%25` - Crop 10% around the edges
 2. `cr=w:64,h:64,a:cc` - Crop 64x64 anchored from center.
 3. `cr=l:10,w:64,h:64` - Crops 64x64 from the left at 10px (ignoring the horizontal
    axis value of `c`), and vertically anchors from center since top is not provided.
@@ -526,8 +528,8 @@ specified is implicitly of type px.
 A percentage applied to original value by supplying the percentage (%) modifier.
 
 ### Examples
-1. `rs=w:50%,h:50%` - 50% of source width and height
-2. `cr=t:15%,l:10%,w:80%,h:70%` - 15% from top and bottom, 10% from left and right
+1. `rs=w:50%25,h:50%25` - 50% of source width and height
+2. `cr=t:15%25,l:10%25,w:80%25,h:70%25` - 15% from top and bottom, 10% from left and right
 
 
 ## Offset
@@ -538,7 +540,7 @@ a plus (+) or minus (-) may be used to imply offset from original.
 ### Examples
 
 1. `rs=w:+50px,h:-50px` - 50px wider than original, 50px shorter than original
-2. `rs=w:+10%,h:-10%` - 10% wider than original, 10% shorter than original
+2. `rs=w:+10%25,h:-10%25` - 10% wider than original, 10% shorter than original
 
 
 ## Processor Options
