@@ -525,7 +525,8 @@ specified is implicitly of type px.
 
 ## Percentage
 
-A percentage applied to original value by supplying the percentage (%) modifier.
+A percentage applied to original value by supplying the percentage (%) modifier. Notice that
+`%` must be encoded as `%25`.
 
 ### Examples
 1. `rs=w:50%25,h:50%25` - 50% of source width and height
