@@ -51,13 +51,13 @@
   },
   "devDependencies": {
     "browser-launcher": "^1.0.0",
-    "chai": "^3.2.0",
-    "istanbul": "^0.3.17",
-    "jscs": "^2.0.0",
-    "jshint": "^2.8.0",
-    "mocha": "^2.2.5",
-    "mocha-istanbul": "^0.2.0",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.4",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.2",
+    "mocha": "^2.5.3",
+    "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
-    "should": "^7.0.2"
+    "should": "^10.0.0"
   }
 }
