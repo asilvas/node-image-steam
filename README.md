@@ -293,6 +293,13 @@ Arguments:
 * Ignore Aspect Ratio (`i`, default: `false`) - If true will break aspect and
   resize to exact dimensions.
 * Can Grow (`cg`, default: `false`) - If `true`, will allow image to exceed the dimensions of the original.
+* Interpolator (`int`, default: `bicubic`) - Process to use for resizing, from fastest to slowest:
+  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
+  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
+  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
+  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
+  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
+  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
 
 Note: Width or Height are optional, but at least one must be provided.
 
@@ -430,22 +437,7 @@ not be used otherwise to save bandwidth.
    to demonstrate value in some use cases.
 
 
-## Interpolation (ip)
-
-Use the given interpolator for image resizing. Defaults to "bilinear".
-
-Arguments:
-
-* Interpolator (`i`, default: `bilinear`) - Process to use for resizing, from fastest to slowest:
-  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
-  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
-  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
-  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
-  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
-  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
-
-
-## Format (fm) 
+## Format (fm)
 
 Supported, but not enabled by default in [Router Options](#router-options).
 Recommended to keep disabled in router, as internally format will be
