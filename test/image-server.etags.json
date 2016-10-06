@@ -68,5 +68,6 @@
 	"http://localhost:13337/Portrait_5.jpg/:/rs=w:320?cache=false": "3340085419",
 	"http://localhost:13337/Portrait_6.jpg/:/rs=w:320?cache=false": "2612685063",
 	"http://localhost:13337/Portrait_7.jpg/:/rs=w:320?cache=false": "783772049",
-	"http://localhost:13337/Portrait_8.jpg/:/rs=w:320?cache=false": "4137304836"
+	"http://localhost:13337/Portrait_8.jpg/:/rs=w:320?cache=false": "4137304836",
+	"http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,ay:500,ax:300/fm=f:jpeg?cache=false": "3441566768"
 }

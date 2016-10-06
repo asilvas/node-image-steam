@@ -58,6 +58,8 @@
     "mocha": "^2.5.3",
     "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
-    "should": "^10.0.0"
+    "should": "^10.0.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
   }
 }
