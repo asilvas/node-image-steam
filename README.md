@@ -49,7 +49,7 @@ There are a number of options out there, but differentiates itself by:
   level of control to enable using the right tool for the given operation. Bugs,
   features, performance are a few of the factors that may influence this.
 * Friendly CLI to create your web server. No custom app required.
-* Good *Nix & Windows support. 
+* Good *Nix & Windows support.
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
 
@@ -270,7 +270,7 @@ Example URI using [Default Options](#router-options):
   `some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false`
 
 Or a more real-world example:  
-  
+
   `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
 
 See [Things to Try](#things-to-try) for many more examples.
@@ -324,6 +324,12 @@ Arguments:
   and Left are applied from the anchor. Possible horizontal axis
   values include left (l), center (c), and right (r). Possible vertical axis
   values include top (t), center (c), and bottom (b).
+* Anchor Y (`ay`, default: `50%`) - Can be used to absolutely position the
+  anchor offset vertically using either percentage or pixel values. Also supports offsets
+  relative to the Anchor value.
+* Anchor X (`ax`, default: `50%`) - Can be used to absolutely position the
+  anchor offset horizontally using either percentage or pixel values. Also supports offsets
+  relative to the Anchor value.
 
 ### Examples
 
@@ -331,6 +337,12 @@ Arguments:
 2. `cr=w:64,h:64,a:cc` - Crop 64x64 anchored from center.
 3. `cr=l:10,w:64,h:64` - Crops 64x64 from the left at 10px (ignoring the horizontal
    axis value of `c`), and vertically anchors from center since top is not provided.
+4. `cr=w:64,h:64,ax:30%25,ay:70%25` - Crops 64x64 anchored (centered) 30% from the left edge of the
+   image and 70% from the top edge of the image.
+5. `cr=w:64,h:64,ax:100,ay:200` - Crops 64x64 anchored (centered) 100 pixels from the left edge
+   of the image and 200 pixels from the top edge of the image.
+6. `cr=w:64,h:64,a:br,ax:-20%,ay:-30%` - Crops 64x64 anchored 20% from the right edge and 30% from
+   the bottom of the image.
 
 
 ## Gamma (gm)
@@ -360,7 +372,7 @@ Arguments:
   Do not use in conjunction with Hex color.
 * Green (`g`) - Green component of the RGB(A) spectrum.
   An integer between 0 and 255.
-  Do not use in conjunction with Hex color. 
+  Do not use in conjunction with Hex color.
 * Blue (`b`) - Blue component of the RGB(A) spectrum.
   An integer between 0 and 255.
   Do not use in conjunction with Hex color.
@@ -408,7 +420,7 @@ Arguments:
 
 ## Quality (qt)
 
-The output quality to use for lossy JPEG, WebP and TIFF output formats. 
+The output quality to use for lossy JPEG, WebP and TIFF output formats.
 
 * Quality (`q`, default: `80`) - Value between 1 (worst, smallest) and
   100 (best, largest).  
@@ -471,9 +483,9 @@ Arguments:
 
 ### Examples
 
-1. `fx-sp=r:3,f:5,j:5` - 
- 
- 
+1. `fx-sp=r:3,f:5,j:5` -
+
+
 ## Blur (fx-bl)
 
 Fast mild blur by default, but can override the default sigma for more

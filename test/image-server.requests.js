@@ -12,6 +12,7 @@ module.exports = [
   { steps: 'cr=l:50,t:50', label: 'crop left and top using default width/height' },
   { steps: 'cr=w:50%25,h:50%25,a:tl', label: 'crop to 50% anchored from top/left' },
   { steps: 'cr=w:50%25,h:50%25,a:br', label: 'crop to 50% anchored from bottom/right' },
+  { steps: 'cr=w:50%25,h:50%25,ay:500,ax:300', label: 'crop to 50% with pixel anchor positioning' },
   { steps: 'qt=q:20', label: 'apply low quality' },
   { steps: 'cp=c:1/fm=f:png', label: 'output png and use compression', contentType: 'image/png' },
   { steps: 'cp=c:2/pg/fm=f:png', label: 'output png with compression and progressive rendering', contentType: 'image/png' },
