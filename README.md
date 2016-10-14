@@ -49,7 +49,7 @@ There are a number of options out there, but differentiates itself by:
   level of control to enable using the right tool for the given operation. Bugs,
   features, performance are a few of the factors that may influence this.
 * Friendly CLI to create your web server. No custom app required.
-* Good *Nix & Windows support. 
+* Good *Nix & Windows support.
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
 
@@ -270,7 +270,7 @@ Example URI using [Default Options](#router-options):
   `some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false`
 
 Or a more real-world example:  
-  
+
   `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
 
 See [Things to Try](#things-to-try) for many more examples.
@@ -293,6 +293,13 @@ Arguments:
 * Ignore Aspect Ratio (`i`, default: `false`) - If true will break aspect and
   resize to exact dimensions.
 * Can Grow (`cg`, default: `false`) - If `true`, will allow image to exceed the dimensions of the original.
+* Interpolator (`int`, default: `bicubic`) - Process to use for resizing, from fastest to slowest:
+  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
+  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
+  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
+  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
+  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
+  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
 
 Note: Width or Height are optional, but at least one must be provided.
 
@@ -317,6 +324,12 @@ Arguments:
   and Left are applied from the anchor. Possible horizontal axis
   values include left (l), center (c), and right (r). Possible vertical axis
   values include top (t), center (c), and bottom (b).
+* Anchor Y (`ay`, default: `50%`) - Can be used to absolutely position the
+  anchor offset vertically using either percentage or pixel values. Also supports offsets
+  relative to the Anchor value.
+* Anchor X (`ax`, default: `50%`) - Can be used to absolutely position the
+  anchor offset horizontally using either percentage or pixel values. Also supports offsets
+  relative to the Anchor value.
 
 ### Examples
 
@@ -324,6 +337,12 @@ Arguments:
 2. `cr=w:64,h:64,a:cc` - Crop 64x64 anchored from center.
 3. `cr=l:10,w:64,h:64` - Crops 64x64 from the left at 10px (ignoring the horizontal
    axis value of `c`), and vertically anchors from center since top is not provided.
+4. `cr=w:64,h:64,ax:30%25,ay:70%25` - Crops 64x64 anchored (centered) 30% from the left edge of the
+   image and 70% from the top edge of the image.
+5. `cr=w:64,h:64,ax:100,ay:200` - Crops 64x64 anchored (centered) 100 pixels from the left edge
+   of the image and 200 pixels from the top edge of the image.
+6. `cr=w:64,h:64,a:br,ax:-20%,ay:-30%` - Crops 64x64 anchored 20% from the right edge and 30% from
+   the bottom of the image.
 
 
 ## Gamma (gm)
@@ -353,7 +372,7 @@ Arguments:
   Do not use in conjunction with Hex color.
 * Green (`g`) - Green component of the RGB(A) spectrum.
   An integer between 0 and 255.
-  Do not use in conjunction with Hex color. 
+  Do not use in conjunction with Hex color.
 * Blue (`b`) - Blue component of the RGB(A) spectrum.
   An integer between 0 and 255.
   Do not use in conjunction with Hex color.
@@ -401,7 +420,7 @@ Arguments:
 
 ## Quality (qt)
 
-The output quality to use for lossy JPEG, WebP and TIFF output formats. 
+The output quality to use for lossy JPEG, WebP and TIFF output formats.
 
 * Quality (`q`, default: `80`) - Value between 1 (worst, smallest) and
   100 (best, largest).  
@@ -430,22 +449,7 @@ not be used otherwise to save bandwidth.
    to demonstrate value in some use cases.
 
 
-## Interpolation (ip)
-
-Use the given interpolator for image resizing. Defaults to "bilinear".
-
-Arguments:
-
-* Interpolator (`i`, default: `bilinear`) - Process to use for resizing, from fastest to slowest:
-  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
-  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
-  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
-  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
-  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
-  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
-
-
-## Format (fm) 
+## Format (fm)
 
 Supported, but not enabled by default in [Router Options](#router-options).
 Recommended to keep disabled in router, as internally format will be
@@ -479,9 +483,9 @@ Arguments:
 
 ### Examples
 
-1. `fx-sp=r:3,f:5,j:5` - 
- 
- 
+1. `fx-sp=r:3,f:5,j:5` -
+
+
 ## Blur (fx-bl)
 
 Fast mild blur by default, but can override the default sigma for more
@@ -525,7 +529,8 @@ specified is implicitly of type px.
 
 ## Percentage
 
-A percentage applied to original value by supplying the percentage (%) modifier.
+A percentage applied to original value by supplying the percentage (%) modifier. Notice that
+`%` must be encoded as `%25`.
 
 ### Examples
 1. `rs=w:50%25,h:50%25` - 50% of source width and height
