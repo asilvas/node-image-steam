@@ -20,6 +20,7 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 * routing layer - URI pathing that make up the desired image operations
   * device aware - Supports implied optimizations based on the given request (notably `webp` support)
 * throttling layer - Quality of service management
+* security layer - Allows protecting resources behind the tranformations via signed requests
 * optimized original - Optimization of uploaded originals
 * storage - Storage engine for reads (original or cache) and writes (cache)
   * caching - Don't re-process the same operation more than once
@@ -226,6 +227,24 @@ Throttling allows for fine grain control over quality of service, as well as opt
   Anything to exceed this value will wait (via semaphore) for next availability.
 * `throttle.ccRequests` (default: `100`) - Number of concurrent http requests.
   Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup.
+
+## Security Options
+
+Security allows protecting the image resources behind each tranformation. This will sign resource+transformation with the specified secret
+
+```
+{
+  "security": {
+    "enabled": false,
+    "secret": keyboard_cat,
+    "algorithm": 'sha1'
+  }
+}
+```
+
+* `security.enabled` (default: `false`) - Security enabled.
+* `security.secret` (default: `keyboard_cat`) - The signing secret
+* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
 
 
 ## Router Options
