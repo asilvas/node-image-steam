@@ -226,24 +226,6 @@ Throttling allows for fine grain control over quality of service, as well as opt
 * `throttle.ccRequests` (default: `100`) - Number of concurrent http requests.
   Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup.
 
-## Security Options
-
-Security allows protecting the image resources behind each tranformation. This will sign resource+transformation with the specified secret
-
-```
-{
-  "security": {
-    "enabled": false,
-    "secret": keyboard_cat,
-    "algorithm": 'sha1'
-  }
-}
-```
-
-* `security.enabled` (default: `false`) - Security enabled.
-* `security.secret` (default: `keyboard_cat`) - The signing secret
-* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
-
 
 ## Router Options
 
@@ -263,16 +245,45 @@ Most router defaults should suffice, but you have full control over routing. See
 
 Options:
 * `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
-* `router.cmdKeyDelimiter` (default: `"/"`) - Seperator between commands (aka image steps).
-* `router.cmdValDelimiter` (default: `"="`) - Seperator between a command and its parameters.
-* `router.paramKeyDelimiter` (default: `","`) - Seperator between command parameters.
-* `router.paramValDelimiter` (default: `":"`) - Seperator between a parameter key and its value.
+* `router.cmdKeyDelimiter` (default: `"/"`) - Separator between commands (aka image steps).
+* `router.cmdValDelimiter` (default: `"="`) - Separator between a command and its parameters.
+* `router.paramKeyDelimiter` (default: `","`) - Separator between command parameters.
+* `router.paramValDelimiter` (default: `":"`) - Separator between a parameter key and its value.
+* `router.signatureDelimiter` (default: `"/-/"`) - Separator between steps and the signed url
 * `router.originalSteps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images.
 * `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
 
+## Security Options
 
+Security allows protecting the image resources behind each tranformation. This will sign resource+transformation with the specified secret.
 
+A signed url would look like this:
 
+`/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9`
+
+```
+{
+  "security": {
+    "enabled": false,
+    "secret": keyboard_cat,
+    "algorithm": 'sha1'
+  }
+}
+```
+
+* `security.enabled` (default: `false`) - Security enabled.
+* `security.secret` (default: `keyboard_cat`) - The signing secret
+* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
+
+If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
+
+```
+var crypto = require('crypto');
+var shasum = crypto.createHash(YOUR_HASHING_ALGORITHM); // sha256 recommended
+shasum.update('/' + IMAGE_PATH + '/:/' + IMAGE_STEPS + YOUR_SECRET);
+var signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
+var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
+```
 
 # Routing
 
@@ -280,7 +291,7 @@ Routing is left-to-right for legibility.
 
 Routing format:
 
-  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}?{queryString}`
+  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}/{signatureDelimiter}/{signature}?{queryString}`
 
 Example URI using [Default Options](#router-options):
 
@@ -291,7 +302,6 @@ Or a more real-world example:
   `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
 
 See [Things to Try](#things-to-try) for many more examples.
-
 
 # Supported Operations
 
