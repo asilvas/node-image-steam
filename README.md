@@ -7,9 +7,7 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
 [![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
 
-***Status: Beta***
-
-***Breaking Change***: `v0.27` and later requires URL to be properly encoded, including `%` units as `%25`
+***Status: Production*** => Serving (many) millions of requests monthly
 
 
 # What is Image Steam?

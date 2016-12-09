@@ -1,6 +1,6 @@
 {
   "name": "image-steam",
-  "version": "0.32.0",
+  "version": "0.33.0",
   "description": "A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.",
   "main": "index.js",
   "scripts": {
