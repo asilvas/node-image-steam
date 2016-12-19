@@ -253,37 +253,6 @@ Options:
 * `router.originalSteps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images.
 * `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
 
-## Security Options
-
-Security allows protecting the image resources behind each tranformation. This will sign resource+transformation with the specified secret.
-
-A signed url would look like this:
-
-`/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9`
-
-```
-{
-  "security": {
-    "enabled": false,
-    "secret": keyboard_cat,
-    "algorithm": 'sha1'
-  }
-}
-```
-
-* `security.enabled` (default: `false`) - Security enabled.
-* `security.secret` (default: `keyboard_cat`) - The signing secret
-* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
-
-If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
-
-```
-var crypto = require('crypto');
-var shasum = crypto.createHash(YOUR_HASHING_ALGORITHM); // sha256 recommended
-shasum.update('/' + IMAGE_PATH + '/:/' + IMAGE_STEPS + YOUR_SECRET);
-var signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
-var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
-```
 
 # Routing
 
@@ -291,7 +260,7 @@ Routing is left-to-right for legibility.
 
 Routing format:
 
-  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}/{signatureDelimiter}/{signature}?{queryString}`
+  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}{signatureDelimiter}{signature}?{queryString}`
 
 Example URI using [Default Options](#router-options):
 
@@ -653,6 +622,37 @@ storage.on('error', function(err) { /* do something */ });
 ```
 
 
+## Security Options
+
+Security allows protecting the image resources behind each tranformation. This will sign resource+transformation with the specified secret.
+
+A signed url would look like this:
+
+`/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9`
+
+```
+{
+  "security": {
+    "enabled": false,
+    "secret": keyboard_cat,
+    "algorithm": 'sha1'
+  }
+}
+```
+
+* `security.enabled` (default: `false`) - Security enabled.
+* `security.secret` - The signing secret
+* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
+
+If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
+
+```
+var crypto = require('crypto');
+var shasum = crypto.createHash(YOUR_HASHING_ALGORITHM); // sha256 recommended
+shasum.update('/' + IMAGE_PATH + '/:/' + IMAGE_STEPS + YOUR_SECRET);
+var signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
+var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
+```
 
 
 # Things to try:

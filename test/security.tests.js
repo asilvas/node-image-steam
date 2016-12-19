@@ -4,15 +4,25 @@ var chai = require('chai');
 var expect = chai.expect;
 var http = require('http');
 var isteam = require('../');
+var Security = require('../lib/security');
 var serverOptions = require('./image-server.config.js');
 var serverRequests = require('./image-server.requests.js');
 var crypto = require('crypto');
 
-describe('#Image Server', function () {
+describe('#Image Server Security', function () {
+
+  it('Throws an error if options.secret is not defined', function () {
+    expect(function () {
+      new Security({
+        enabled: true
+      });
+    }).to.throw(Security.SecurityError, 'You must set a secret to enable Security');
+  });
+
   var server;
   var secret = 'keyboard_cat';
 
-  before(function (cb) {
+  before(function () {
     serverOptions.security = {
       enabled: true,
       secret: secret,
@@ -20,12 +30,10 @@ describe('#Image Server', function () {
     };
 
     server = isteam.http.start(serverOptions);
-    cb();
   });
 
-  after(function (cb) {
+  after(function () {
     isteam.http.stop(server);
-    cb();
   });
 
   serverRequests.forEach(function (serverRequest) {

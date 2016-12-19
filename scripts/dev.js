@@ -25,7 +25,6 @@ module.exports = {
     }
   },
   security: {
-    enabled : false,
-    secret : 'keyboard_cat'
+    enabled : false
   }
 };
