@@ -633,7 +633,7 @@ A signed url would look like this:
 ```
 {
   "security": {
-    "enabled": false,
+    "enabled": true,
     "secret": keyboard_cat,
     "algorithm": 'sha1'
   }
@@ -641,8 +641,8 @@ A signed url would look like this:
 ```
 
 * `security.enabled` (default: `false`) - Security enabled.
-* `security.secret` - The signing secret
-* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`
+* `security.secret` - The signing secret.
+* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`.
 
 If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
 
