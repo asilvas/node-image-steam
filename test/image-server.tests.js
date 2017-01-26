@@ -13,35 +13,44 @@ var etags = require('./image-server.etags.json');
 describe('#Image Server', function () {
   var server;
 
-  before(function (cb) {
-    server = isteam.http.start(serverOptions);
-    cb();
+  describe('#Server Pipeline', function () {
+
   });
 
-  after(function (cb) {
-    fs.writeFileSync(path.join(__dirname, './image-server.etags.json'),
-      JSON.stringify(etags, null, '\t'), 'utf8'
-    );
+  describe('#Image Steps', function () {
 
-    isteam.http.stop(server);
-    cb();
-  });
+    before(function (cb) {
+      server = isteam.http.start(serverOptions);
+      cb();
+    });
 
-  serverRequests.forEach(function (serverRequest) {
-    serverRequest.url = getUrlFromImageSteps(serverRequest);
-    it(serverRequest.label + ', url: ' + serverRequest.url, function (cb) {
-      getResponse(serverRequest.url, function (err, res) {
-        expect(res.statusCode).to.be.equal(200);
-        var requestEtag = etags[serverRequest.url] || 'undefined';
-        etags[serverRequest.url] = res.headers.etag;
-        expect(res.headers.etag).to.be.equal(requestEtag);
-        if (serverRequest.contentType) {
-          expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
-        }
-        cb();
+    after(function (cb) {
+      fs.writeFileSync(path.join(__dirname, './image-server.etags.json'),
+        JSON.stringify(etags, null, '\t'), 'utf8'
+      );
+
+      isteam.http.stop(server);
+      cb();
+    });
+
+    serverRequests.forEach(function (serverRequest) {
+      serverRequest.url = getUrlFromImageSteps(serverRequest);
+      it(serverRequest.label + ', url: ' + serverRequest.url, function (cb) {
+        getResponse(serverRequest.url, function (err, res) {
+          expect(res.statusCode).to.be.equal(200);
+          var requestEtag = etags[serverRequest.url] || 'undefined';
+          etags[serverRequest.url] = res.headers.etag;
+          expect(res.headers.etag).to.be.equal(requestEtag);
+          if (serverRequest.contentType) {
+            expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
+          }
+          cb();
+        });
       });
     });
+
   });
+
 
 });
 
