@@ -202,6 +202,10 @@ Bundled storage support includes:
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
 
+### External Storage Clients
+
+* https://github.com/asilvas/image-steam-redis - Redis client built on [ioredis](https://github.com/luin/ioredis)
+
 
 ## Throttle Options
 
