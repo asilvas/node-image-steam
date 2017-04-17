@@ -678,3 +678,7 @@ var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
 ## License
 
 [MIT](https://github.com/asilvas/node-image-steam/blob/master/LICENSE.txt)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asilvas/node-image-steam/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
