@@ -5,9 +5,11 @@ module.exports = {
     port: 13337
   }],
   processor: {
-    cache: false,
-    concurrency: 0,
-    simd: true
+    sharp: {
+      cache: false,
+      concurrency: 0,
+      simd: true
+    }
   },
   router: {
     steps: {
