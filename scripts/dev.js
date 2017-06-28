@@ -4,6 +4,9 @@ module.exports = {
   http: [{
     port: 13337
   }],
+  log: {
+    warnings: false
+  },
   processor: {
     sharp: {
       cache: false,
