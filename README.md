@@ -205,6 +205,7 @@ See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
 ### External Storage Clients
 
 * https://github.com/asilvas/image-steam-redis - Redis client built on [ioredis](https://github.com/luin/ioredis)
+* https://github.com/asilvas/image-steam-blobby - Blobby client over HTTP(S)
 
 
 ## Throttle Options
