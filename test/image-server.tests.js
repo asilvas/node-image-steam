@@ -8,7 +8,13 @@ var path = require('path');
 var isteam = require('../');
 var serverOptions = require('./image-server.config.js');
 var serverRequests = require('./image-server.requests.js');
-var etags = require('./image-server.etags.json');
+var etags = require('./image-server.etags.json').reduce(
+  function (state, o) {
+    state[o.url] = o.etag;
+    return state;
+  },
+  {}
+);
 
 describe('#Image Server', function () {
   var server;
@@ -25,8 +31,9 @@ describe('#Image Server', function () {
     });
 
     after(function (cb) {
+      var sortedEtags = Object.keys(etags).map(function (k) { return { url: k, etag: etags[k] }; }).sort(); // ordered
       fs.writeFileSync(path.join(__dirname, './image-server.etags.json'),
-        JSON.stringify(etags, null, '\t'), 'utf8'
+        JSON.stringify(sortedEtags, null, '\t'), 'utf8'
       );
 
       isteam.http.stop(server);
