@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
-    "start": "node ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
-    "nodemo": "node ./scripts/server.js --isConfig ./scripts/dev.js",
+    "start": "node --expose-http2 ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
+    "nodemo": "node --expose-http2 ./scripts/server.js --isConfig ./scripts/dev.js",
     "jscs": "jscs test/",
     "jshint": "jshint test/",
     "lint": "npm run jshint && npm run jscs",
