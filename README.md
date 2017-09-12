@@ -512,6 +512,27 @@ Enhance output image contrast by stretching its luminance to cover the full
 dynamic range. This typically reduces performance by 30%.
 
 
+## Colors ($colors)
+
+A new (ALPHA) command to retrieve a list of palette colors from image in JSON format.
+
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| w | Number | `100` | Width of image. `w` OR `h` must be set. |
+| h | Number | undefined | Height of image. `w` OR `h` must be set. |
+| mc | Number | `10` | Max colors to return |
+| cc | Number | `4` | Cubic cells (3 or 4) |
+| mn | Boolean | `true` | Use mean color (`true`) or median color (`false`) |
+| o | String | `distance` | Order of results, `distance` between colors, or based on cell `density` |
+
+See [Image-Pal](https://github.com/asilvas/image-pal#options) for more details.
+
+### Examples
+
+1. `$colors` - Get colors using default options.
+2. `$colors=mn:false` - Get colors using median color logic (ideal for logos).
+
+
 # Dimension Modifiers
 
 Dimension modifiers can be applied to any values where size and

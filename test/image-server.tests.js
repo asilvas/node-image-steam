@@ -31,9 +31,9 @@ describe('#Image Server', function () {
     });
 
     after(function (cb) {
-      var sortedEtags = Object.keys(etags).map(function (k) { return { url: k, etag: etags[k] }; }).sort(); // ordered
+      var sortedUrls = Object.keys(etags).map(function (k) { return { url: k, etag: etags[k] }; }).sort((a, b) => a.url < b.url ? -1 : a.url > b.url ? 1 : 0); // ordered
       fs.writeFileSync(path.join(__dirname, './image-server.etags.json'),
-        JSON.stringify(sortedEtags, null, '\t'), 'utf8'
+        JSON.stringify(sortedUrls, null, '\t'), 'utf8'
       );
 
       isteam.http.stop(server);

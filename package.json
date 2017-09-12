@@ -7,12 +7,8 @@
     "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
     "start": "node ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
     "nodemo": "node ./scripts/server.js --isConfig ./scripts/dev.js",
-    "jscs": "jscs test/",
-    "jshint": "jshint test/",
-    "lint": "npm run jshint && npm run jscs",
     "mocha": "mocha -w -R spec",
     "report": "istanbul report cobertura && istanbul report lcov",
-    "pretest": "npm run lint",
     "test": "npm run test-and-check && npm outdated",
     "test-and-check": "npm run unit && npm run report && npm run check-cov",
     "unit": "npm run unit-cov",
@@ -43,6 +39,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "fs-extra": "^4.0.1",
+    "image-pal-sharp": "^1.2.0",
     "knox": "0.9.2",
     "lodash": "^4.17.4",
     "mime": "^1.4.0",
@@ -53,15 +50,15 @@
   },
   "devDependencies": {
     "browser-launcher": "^1.0.0",
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "istanbul": "^0.4.4",
     "jscs": "^3.0.7",
     "jshint": "^2.9.2",
-    "mocha": "^2.5.3",
+    "mocha": "^3.5.3",
     "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
-    "should": "^10.0.0",
-    "sinon": "^1.17.6",
+    "should": "^13.0.1",
+    "sinon": "^3.2.1",
     "sinon-chai": "^2.8.0"
   }
 }
