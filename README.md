@@ -1,6 +1,6 @@
 # image-steam
 
-A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
+A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js. Serving (many) millions of images daily by way of simple (single DC, simple storage) and advanced (multi-DC geo-distributed, replicated storage, multi-tier caching) configurations. Responsible in part for this [white paper](https://www.godaddy.com/garage/site-speed-small-business-website-white-paper/).
 
 [![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam)
 
@@ -8,24 +8,6 @@ A simple, fast, and highly customizable on-the-fly image manipulation web server
 [![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
 
 ***Status: Production*** => Serving (many) millions of requests monthly
-
-
-# What is Image Steam?
-
-***Rough order of layers:***
-
-* node.js http(s) - RESTful interface
-* routing layer - URI pathing that make up the desired image operations
-  * device aware - Supports implied optimizations based on the given request (notably `webp` support)
-* throttling layer - Quality of service management
-* security layer - Allows protecting resources behind the tranformations via signed requests
-* optimized original - Optimization of uploaded originals
-* storage - Storage engine for reads (original or cache) and writes (cache)
-  * caching - Don't re-process the same operation more than once
-  * s3, fs, custom, etc
-* processor layer - Image operations (resize, crop, etc) go here
-  * sharp - High level, fast image processing wrapper - http://sharp.dimens.io/en/stable/
-    * libvips - Low level, fast image processing library, optimized for on-demand requests - https://github.com/jcupitt/libvips/
 
 
 # Why Image Steam?
@@ -52,6 +34,18 @@ There are a number of options out there, but differentiates itself by:
 * Device centric responses, where more than a URI may influence response.
   Compression and Accepts header (i.e. WebP) being examples.
 
+
+# What is Image Steam?
+
+| Layer | Info |
+| --- | --- |
+| node.js http(s) | RESTful interface |
+| routing | URI pathing that make up the desired image operations. Device aware - Supports implied optimizations based on the given request (notably `webp` support) |
+| throttling | Quality of service management |
+| security | Allows protecting resources behind the tranformations via signed requests |
+| optimized original | Optimization of uploaded originals |
+| storage | Storage engine for reads (original or cache) and writes (cache). Extensible storage clients for storage and caching |
+| processor | Image operations (resize, crop, etc) go here, powered by [Sharp](http://sharp.dimens.io/en/stable/) and [libvips](https://github.com/jcupitt/libvips/) |
 
 
 # Installation
@@ -132,13 +126,15 @@ isteam --isConfig './myconfig.json'
 { "http": { "port": 80 } }
 ```
 
-* `http.port` (default: `13337`) - Port to bind to.
-* `http.host` (default: `"localhost"`) - Host to bind to.
-* `http.backlog` (default: `511`) - [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback).
-* `http.ssl` (optional) - If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener).
-* `http.ssl.pfx` - If string, will auto-load from file system.
-* `http.ssl.key` - If string, will auto-load from file system.
-* `http.ssl.cert` - If string, will auto-load from file system.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| http.port | `number` | `13337` | Port to bind to |
+| http.host | `string` | `"localhost"` | Host to bind to |
+| http.backlog | `number` | `511` | [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) |
+| http.ssl | [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) | `undefined` | If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) |
+| http.ssl.pfx | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| http.ssl.key | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| http.ssl.cert | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
 
 ***Optionally an array of bindings may be passed in ala `"http": [{ "port": 80 }, { "port": 443, "ssl": {} }]`***
 
@@ -155,49 +151,48 @@ isteam --isConfig './myconfig.json'
 }
 ```
 
-Bundled storage support includes:
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| storage.driver | `string` | `"fs"` | Storage driver to use |
+| storage.driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
+| storage.app | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.domain | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.header | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
 
-* `storage.driver` (default: `"fs"`) - Storage driver to use.
-* `storage.driverPath` (optional) - If provided, will load a custom driver
-  from the desired path, ignoring the `driver` option.
-* `storage.app` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on the route.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `/some-app/file-path/:/image-options`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.domain` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on the host header.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `{ "somedomain.com": { /* opts */ } }`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.header` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on `x-isteam-app` header.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `{ "some-other-app": { /* opts */ } }`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.driver=fs` - File System driver.
-  * `storage.path` (***required***) - Root path on file system.
-* `storage.driver=s3` - Should work with any S3-compatible storage.
-  * `storage.endpoint` (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
-  * `storage.port` (default: `443`) - Non-443 port will auto-default secure to `false`.
-  * `storage.secure` (default: `true` only if port `443`) - Override as needed.
-  * `storage.accessKey` (***required***) - S3 access key.
-  * `storage.secretKey` (***required***) - S3 secret key.
-  * `storage.style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
-  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
-* `storage.driver=http` - ***Read-Only*** driver for web resource.
-  * `storage.endpoint` (***required***) - Endpoint of http(s) service.
-  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
-* `storage.cache` (object) - If provided, allows for driver-specific
+### Bundled Storage Clients
+
+#### Storage Client - File System
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| storage.driver=fs | `string` | `"fs"` | File System |
+| storage.path | `string` | ***required*** | Root path on file system |
+
+#### Storage Client - S3
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| storage.driver=s3 | `string` | `"s3"` | Should work with any S3-compatible storage |
+| storage.endpoint | `string` | `"s3.amazonaws.com"` | Endpoint of S3 service |
+| storage.port | `number` | `443` | Non-443 port will auto-default secure to `false` |
+| storage.secure | `boolean` | `true` only if port `443` | Override as needed |
+| storage.accessKey | `string` | ***required*** | S3 access key |
+| storage.secretKey | `string` | ***required*** | S3 secret key |
+| storage.style | `string` | `"path"` | Endpoint of S3 service |
+| storage.bucket | `string` | `"s3.amazonaws.com"` | May use `virtualHosted` if bucket is not in path |
+| storage.endpoint | `string` | *optional* | If provided, will not attempt to take bucket from path |
+
+#### Storage Client - HTTP
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| storage.driver=http |  | | ***Read-Only*** driver for web resource |
+| storage.endpoint | `string` | ***required*** | Endpoint of http(s) service |
+| storage.bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
+| storage.cache | `object` | *optional* | If provided, allows for driver-specific
   options to be applied for all cache objects. This effectively puts the api
   into a read-only mode for original assets, with all writes going exclusively
-  to a single cache store.
+  to a single cache store |
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
