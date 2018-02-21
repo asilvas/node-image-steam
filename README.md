@@ -624,12 +624,15 @@ Relying on sharp/libvips, and potentially other image processors in the future.
 }
 ```
 
-Options:
-* `processor.sharp.cache.memory` (default: `50`) - Maximum memory in MB to use for this cache.
-* `processor.sharp.cache.files` (default: `20`) - Maximum number of files to hold open.
-* `processor.sharp.cache.items` (default: `200`) - Maximum number of operations to cache.
-* `processor.sharp.concurrency` (default: `0`) - Defaults to number of cores. http://sharp.dimens.io/en/stable/api/#sharpconcurrencythreads
-* `processor.sharp.simd` (default: `false`) - SIMD vector optimization. http://sharp.dimens.io/en/stable/api/#sharpsimdenable
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| sharp | [SharpOptions](http://sharp.pixelplumbing.com/en/stable/api-utility/) | | |
+| sharp.cache | [CacheOptions](http://sharp.pixelplumbing.com/en/stable/api-utility/#cache) | | |
+| sharp.cache.memory | `number` | `50` | Maximum memory in MB to use for this cache |
+| sharp.cache.files | `number` | `20` | Maximum number of files to hold open |
+| sharp.cache.items | `number` | `200` | Maximum number of operations to cache |
+| sharp.concurrency | `number` | `0` | Number of threads to process each image in parallel. A value of 0 will use all available cores |
+| sharp.simd | `boolean` | `false` | Improves the performance of resize, blur and sharpen operations by taking advantage of the SIMD vector unit of the CPU, e.g. Intel SSE and ARM NEON |
 
 
 
@@ -702,11 +705,13 @@ A signed url would look like this:
 }
 ```
 
-* `security.enabled` (default: `false`) - Security enabled.
-* `security.secret` - The signing secret.
-* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| enabled | `boolean` | `false` | If this feature is enabled, all requests urls will must be signed |
+| secret | `string` | ***required*** | The signing secret |
+| algorigthm | `string` | `sha1` | The hashing algorithm. Complete list: `openssl list-cipher-algorithms` |
 
-If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
+The following snippet shows how to sign a url (using the library defaults).
 
 ```
 var crypto = require('crypto');
