@@ -7,17 +7,20 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 [![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
 [![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
 
-***Status: Production*** => Serving (many) millions of requests monthly
 
 
 # Why Image Steam?
 
 ![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
 
+> http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs/qt=q:20
+
+Consider the above example URL that image-steam enables, by allowing clients to directly request any variation (simple or complex image instructions) of an original image, and provide near realtime responses, opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and applies an explicit quality setting -- without developer support, and in (near) realtime.
+
 There are a number of options out there, but differentiates itself by:
 
-* Separating itself from a Web Server, so core logic can be used elsewhere.
-  Routing, throttling, image processing, storage make up the core components.
+* Separating itself from a Web Server, permitting core logic to be used elsewhere.
+  Routing, throttling, image processing, and storage make up the core components.
 * Optimizes originally uploaded asset to account for large uploads, enabling
   a higher quality service by making the pipeline for image operations
   substantially faster.
@@ -25,6 +28,7 @@ There are a number of options out there, but differentiates itself by:
   take advantage of your hardware under ideal and non ideal scenarios.
 * Highly configurable. Everything all the way down to how image operations are mapped
   can be overridden. Most solutions are very prescriptive on how it must work.
+  * Image-Steam is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
 * Supports, but does not require a CDN to front it.
 * Provides an abstraction atop image processing libraries, enabling per-operation
   level of control to enable using the right tool for the given operation. Bugs,
@@ -155,9 +159,14 @@ isteam --isConfig './myconfig.json'
 | --- | --- | --- | --- |
 | storage.driver | `string` | `"fs"` | Storage driver to use |
 | storage.driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
-| storage.app | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.domain | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.header | `object` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": { /* opts */ } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.app | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.domain | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.header | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.cache | `StorageOptions` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
+| storage.cacheTTS | `number` | *optional* | If provided, when objects are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request.
+| storage.replicas | `Object<StorageOptions>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
+| storage.replicas[].enabled | `boolean` | `true` | Useful if you manage multiple environments, where default replicas can be set in one configuration file, with each environment-specific config disabling writes to their own storage (avoiding duplicate writes) |
+| storage.replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating too may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
 
 ### Bundled Storage Clients
 
@@ -189,10 +198,6 @@ isteam --isConfig './myconfig.json'
 | storage.driver=http |  | | ***Read-Only*** driver for web resource |
 | storage.endpoint | `string` | ***required*** | Endpoint of http(s) service |
 | storage.bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
-| storage.cache | `object` | *optional* | If provided, allows for driver-specific
-  options to be applied for all cache objects. This effectively puts the api
-  into a read-only mode for original assets, with all writes going exclusively
-  to a single cache store |
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
