@@ -2,10 +2,7 @@
 
 A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js. Serving (many) millions of images daily by way of simple (single DC, simple storage) and advanced (multi-DC geo-distributed, replicated storage, multi-tier caching) configurations. Responsible in part for this [white paper](https://www.godaddy.com/garage/site-speed-small-business-website-white-paper/).
 
-[![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam)
-
-[![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
-[![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
+[![NPM](https://nodei.co/npm/image-steam.png?compact=true)](https://nodei.co/npm/image-steam/)
 
 
 
@@ -13,22 +10,23 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 
 ![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
 
-> http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs/qt=q:20
+```
+http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs
+```
 
-Consider the above example URL that image-steam enables, by allowing clients to directly request any variation (simple or complex image instructions) of an original image, and provide near realtime responses, opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and applies an explicit quality setting -- without developer support, and in (near) realtime.
+Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the request device -- all without developer support, and in (near) realtime.
 
-There are a number of options out there, but differentiates itself by:
+There are a number of options out there, but isteam differentiates itself by:
 
 * Separating itself from a Web Server, permitting core logic to be used elsewhere.
   Routing, throttling, image processing, and storage make up the core components.
 * Optimizes originally uploaded asset to account for large uploads, enabling
   a higher quality service by making the pipeline for image operations
-  substantially faster.
+  substantially faster. A critical feature in supporting large media of todays modern devices.
 * Quality of service features such as throttling and memory thresholds, to best
   take advantage of your hardware under ideal and non ideal scenarios.
 * Highly configurable. Everything all the way down to how image operations are mapped
-  can be overridden. Most solutions are very prescriptive on how it must work.
-  * Image-Steam is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
+  can be overridden. Most solutions are very prescriptive on how it must work. *image-steam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
 * Supports, but does not require a CDN to front it.
 * Provides an abstraction atop image processing libraries, enabling per-operation
   level of control to enable using the right tool for the given operation. Bugs,
@@ -124,23 +122,27 @@ and libvips: http://sharp.dimens.io/en/stable/performance/#performance
 isteam --isConfig './myconfig.json'
 ```
 
-## Http Options
+## HTTP Options
 
 ```
-{ "http": { "port": 80 } }
+{
+  "http": [
+    { "port": 80 },
+    { "port": 443, "ssl": {} }
+  ]
+}
 ```
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| http.port | `number` | `13337` | Port to bind to |
-| http.host | `string` | `"localhost"` | Host to bind to |
-| http.backlog | `number` | `511` | [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) |
-| http.ssl | [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) | `undefined` | If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) |
-| http.ssl.pfx | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
-| http.ssl.key | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
-| http.ssl.cert | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| port | `number` | `13337` | Port to bind to |
+| host | `string` | `"localhost"` | Host to bind to |
+| backlog | `number` | `511` | [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) |
+| ssl | [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) | `undefined` | If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) |
+| ssl.pfx | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| ssl.key | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| ssl.cert | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
 
-***Optionally an array of bindings may be passed in ala `"http": [{ "port": 80 }, { "port": 443, "ssl": {} }]`***
 
 ## Storage Options
 
@@ -157,16 +159,16 @@ isteam --isConfig './myconfig.json'
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| storage.driver | `string` | `"fs"` | Storage driver to use |
-| storage.driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
-| storage.app | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.domain | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.header | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.cache | `Storage` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
-| storage.cacheTTS | `number` | *optional* | If provided, when objects are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request.
-| storage.replicas | `Object<Storage>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
-| storage.replicas[].enabled | `boolean` | `true` | Useful if you manage multiple environments, where default replicas can be set in one configuration file, with each environment-specific config disabling writes to their own storage (avoiding duplicate writes) |
-| storage.replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating too may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
+| driver | `string` | `"fs"` | Storage driver to use |
+| driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
+| app | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| domain | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| header | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| cache | `Storage` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
+| cacheTTS | `number` | *optional* | If provided, when objects are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request.
+| replicas | `Object<Storage>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
+| replicas[].enabled | `boolean` | `true` | Useful if you manage multiple environments, where default replicas can be set in one configuration file, with each environment-specific config disabling writes to their own storage (avoiding duplicate writes) |
+| replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating too may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
 
 ***Advanced*** storage example:
 
@@ -210,30 +212,30 @@ isteam --isConfig './myconfig.json'
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| storage.driver=fs | `string` | `"fs"` | File System |
-| storage.path | `string` | ***required*** | Root path on file system |
+| driver=fs | `string` | `"fs"` | File System |
+| path | `string` | ***required*** | Root path on file system |
 
 #### Storage Client - S3
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| storage.driver=s3 | `string` | `"s3"` | Should work with any S3-compatible storage |
-| storage.endpoint | `string` | `"s3.amazonaws.com"` | Endpoint of S3 service |
-| storage.port | `number` | `443` | Non-443 port will auto-default secure to `false` |
-| storage.secure | `boolean` | `true` only if port `443` | Override as needed |
-| storage.accessKey | `string` | ***required*** | S3 access key |
-| storage.secretKey | `string` | ***required*** | S3 secret key |
-| storage.style | `string` | `"path"` | Endpoint of S3 service |
-| storage.bucket | `string` | `"s3.amazonaws.com"` | May use `virtualHosted` if bucket is not in path |
-| storage.endpoint | `string` | *optional* | If provided, will not attempt to take bucket from path |
+| driver=s3 | `string` | `"s3"` | Should work with any S3-compatible storage |
+| endpoint | `string` | `"s3.amazonaws.com"` | Endpoint of S3 service |
+| port | `number` | `443` | Non-443 port will auto-default secure to `false` |
+| secure | `boolean` | `true` only if port `443` | Override as needed |
+| accessKey | `string` | ***required*** | S3 access key |
+| secretKey | `string` | ***required*** | S3 secret key |
+| style | `string` | `"path"` | Endpoint of S3 service |
+| bucket | `string` | `"s3.amazonaws.com"` | May use `virtualHosted` if bucket is not in path |
+| endpoint | `string` | *optional* | If provided, will not attempt to take bucket from path |
 
 #### Storage Client - HTTP
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| storage.driver=http |  | | ***Read-Only*** driver for web resource |
-| storage.endpoint | `string` | ***required*** | Endpoint of http(s) service |
-| storage.bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
+| driver=http |  | | ***Read-Only*** driver for web resource |
+| endpoint | `string` | ***required*** | Endpoint of http(s) service |
+| bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
 See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
@@ -258,14 +260,11 @@ Throttling allows for fine grain control over quality of service, as well as opt
 }
 ```
 
-* `throttle.ccProcessors` (default: `4`) - Number of concurrent image processing operations.
-  Anything to exceed this value will wait (via semaphore) for next availability.
-* `throttle.ccPrefetchers` (default: `20`) - Number of concurrent storage request operations.
-  This helps prevent saturation of your storage and/or networking interfaces to provide the
-  optimal experience.
-  Anything to exceed this value will wait (via semaphore) for next availability.
-* `throttle.ccRequests` (default: `100`) - Number of concurrent http requests.
-  Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| ccProcessors | `number` | `4` | Number of concurrent image processing operations. Anything to exceed this value will wait (via semaphore) for next availability |
+| ccPrefetchers | `number` | `20` | Number of concurrent storage request operations. This helps prevent saturation of your storage and/or networking interfaces to provide the optimal experience |
+| ccRequests | `number` | `100` | Number of concurrent http requests. Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup |
 
 
 ## Router Options
@@ -284,15 +283,16 @@ Most router defaults should suffice, but you have full control over routing. See
 }
 ```
 
-Options:
-* `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
-* `router.cmdKeyDelimiter` (default: `"/"`) - Separator between commands (aka image steps).
-* `router.cmdValDelimiter` (default: `"="`) - Separator between a command and its parameters.
-* `router.paramKeyDelimiter` (default: `","`) - Separator between command parameters.
-* `router.paramValDelimiter` (default: `":"`) - Separator between a parameter key and its value.
-* `router.signatureDelimiter` (default: `"/-/"`) - Separator between steps and the signed url
-* `router.originalSteps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images.
-* `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| pathDelimiter | `string` | `"/:/"` | Unique (uri-friendly) string to break apart image path, and image steps |
+| cmdKeyDelimiter | `string` | `"/"` | Separator between commands (aka image steps) |
+| cmdValDelimiter | `string` | `"="` | Separator between a command and its parameters |
+| paramKeyDelimiter | `string` | `","` | Separator between command parameters |
+| paramValDelimiter | `string` | `":"` | Separator between a parameter key and its value |
+| signatureDelimiter | `string` | `"/-/"` | Separator between steps and the signed url |
+| originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
+| steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
 
 
 # Routing
