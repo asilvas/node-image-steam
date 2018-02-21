@@ -159,14 +159,50 @@ isteam --isConfig './myconfig.json'
 | --- | --- | --- | --- |
 | storage.driver | `string` | `"fs"` | Storage driver to use |
 | storage.driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
-| storage.app | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.domain | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.header | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| storage.cache | `StorageOptions` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
+| storage.app | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.domain | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.header | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| storage.cache | `Storage` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
 | storage.cacheTTS | `number` | *optional* | If provided, when objects are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request.
-| storage.replicas | `Object<StorageOptions>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
+| storage.replicas | `Object<Storage>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
 | storage.replicas[].enabled | `boolean` | `true` | Useful if you manage multiple environments, where default replicas can be set in one configuration file, with each environment-specific config disabling writes to their own storage (avoiding duplicate writes) |
 | storage.replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating too may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
+
+***Advanced*** storage example:
+
+```
+{
+  "storage": {
+    "app": {
+      "app1": {
+        "driver": "s3",
+        "endpoint": "s3.amazonaws.com",
+        "accessKey": "abc",
+        "secretKey": "123"
+      }
+    },
+    "cache": {
+      "driver": "s3",
+      "endpoint": "<dc1 endpoint>",
+      "accessKey": "key2",
+      "secretKey": "secret2"
+    },
+    "cacheTTS": 86400, /* 24 hrs */
+    "replicas": {
+      "dc1Cache": {
+        "enabled": false /* our cache is already writting to dc1 */
+      },
+      "dc2Cache": {
+        "driver": "s3",
+        "endpoint": "<dc2 endpoint>",
+        "accessKey": "key3",
+        "secretKey": "secret3"
+      }
+    }
+  }
+}
+```
+
 
 ### Bundled Storage Clients
 
