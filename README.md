@@ -4,17 +4,29 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 
 [![NPM](https://nodei.co/npm/image-steam.png?compact=true)](https://nodei.co/npm/image-steam/)
 
+![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine-2.jpg)
 
 
-# Why Image Steam?
-
-![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
+# What is Image Steam?
 
 ```
 http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
 ```
 
 Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the requesting device -- all without developer support, and in (near) realtime.
+
+| Layer | Info |
+| --- | --- |
+| node.js http(s) | RESTful interface |
+| routing | URI pathing that make up the desired image operations. Device aware - Supports implied optimizations based on the given request (notably `webp` support) |
+| throttling | Quality of service management |
+| security | Allows protecting resources behind the tranformations via signed requests |
+| optimized original | Optimization of uploaded originals |
+| storage | Storage engine for reads (original or cache) and writes (cache). Extensible storage clients for storage and caching |
+| processor | Image operations (resize, crop, etc) go here, powered by [Sharp](http://sharp.dimens.io/en/stable/) and [libvips](https://github.com/jcupitt/libvips/) |
+
+
+# Why Image Steam?
 
 There are a number of options out there, but isteam differentiates itself by:
 
@@ -33,19 +45,6 @@ There are a number of options out there, but isteam differentiates itself by:
   features, performance are a few of the factors that may influence this.
 * Friendly CLI to create your web server. No custom app required.
 * Good *Nix & Windows support.
-
-
-# What is Image Steam?
-
-| Layer | Info |
-| --- | --- |
-| node.js http(s) | RESTful interface |
-| routing | URI pathing that make up the desired image operations. Device aware - Supports implied optimizations based on the given request (notably `webp` support) |
-| throttling | Quality of service management |
-| security | Allows protecting resources behind the tranformations via signed requests |
-| optimized original | Optimization of uploaded originals |
-| storage | Storage engine for reads (original or cache) and writes (cache). Extensible storage clients for storage and caching |
-| processor | Image operations (resize, crop, etc) go here, powered by [Sharp](http://sharp.dimens.io/en/stable/) and [libvips](https://github.com/jcupitt/libvips/) |
 
 
 # Installation
