@@ -1,7 +1,7 @@
 {
   "name": "image-steam",
-  "version": "0.40.1",
-  "description": "A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.",
+  "version": "0.41.0",
+  "description": "A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js.",
   "main": "index.js",
   "scripts": {
     "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
@@ -40,7 +40,6 @@
     "async": "^2.6.0",
     "fs-extra": "^5.0.0",
     "image-pal-sharp": "^1.2.2",
-    "knox": "0.9.2",
     "lodash": "^4.17.4",
     "mime": "^2.2.0",
     "optimist": "0.6.1",

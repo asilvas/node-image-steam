@@ -11,30 +11,28 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 ![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
 
 ```
-http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%,t:10%,w:90%,h:80%/fx-gs
+http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
 ```
 
-Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the request device -- all without developer support, and in (near) realtime.
+Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the requesting device -- all without developer support, and in (near) realtime.
 
 There are a number of options out there, but isteam differentiates itself by:
 
-* Separating itself from a Web Server, permitting core logic to be used elsewhere.
-  Routing, throttling, image processing, and storage make up the core components.
+* Highly configurable. Everything all the way down to how image operations are mapped
+  can be overridden. Most solutions are very prescriptive on how it must work. *isteam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
 * Optimizes originally uploaded asset to account for large uploads, enabling
   a higher quality service by making the pipeline for image operations
   substantially faster. A critical feature in supporting large media of todays modern devices.
 * Quality of service features such as throttling and memory thresholds, to best
   take advantage of your hardware under ideal and non ideal scenarios.
-* Highly configurable. Everything all the way down to how image operations are mapped
-  can be overridden. Most solutions are very prescriptive on how it must work. *image-steam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
-* Supports, but does not require a CDN to front it.
+* Device centric responses, where more than a URI may influence response.
+  Compression and Accepts header (i.e. WebP) being examples.
+* CDN support, but not required.
 * Provides an abstraction atop image processing libraries, enabling per-operation
   level of control to enable using the right tool for the given operation. Bugs,
   features, performance are a few of the factors that may influence this.
 * Friendly CLI to create your web server. No custom app required.
 * Good *Nix & Windows support.
-* Device centric responses, where more than a URI may influence response.
-  Compression and Accepts header (i.e. WebP) being examples.
 
 
 # What is Image Steam?
@@ -149,7 +147,7 @@ isteam --isConfig './myconfig.json'
 ```
 {
   "storage": {
-    "driver": "s3",
+    "driverPath": "image-steam-s3",
     "endpoint": "s3.amazonaws.com",
     "accessKey": "abc",
     "secretKey": "123"
@@ -159,7 +157,7 @@ isteam --isConfig './myconfig.json'
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| driver | `string` | `"fs"` | Storage driver to use |
+| driver | `string` | `"fs"` (unless `driverPath` provided) | Bundled storage driver to use |
 | driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
 | app | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
 | domain | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
@@ -177,14 +175,14 @@ isteam --isConfig './myconfig.json'
   "storage": {
     "app": {
       "app1": {
-        "driver": "s3",
+        "driverPath": "image-steam-s3",
         "endpoint": "s3.amazonaws.com",
         "accessKey": "abc",
         "secretKey": "123"
       }
     },
     "cache": {
-      "driver": "s3",
+      "driverPath": "image-steam-s3",
       "endpoint": "<dc1 endpoint>",
       "accessKey": "key2",
       "secretKey": "secret2"
@@ -195,7 +193,7 @@ isteam --isConfig './myconfig.json'
         "enabled": false /* our cache is already writting to dc1 */
       },
       "dc2Cache": {
-        "driver": "s3",
+        "driverPath": "image-steam-s3",
         "endpoint": "<dc2 endpoint>",
         "accessKey": "key3",
         "secretKey": "secret3"
@@ -215,20 +213,6 @@ isteam --isConfig './myconfig.json'
 | driver=fs | `string` | `"fs"` | File System |
 | path | `string` | ***required*** | Root path on file system |
 
-#### Storage Client - S3
-
-| Option | Type | Default | Info |
-| --- | --- | --- | --- |
-| driver=s3 | `string` | `"s3"` | Should work with any S3-compatible storage |
-| endpoint | `string` | `"s3.amazonaws.com"` | Endpoint of S3 service |
-| port | `number` | `443` | Non-443 port will auto-default secure to `false` |
-| secure | `boolean` | `true` only if port `443` | Override as needed |
-| accessKey | `string` | ***required*** | S3 access key |
-| secretKey | `string` | ***required*** | S3 secret key |
-| style | `string` | `"path"` | Endpoint of S3 service |
-| bucket | `string` | `"s3.amazonaws.com"` | May use `virtualHosted` if bucket is not in path |
-| endpoint | `string` | *optional* | If provided, will not attempt to take bucket from path |
-
 #### Storage Client - HTTP
 
 | Option | Type | Default | Info |
@@ -237,13 +221,17 @@ isteam --isConfig './myconfig.json'
 | endpoint | `string` | ***required*** | Endpoint of http(s) service |
 | bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
 
+#### Custom Client
+
 Custom storage types can easily be added via exporting `fetch` and `store`.
-See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
+See `lib/storage/fs` (read/write/delete) or  `lib/storage/http` (read only) for reference.
+
 
 ### External Storage Clients
 
+* https://github.com/asilvas/image-steam-s3 - S3 client built on [knox](https://github.com/Automattic/knox)
 * https://github.com/asilvas/image-steam-redis - Redis client built on [ioredis](https://github.com/luin/ioredis)
-* https://github.com/asilvas/image-steam-blobby - Blobby client over HTTP(S)
+* https://github.com/asilvas/image-steam-blobby - [Blobby](https://github.com/asilvas/blobby) client over HTTP(S)
 
 
 ## Throttle Options
