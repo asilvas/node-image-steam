@@ -2,6 +2,8 @@
 
 A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js. Serving (many) millions of images daily by way of simple (single DC, simple storage) and advanced (multi-DC geo-distributed, replicated storage, multi-tier caching) configurations. Responsible in part for this [white paper](https://www.godaddy.com/garage/site-speed-small-business-website-white-paper/).
 
+**Notice:** [v0.41 Introduces Minor Breaking Changes](./CHANGELOG.md)
+
 [![NPM](https://nodei.co/npm/image-steam.png?compact=true)](https://nodei.co/npm/image-steam/)
 
 # What is Image Steam?
