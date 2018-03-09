@@ -36,6 +36,9 @@
     "isteam": "./bin/isteam",
     "isteamd": "./bin/isteamd"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "files": [
     "bin",
     "lib",
