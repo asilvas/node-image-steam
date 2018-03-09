@@ -41,13 +41,18 @@ describe('#Image Server', function () {
     });
 
     serverRequests.forEach(function (serverRequest) {
-      serverRequest.url = getUrlFromImageSteps(serverRequest);
-      it(serverRequest.label + ', url: ' + serverRequest.url, function (cb) {
-        getResponse(serverRequest.url, function (err, res) {
-          expect(res.statusCode).to.be.equal(200);
-          var requestEtag = etags[serverRequest.url] || 'undefined';
-          etags[serverRequest.url] = res.headers.etag;
-          expect(res.headers.etag).to.be.equal(requestEtag);
+      serverRequest.options = serverRequest.options || {};
+      serverRequest.reqOptions = getReqFromImageSteps(serverRequest);
+      it(`${serverRequest.label}, request: ${serverRequest.reqOptions.method || 'GET'} ${serverRequest.reqOptions.url}`, function (cb) {
+        getResponse(serverRequest.reqOptions, function (err, res) {
+          expect(res.statusCode).to.be.equal(serverRequest.options.statusCode || 200);
+          const etagKey = `${serverRequest.options.method ? (serverRequest.options.method + ' ') : ''}${serverRequest.reqOptions.url}`;
+          const isNew = !(etagKey in etags);
+          const requestEtag = etags[etagKey] || 'undefined';
+          etags[etagKey] = res.headers.etag;
+          if (!isNew) { // don't validate etag if it's a new test
+            expect(res.headers.etag || 'undefined').to.be.equal(requestEtag);
+          }
           if (serverRequest.contentType) {
             expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
           }
@@ -61,20 +66,37 @@ describe('#Image Server', function () {
 
 });
 
-function getUrlFromImageSteps(serverRequest) {
-  var steps = serverRequest.steps;
-  var imgName = serverRequest.imageName || 'UP_steam_loco.jpg';
-  var fmt = (serverRequest.imageName || /fm\=f\:/.test(steps)) ? '' : '/fm=f:jpeg';
-  if (steps.length === 0) {
+function getReqFromImageSteps(serverRequest) {
+  const steps = serverRequest.steps;
+  const options = serverRequest.options || {};
+  const imgName = serverRequest.imageName || 'UP_steam_loco.jpg';
+  let fmt = (serverRequest.imageName || /fm\=f\:/.test(steps)) ? '' : '/fm=f:jpeg';
+  if (options.disableFormat) fmt = '';
+  if (steps.length === 0 && fmt) {
     fmt = fmt.substr(1);
   }
-  return 'http://localhost:13337/' + imgName + '/:/' + steps + fmt + '?cache=false';
+  const qs = serverRequest.qs || {};
+  if (qs.cache === undefined) qs.cache = 'false';
+  const qsArray = Object.keys(qs).map(k => `${k}=${qs[k]}`);
+  const queryString = qsArray.length === 0 ? '' : `?${qsArray.join('&')}`;
+
+  const reqOptions = {
+    protocol: 'http:',
+    host: 'localhost',
+    port: 13337,
+    method: options.method || 'GET',
+    headers: options.headers || {},
+    path: `/${imgName}/:/${steps}${fmt}${queryString}`
+  };
+  reqOptions.url = `${reqOptions.protocol}//${reqOptions.host}:${reqOptions.port}${reqOptions.path}`;
+
+  return reqOptions;
 }
 
-function getResponse(url, cb) {
-  http.get(url, function (res) {
+function getResponse(reqOptions, cb) {
+  http.request(reqOptions, res => {
     cb(null, res);
-  }).on('error', function (err) {
+  }).on('error', err => {
     cb(err);
-  });
+  }).end();
 }

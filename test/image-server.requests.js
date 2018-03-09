@@ -1,5 +1,15 @@
 module.exports = [
+  { steps: '', label: 'clear cache', options: { method: 'DELETE', statusCode: 204 } },
   { steps: 'rs=w:640', label: 'resize max to 640 width' },
+  { steps: '', label: 'use original', qs: { useOriginal: 'true' }, options: { disableFormat: true } },
+  { steps: 'rs=w:640/$colors', label: 'get color palette' },
+  { steps: 'rs=w:640/$badCommand', label: 'command not found', options: { statusCode: 400, security: false } },
+  { steps: 'rs=w:640/$colors=mn:false', label: 'get color palette with mean disabled' },
+  { steps: 'rs=w:640', label: 'cache on', qs: { cache: 'true' } },
+  { steps: 'rs=w:640', label: 'download', qs: { download: 'true' } },
+  { steps: 'rs=w:640/cr=w:200,t:-10,l:-10,w:-10,h:-10', label: 'top/left/width/height -10px' },
+  { steps: 'rs=w:640/cr=w:200,t:50,l:50,w:+10,h:+10', label: 'top/left +50px, width/height +10px' },
+  { steps: 'rs=w:640/cr=w:200,t:-10%25,l:-10%25,w:-10%25,h:-10%25', label: 'top/left/width/height -10%' },
   { steps: 'rs=w:640', imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
   // github does not (yet) support these special characters, so opting to skip this for now -- verified locally
   // { steps: 'rs=w:640', imageName: 'file !"$%25&\'()*+,-.jpg', label: 'Verify filename encoding is supported' },
