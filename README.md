@@ -4,16 +4,15 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 
 [![NPM](https://nodei.co/npm/image-steam.png?compact=true)](https://nodei.co/npm/image-steam/)
 
-![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine-2.jpg)
-
-
 # What is Image Steam?
 
+![NPM](./test/files/steam-engine-2.jpg)
+
 ```
-http://localhost:13337/my-app/my-storage/my-bucket/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
+http://localhost:13337/my-app/some-path/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
 ```
 
-Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `my-storage/my-bucket/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the requesting device -- all without developer support, and in (near) realtime.
+Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `some-path/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the requesting device -- all without developer support, and in (near) realtime.
 
 | Layer | Info |
 | --- | --- |
@@ -30,21 +29,16 @@ Consider the above isteam example, by allowing clients to directly request any v
 
 There are a number of options out there, but isteam differentiates itself by:
 
-* Highly configurable. Everything all the way down to how image operations are mapped
-  can be overridden. Most solutions are very prescriptive on how it must work. *isteam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns.
-* Optimizes originally uploaded asset to account for large uploads, enabling
-  a higher quality service by making the pipeline for image operations
-  substantially faster. A critical feature in supporting large media of todays modern devices.
-* Quality of service features such as throttling and memory thresholds, to best
-  take advantage of your hardware under ideal and non ideal scenarios.
-* Device centric responses, where more than a URI may influence response.
-  Compression and Accepts header (i.e. WebP) being examples.
-* CDN support, but not required.
-* Provides an abstraction atop image processing libraries, enabling per-operation
-  level of control to enable using the right tool for the given operation. Bugs,
-  features, performance are a few of the factors that may influence this.
-* Friendly CLI to create your web server. No custom app required.
-* Good *Nix & Windows support.
+| Feature | Info |
+| --- | --- |
+| Highly configurable | Everything all the way down to how image operations are mapped can be overridden. Most solutions are very prescriptive on how it must work. *isteam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns |
+| Optimized | Optimizes originally uploaded asset to account for large uploads, enabling a higher quality service by making the pipeline for image operations substantially faster. A critical feature in supporting large media of todays modern devices |
+| QoS | Quality of service features such as throttling and memory thresholds, to best take advantage of your hardware under ideal and non ideal scenarios |
+| Device Aware | Device centric responses, where more than a URI may influence response. Compression and Accepts header (i.e. WebP) being examples |
+| CDN Support | Supported, but not required |
+| Library Agnostic | Provides an abstraction atop image processing libraries, enabling per-operation level of control to enable using the right tool for the given operation. Bugs, features, performance are a few of the factors that may influence this |
+| Friendly CLI | No custom app required to create your image API |
+| Platform Agnostic | Good *Nix & Windows support |
 
 
 # Installation
@@ -67,10 +61,10 @@ a basic usage example that pulls everything together can be as simple as:
 
 ```
 npm install image-steam -g
-isteam --isConfig './myconfig.json'
+isteam --isConfig './myconfig.json' --isConfig './mydefaults.json'
 ```
 
-Config can also be a CommonJS file:
+Defaults are optional. Config can also be a CommonJS file:
 
 ```
 isteam --isConfig './myconfig.js'
@@ -146,56 +140,68 @@ isteam --isConfig './myconfig.json'
 ```
 {
   "storage": {
-    "driverPath": "image-steam-s3",
-    "endpoint": "s3.amazonaws.com",
-    "accessKey": "abc",
-    "secretKey": "123"
+    "defaults": {
+      "driverPath": "image-steam-s3",
+      "endpoint": "s3.amazonaws.com",
+      "accessKey": "abc",
+      "secretKey": "123"
+    }
   }
 }
 ```
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| driver | `string` | `"fs"` (unless `driverPath` provided) | Bundled storage driver to use |
-| driverPath | `string` | *optional* | If provided, will load a custom driver from the desired path, ignoring the `driver` option |
-| app | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| domain | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| header | `Object<Storage>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
-| cache | `Storage` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
-| cacheTTS | `number` | *optional* | If provided, when objects are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request.
-| replicas | `Object<Storage>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ localCache: { enabled: false }, remoteCache: { /* options */ } }`. Where `localCache` is name of my default cache (which I'm already writing to, so it's disabled in `replicas`), and `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication).
-| replicas[].enabled | `boolean` | `true` | Useful if you manage multiple environments, where default replicas can be set in one configuration file, with each environment-specific config disabling writes to their own storage (avoiding duplicate writes) |
-| replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating too may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
+| defaults | `StorageOptions` | *optional* | If provided, these options will be the defaults applied to all StorageOptions. **Note:** At least one of `defaults`, `app`, `domain`, or `header` are required |
+| app | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. |
+| domain | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| header | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| cache | `StorageOptions` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
+| cacheOptimized | `StorageOptions` | *optional* | If provided, will attempt to access *only* optimized original assets from this storage. This permits splitting of cache for sake of replication or eviction policies. If supplied, this also means delete requests will be supplied to both caches |
+| cacheTTS | `number` | *optional* | If provided, when artifacts or optimized originals (unless `cacheOptimizedTTS` is also provided) are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request |
+| cacheOptimizedTTS | `number` | *optional* | If provided, when *optimized original* are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request |
+| replicas | `Object<StorageReplica>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ remoteCache: { cache: { /* options */ }, cacheOptimized: { /* options */ } } }`. Where `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication). |
+| replicas[].cache | `StorageOptions` | *optional* | Same behavior as `storage.cache` |
+| replicas[].cacheOptimized | `StorageOptions` | *optional* | Same behavior as `storage.cacheOptimized` |
+| replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating to may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
+
+### StorageOptions
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| driver | `string` | `driver` or `driverPath` ***required*** | Bundled storage driver to use |
+| driverPath | `string` | `driver` or `driverPath` ***required*** | Load a custom driver from the desired path, ignoring the `driver` option |
+| *(driver options)* | | | All other options will be supplied to the storage driver indicated by `driver` or `driverPath` |
 
 ***Advanced*** storage example:
 
 ```
 {
   "storage": {
+    "defaults": {
+      "driverPath": "image-steam-s3",
+      "endpoint": "s3.amazonaws.com
+    },
     "app": {
       "app1": {
-        "driverPath": "image-steam-s3",
-        "endpoint": "s3.amazonaws.com",
-        "accessKey": "abc",
-        "secretKey": "123"
+        "accessKey": "key1",
+        "secretKey": "secret1"
       }
     },
     "cache": {
-      "driverPath": "image-steam-s3",
       "endpoint": "<dc1 endpoint>",
       "accessKey": "key2",
       "secretKey": "secret2"
     },
     "cacheTTS": 86400, /* 24 hrs */
+    "cacheOptimizedTTS": 43200, /* 12 hrs */
     "replicas": {
-      "dc1Cache": {
-        "enabled": false /* our cache is already writting to dc1 */
-      },
       "dc2Cache": {
-        "driverPath": "image-steam-s3",
-        "endpoint": "<dc2 endpoint>",
-        "accessKey": "key3",
-        "secretKey": "secret3"
+        "cache": {
+          "endpoint": "<dc2 endpoint>",
+          "accessKey": "key3",
+          "secretKey": "secret3"
+        }
       }
     }
   }
@@ -209,7 +215,7 @@ isteam --isConfig './myconfig.json'
 
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
-| driver=fs | `string` | `"fs"` | File System |
+| driver=fs | | | File System |
 | path | `string` | ***required*** | Root path on file system |
 
 #### Storage Client - HTTP
@@ -288,15 +294,21 @@ Routing is left-to-right for legibility.
 
 Routing format:
 
-  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}{signatureDelimiter}{signature}?{queryString}`
+```
+{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}{signatureDelimiter}{signature}?{queryString}
+```
 
 Example URI using [Default Options](#router-options):
 
-  `some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false`
+```
+some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false
+```
 
 Or a more real-world example:  
 
-  `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
+```
+/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25
+```
 
 See [Things to Try](#things-to-try) for many more examples.
 
@@ -308,24 +320,21 @@ Resize an image, preserving aspect or not.
 
 Arguments:
 
-* Width (`w`, optional*) - Width of new size. Supports Dimension Modifiers.
-* Height (`h`, optional*) - Height of new size. Supports Dimension Modifiers.
-* Max (`mx`, default) - Retain aspect and use dimensions as the maximum
-  permitted during resize.
-* Min (`m`, optional) - Retain aspect and use dimensions as the minimum
-  permitted during resize. Set to any value to enable.
-* Ignore Aspect Ratio (`i`, default: `false`) - If true will break aspect and
-  resize to exact dimensions.
-* Can Grow (`cg`, default: `false`) - If `true`, will allow image to exceed the dimensions of the original.
-* Interpolator (`int`, default: `bicubic`) - Process to use for resizing, from fastest to slowest:
-  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
-  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
-  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
-  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
-  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
-  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
-
-Note: Width or Height are optional, but at least one must be provided.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `w` | Number/Unit | `w` OR `h` **required** | Width of new size. Supports Dimension Modifiers |
+| `h` | Number/Unit | `w` OR `h` **required** | Height of new size. Supports Dimension Modifiers |
+| `mx` | n/a | **default** | Retain aspect and use dimensions as the maximum permitted during resize |
+| `m` | n/a | *optional* | Retain aspect and use dimensions as the minimum permitted during resize. Set to any value to enable |
+| `i` | Boolean | `false` | If `true` will break aspect and resize to exact dimensions |
+| `cg` | Boolean | `false` | If `true`, will allow image to exceed the dimensions of the original |
+| `int` | String | `bicubic` | Process to use for resizing, from fastest to slowest |
+| | | `nearest` | Use nearest neighbour interpolation, suitable for image enlargement only |
+| | | `bilinear` | Use bilinear interpolation, the default and fastest image reduction interpolation |
+| | | `bicubic` | Use bicubic interpolation, which typically reduces performance by 5% |
+| | | `vsqbs` |  Use vertexSplitQuadraticBasisSpline interpolation, which prevents "staircasing" and typically reduces performance by 5% |
+| | | `lbb` | Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2 |
+| | | `nohalo` | Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3 |
 
 ### Examples
 
@@ -541,12 +550,12 @@ A new (ALPHA) command to retrieve a list of palette colors from image in JSON fo
 
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
-| w | Number | `100` | Width of image. `w` OR `h` must be set. |
-| h | Number | undefined | Height of image. `w` OR `h` must be set. |
-| mc | Number | `10` | Max colors to return |
-| cc | Number | `4` | Cubic cells (3 or 4) |
-| mn | Boolean | `true` | Use mean color (`true`) or median color (`false`) |
-| o | String | `distance` | Order of results, `distance` between colors, or based on cell `density` |
+| `w` | Number | `100` | Width of image. `w` OR `h` must be set. |
+| `h` | Number | undefined | Height of image. `w` OR `h` must be set. |
+| `mc` | Number | `10` | Max colors to return |
+| `cc` | Number | `4` | Cubic cells (3 or 4) |
+| `mn` | Boolean | `true` | Use mean color (`true`) or median color (`false`) |
+| `o` | String | `distance` | Order of results, `distance` between colors, or based on cell `density` |
 
 See [Image-Pal](https://github.com/asilvas/image-pal#options) for more details.
 
