@@ -1,3 +1,8 @@
+# 0.42.0 - March 2018
+
+* ***(CONFIGURATION)*** `storage.cacheArtifacts` - Caching of image artifacts may now be disabled. 
+
+
 # 0.41.0 - March 2018
 
 * ***(BREAKING)*** Default StorageOptions - Root of `storage` options may no longer include `StorageOptions` (options supplied to storage driver), and instead must supply to `storage.defaults` instead. This is a necessary change to avoid polluting the options supplied to storage drivers.
