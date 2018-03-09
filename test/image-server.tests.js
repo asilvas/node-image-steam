@@ -47,9 +47,12 @@ describe('#Image Server', function () {
         getResponse(serverRequest.reqOptions, function (err, res) {
           expect(res.statusCode).to.be.equal(serverRequest.options.statusCode || 200);
           const etagKey = `${serverRequest.options.method ? (serverRequest.options.method + ' ') : ''}${serverRequest.reqOptions.url}`;
+          const isNew = !(etagKey in etags);
           const requestEtag = etags[etagKey] || 'undefined';
           etags[etagKey] = res.headers.etag;
-          expect(res.headers.etag || 'undefined').to.be.equal(requestEtag);
+          if (!isNew) { // don't validate etag if it's a new test
+            expect(res.headers.etag || 'undefined').to.be.equal(requestEtag);
+          }
           if (serverRequest.contentType) {
             expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
           }
@@ -74,7 +77,7 @@ function getReqFromImageSteps(serverRequest) {
   }
   const qs = serverRequest.qs || {};
   if (qs.cache === undefined) qs.cache = 'false';
-  const qsArray = Object.keys(qs).map(k => qs[k]);
+  const qsArray = Object.keys(qs).map(k => `${k}=${qs[k]}`);
   const queryString = qsArray.length === 0 ? '' : `?${qsArray.join('&')}`;
 
   const reqOptions = {
