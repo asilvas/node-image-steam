@@ -318,8 +318,6 @@ See [Things to Try](#things-to-try) for many more examples.
 
 Resize an image, preserving aspect or not.
 
-Arguments:
-
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
 | `w` | Number/Unit | `w` OR `h` **required** | Width of new size. Supports Dimension Modifiers |
@@ -347,22 +345,15 @@ Arguments:
 
 Crop an image to an exact size.
 
-Arguments:
-
-* Top (`t`, default: `0`) - Offset from top. Supports Dimension Modifiers.
-* Left (`l`, default: `0`) - Offset from left. Supports Dimension Modifiers.
-* Width (`w`, default: width-left) - Width of new size. Supports Dimension Modifiers.
-* Height (`h`, default: height-top) - Height of new size. Supports Dimension Modifiers.
-* Anchor (`a`, default: `cc`) - Where to anchor from, using center-center by default. Top
-  and Left are applied from the anchor. Possible horizontal axis
-  values include left (l), center (c), and right (r). Possible vertical axis
-  values include top (t), center (c), and bottom (b).
-* Anchor Y (`ay`, default: `50%`) - Can be used to absolutely position the
-  anchor offset vertically using either percentage or pixel values. Also supports offsets
-  relative to the Anchor value.
-* Anchor X (`ax`, default: `50%`) - Can be used to absolutely position the
-  anchor offset horizontally using either percentage or pixel values. Also supports offsets
-  relative to the Anchor value.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `t` | Number/Unit | `0` | Offset from top. Supports Dimension Modifiers |
+| `l` | Number/Unit | `0` | Offset from left. Supports Dimension Modifiers |
+| `w` | Number/Unit | `width-left` | Width of new size. Supports Dimension Modifiers |
+| `h` | Number/Unit | `height-top` | Height of new size. Supports Dimension Modifiers |
+| `a` | String | `cc` | Where to anchor from, using center-center by default. Top and Left are applied from the anchor. Possible horizontal axis values include left (l), center (c), and right (r). Possible vertical axis values include top (t), center (c), and bottom (b) |
+| `ay` | Number/Unit | `50%` | Can be used to absolutely position the anchor offset vertically using either percentage or pixel values. Also supports offsets relative to the Anchor value |
+| `ax` | Number/Unit | `50%` | Can be used to absolutely position the anchor offset horizontally using either percentage or pixel values. Also supports offsets relative to the Anchor value |
 
 ### Examples
 
@@ -387,10 +378,9 @@ at a factor of gamma.
 This can improve the perceived brightness of a resized image
 in non-linear colour spaces.
 
-Arguments:
-
-* Gamma (`g`, default: `2.2`) - A float between 1 and 3. The default value is 2.2,
-  a suitable approximation for sRGB images.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `g` | Number | `2.2` | A float between 1 and 3. The default value is 2.2, a suitable approximation for sRGB images |
 
 JPEG input images will not take advantage of the shrink-on-load
 performance optimisation when applying a gamma correction.
@@ -398,23 +388,13 @@ performance optimisation when applying a gamma correction.
 
 ## Background (bg)
 
-Arguments:
-
-* Red (`r`) - Red component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Green (`g`) - Green component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Blue (`b`) - Blue component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Alpha (`a`) - Optional Alpha component of the RGB(A) spectrum.
-  A float value between 0 (transparent) and 1 (opaque).
-  Can be used in conjunction with Hex color.
-* Hex (`#`) - Full hex color (i.e. `ffffff`).
-  Partial (i.e. `fff`) not supported.
-  Do not use in conjunction with RGB color. Alpha is OK.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `r` | Number | **required** | Red component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `g` | Number | **required** | Green component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `b` | Number | **required** | Blue component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `a` | Number | *optional* | Optional Alpha component of the RGB(A) spectrum. A float value between 0 (transparent) and 1 (opaque). Can be used in conjunction with Hex color |
+| `#` | Number | *optional* | Full hex color (i.e. `ffffff`). Partial (i.e. `fff`) not supported. Do not use in conjunction with RGB color. Alpha is OK |
 
 
 ## Flatten (ft)
@@ -424,11 +404,9 @@ Merge alpha transparency channel, if any, with background.
 
 ## Rotate (rt)
 
-Arguments:
-
-* Degrees (`d`) - Degrees to rotate the image, in increments of 90.
-  Future implementations may support non-optimized degrees of rotation.
-  Specify `auto` to auto-rotate based on orientation.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `d` | Number | `0` | Degrees to rotate the image, in increments of 90. Future implementations may support non-optimized degrees of rotation. Specify `0` to auto-rotate based on orientation |
 
 ### Examples
 
@@ -440,10 +418,10 @@ Arguments:
 Not to be confused with rotation, flipping is the process of flipping
 an image on its horizontal and/or vertical axis.
 
-Arguments:
-
-* X (`x`) - Flip on the horizontal axis. No value required.
-* Y (`y`) - Flip on the vertical axis. No value required.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `x` | n/a | *optional* | Flip on the horizontal axis. No value required |
+| `y` | n/a | *optional* | Flip on the vertical axis. No value required |
 
 ### Examples
 
@@ -455,8 +433,9 @@ Arguments:
 
 The output quality to use for lossy JPEG, WebP and TIFF output formats.
 
-* Quality (`q`, default: `80`) - Value between 1 (worst, smallest) and
-  100 (best, largest).  
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `q` | Number | `80` | Value between 1 (worst, smallest) and 100 (best, largest) |
 
 
 ## Compression (cp)
@@ -464,7 +443,9 @@ The output quality to use for lossy JPEG, WebP and TIFF output formats.
 An advanced setting for the zlib compression level of the lossless
 PNG output format. The default level is 6.
 
-* Compression (`c`, default: `6`) - Number between 0 and 9.  
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `c` | Number | `6` | Number between 0 and 9 |
 
 
 ## Progressive (pg)
@@ -491,28 +472,27 @@ best determined by the individual request.
 Override the auto-detected optimal format to output. Do not use this unless
 you have good reason.
 
-Arguments:
-
-* Format (`f`, required) - Format to output: "jpeg", "png", or "webp".
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `f` | String | **required** | Format to output: `"jpeg"`, `"png"`, or `"webp"` |
 
 
 ## Metadata (md)
 
 Carry metadata from the original image into the outputted image. Enabled by default.
 
-Arguments:
-
-* Enabled (`e`, default: 'true') - Set to `false` to not preserve metadata from original.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `e` | Boolean | `true` | Set to `false` to not preserve metadata from original |
 
 
 ## Sharpen (fx-sp)
 
-Arguments:
-
-* Radius (`r`, optional) - Sharpening mask to apply in pixels, but comes at
-  a performance cost.
-* Flat (`f`, default: `1.0`) - Sharpening to apply to flat areas.
-* Jagged (`j`, default: `2.0`) - Sharpening to apply to jagged areas.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `r` | Number | *optional* | Sharpening mask to apply in pixels, but comes at a performance cost |
+| `f` | Number | `1.0` | Sharpening to apply to flat areas |
+| `j` | Number | `2.0` | Sharpening to apply to jagged areas |
 
 ### Examples
 
@@ -524,9 +504,9 @@ Arguments:
 Fast mild blur by default, but can override the default sigma for more
 control (at cost of performance).
 
-Arguments:
-
-* Sigma (`s`, default: `2.0`) - The approximate blur radius in pixels, from 0.3 to 1000.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `s` | Number | `2.0` | The approximate blur radius in pixels, from 0.3 to 1000 |
 
 ### Examples
 
@@ -689,7 +669,9 @@ Security allows protecting the image resources behind each tranformation. This w
 
 A signed url would look like this:
 
-`/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9`
+```
+/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9
+```
 
 ```
 {
