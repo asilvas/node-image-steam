@@ -36,15 +36,24 @@
     "isteam": "./bin/isteam",
     "isteamd": "./bin/isteamd"
   },
+  "files": [
+    "bin",
+    "lib",
+    "index.js",
+    "LICENSE.txt",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
   "dependencies": {
     "async": "^2.6.0",
     "fs-extra": "^5.0.0",
     "image-pal-sharp": "^1.2.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "mime": "^2.2.0",
     "optimist": "0.6.1",
     "semaphore": "^1.1.0",
-    "sharp": "^0.19.0",
+    "sharp": "^0.19.1",
     "xxhash": "0.2.4"
   },
   "devDependencies": {
@@ -56,8 +65,8 @@
     "mocha": "^3.5.3",
     "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
-    "should": "^13.0.1",
-    "sinon": "^3.2.1",
-    "sinon-chai": "^2.8.0"
+    "should": "^13.2.1",
+    "sinon": "^3.3.0",
+    "sinon-chai": "^2.14.0"
   }
 }
