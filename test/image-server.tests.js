@@ -74,10 +74,8 @@ function getReqFromImageSteps(serverRequest) {
   }
   const qs = serverRequest.qs || {};
   if (qs.cache === undefined) qs.cache = 'false';
-  let queryString = '?';
-  Object.keys(qs).forEach(key => {
-    queryString += `${key}=${qs[key]}&`;
-  });
+  const qsArray = Object.keys(qs).map(k => qs[k]);
+  const queryString = qsArray.length === 0 ? '' : `?${qsArray.join('&')}`;
 
   const reqOptions = {
     protocol: 'http:',
