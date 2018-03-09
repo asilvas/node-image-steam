@@ -1,567 +1,320 @@
 [
 	{
-		"url": "http://localhost:13337/Portrait_1.jpg/://-/bogussig?cache=false",
-		"etag": "1574048611"
+		"url": "DELETE http://localhost:13337/UP_steam_loco.jpg/:/fm=f:jpeg?cache=false"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/?cache=false",
 		"etag": "630223097"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "1748589139"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:180?cache=false",
 		"etag": "3796364178"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "3654704595"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:270?cache=false",
 		"etag": "2316391673"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "1076080307"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:90?cache=false",
 		"etag": "4019037786"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_2.jpg/://-/bogussig?cache=false",
-		"etag": "3662819683"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/?cache=false",
 		"etag": "2848154588"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_2.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "4202614387"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rs=w:320?cache=false",
 		"etag": "1646142339"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "729879440"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:180?cache=false",
 		"etag": "3356070598"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "1080038234"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:270?cache=false",
 		"etag": "787360606"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "3073627890"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:90?cache=false",
 		"etag": "1721934037"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_3.jpg/://-/bogussig?cache=false",
-		"etag": "1826874481"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/?cache=false",
 		"etag": "1631407659"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_3.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "2269127058"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rs=w:320?cache=false",
 		"etag": "1950243944"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "4039866112"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:180?cache=false",
 		"etag": "3234222728"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "2796464180"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:270?cache=false",
 		"etag": "561333870"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "1125759445"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:90?cache=false",
 		"etag": "1081583046"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_4.jpg/://-/bogussig?cache=false",
-		"etag": "1840582851"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/?cache=false",
 		"etag": "2753228025"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_4.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "890447517"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rs=w:320?cache=false",
 		"etag": "1721963614"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "393694106"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:180?cache=false",
 		"etag": "3444501138"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "1718395918"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:270?cache=false",
 		"etag": "1957956086"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "1166955560"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:90?cache=false",
 		"etag": "2465159002"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_5.jpg/://-/bogussig?cache=false",
-		"etag": "3104099699"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/?cache=false",
 		"etag": "332818528"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_5.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "2871419136"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rs=w:320?cache=false",
 		"etag": "2913753547"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "1742994156"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:180?cache=false",
 		"etag": "2016127191"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "2331663963"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:270?cache=false",
 		"etag": "3269054828"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "2180210540"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:90?cache=false",
 		"etag": "241923523"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_6.jpg/://-/bogussig?cache=false",
-		"etag": "2007639551"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/?cache=false",
 		"etag": "3333974421"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_6.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "3364671442"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rs=w:320?cache=false",
 		"etag": "96595528"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "2612423559"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:180?cache=false",
 		"etag": "3991023707"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "3192889938"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:270?cache=false",
 		"etag": "2802050214"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "382262466"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:90?cache=false",
 		"etag": "1430193841"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_7.jpg/://-/bogussig?cache=false",
-		"etag": "1858108468"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/?cache=false",
 		"etag": "1539568264"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_7.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "3819103082"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rs=w:320?cache=false",
 		"etag": "2646928876"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "1852269664"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:180?cache=false",
 		"etag": "4141555608"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "3978932399"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:270?cache=false",
 		"etag": "2859658116"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "3435749127"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:90?cache=false",
 		"etag": "645710984"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_8.jpg/://-/bogussig?cache=false",
-		"etag": "1494444202"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/?cache=false",
 		"etag": "621730797"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_8.jpg/:/rs=w:320/-/bogussig?cache=false",
-		"etag": "1589813937"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rs=w:320?cache=false",
 		"etag": "706109304"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:180/-/bogussig?cache=false",
-		"etag": "1765195553"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:180?cache=false",
 		"etag": "2137389475"
 	},
 	{
-		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:270/-/bogussig?cache=false",
-		"etag": "237567089"
-	},
-	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:270?cache=false",
 		"etag": "1446418892"
-	},
-	{
-		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:90/-/bogussig?cache=false",
-		"etag": "1151986557"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:90?cache=false",
 		"etag": "947131244"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:1/fm=f:png/-/bogussig?cache=false",
-		"etag": "2591867871"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/?useOriginal=true&cache=false"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:1/fm=f:png?cache=false",
 		"etag": "1284792821"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:2/pg/fm=f:png/-/bogussig?cache=false",
-		"etag": "1068354797"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:2/pg/fm=f:png?cache=false",
 		"etag": "3084079534"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:5%25,t:10%25,w:90%25,h:80%25/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "1501838844"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:5%25,t:10%25,w:90%25,h:80%25/fm=f:jpeg?cache=false",
 		"etag": "3804272472"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50,w:-100,h:-100/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2775710992"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50,w:-100,h:-100/fm=f:jpeg?cache=false",
 		"etag": "4274508816"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "3265485316"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50/fm=f:jpeg?cache=false",
 		"etag": "655074718"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:br/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "980984360"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:br/fm=f:jpeg?cache=false",
 		"etag": "842671407"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:tl/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2383347845"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:tl/fm=f:jpeg?cache=false",
 		"etag": "4124826112"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,ay:500,ax:300/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "127895334"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,ay:500,ax:300/fm=f:jpeg?cache=false",
 		"etag": "2403732306"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x,y/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "472239119"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x,y/fm=f:jpeg?cache=false",
 		"etag": "1188073323"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2273589042"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x/fm=f:jpeg?cache=false",
 		"etag": "1395758310"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=y/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "3979097124"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=y/fm=f:jpeg?cache=false",
 		"etag": "2014290775"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2190735615"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:jpeg?cache=false",
 		"etag": "3117549872"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "3229966704"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:jpeg?cache=false",
 		"etag": "591917338"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl=s:5/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2934950832"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl=s:5/fm=f:jpeg?cache=false",
 		"etag": "3424104291"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:1/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2190735615"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:1/fm=f:jpeg?cache=false",
 		"etag": "3117549872"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:3/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "3611744493"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:3/fm=f:jpeg?cache=false",
 		"etag": "3201799580"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:false/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "1668285369"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:false/fm=f:jpeg?cache=false",
 		"etag": "2377217129"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:true/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2190735615"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:true/fm=f:jpeg?cache=false",
 		"etag": "3117549872"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/qt=q:20/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "797671093"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/qt=q:20/fm=f:jpeg?cache=false",
 		"etag": "170751"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "1259970175"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:jpeg?cache=false",
 		"etag": "1561920927"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "543148796"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$badCommand/fm=f:jpeg?cache=false"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$colors/fm=f:jpeg?cache=false",
+		"etag": "3149903433"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$colors=mn:false/fm=f:jpeg?cache=false",
+		"etag": "3149903433"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:-10%25,l:-10%25,w:-10%25,h:-10%25/fm=f:jpeg?cache=false",
+		"etag": "1030122255"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:-10,l:-10,w:-10,h:-10/fm=f:jpeg?cache=false",
+		"etag": "949705665"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:50,l:50,w:+10,h:+10/fm=f:jpeg?cache=false",
+		"etag": "3149903433"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?cache=false",
 		"etag": "3149903433"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fx-sp=r:5/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "1322514116"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?cache=true",
+		"etag": "3149903433"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?download=true&cache=false",
+		"etag": "3149903433"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fx-sp=r:5/fm=f:jpeg?cache=false",
 		"etag": "3383668931"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "543148796"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip/fm=f:jpeg?cache=false",
 		"etag": "3149903433"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bicubic/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "543148796"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bicubic/fm=f:jpeg?cache=false",
 		"etag": "3149903433"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bilinear/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "543148796"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bilinear/fm=f:jpeg?cache=false",
 		"etag": "3149903433"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:nearest/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "543148796"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:nearest/fm=f:jpeg?cache=false",
 		"etag": "3149903433"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:180/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "472239119"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:180/fm=f:jpeg?cache=false",
 		"etag": "1188073323"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:270/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "3553429896"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:270/fm=f:jpeg?cache=false",
 		"etag": "161732251"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:360/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "2190735615"
-	},
-	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:360/fm=f:jpeg?cache=false",
 		"etag": "3117549872"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:90/fm=f:jpeg/-/bogussig?cache=false",
-		"etag": "1639197046"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:90/fm=f:jpeg?cache=false",
 		"etag": "2944806773"
 	},
 	{
-		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640/-/bogussig?cache=false",
-		"etag": "684709865"
-	},
-	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
 		"etag": "722891824"
-	},
-	{
-		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640/-/bogussig?cache=false",
-		"etag": "3015103085"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",

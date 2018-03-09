@@ -44,3 +44,6 @@ node_modules/
 test/files/UP_steam_loco.jpg-*
 test/files/huge_file.jpg*
 test/cache/
+test/cacheOptimized/
+test/replica-cache/
+test/replica-cacheOptimized/

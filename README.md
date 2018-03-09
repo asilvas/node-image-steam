@@ -1,57 +1,46 @@
 # image-steam
 
-A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.
+A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js. Serving (many) millions of images daily by way of simple (single DC, simple storage) and advanced (multi-DC geo-distributed, replicated storage, multi-tier caching) configurations. Responsible in part for this [white paper](https://www.godaddy.com/garage/site-speed-small-business-website-white-paper/).
 
-[![NPM version](https://badge.fury.io/js/image-steam.png)](http://badge.fury.io/js/image-steam) [![Dependency Status](https://gemnasium.com/asilvas/node-image-steam.png)](https://gemnasium.com/asilvas/node-image-steam)
+**Notice:** [v0.41 Introduces Minor Breaking Changes](./CHANGELOG.md)
 
-[![NPM](https://nodei.co/npm/image-steam.png?downloads=true&stars=true&downloadRank=true)](https://www.npmjs.org/package/image-steam)
-[![NPM](https://nodei.co/npm-dl/image-steam.png?months=3&height=2)](https://nodei.co/npm/image-steam/)
-
-***Status: Production*** => Serving (many) millions of requests monthly
-
+[![NPM](https://nodei.co/npm/image-steam.png?compact=true)](https://nodei.co/npm/image-steam/)
 
 # What is Image Steam?
 
-***Rough order of layers:***
+![NPM](./test/files/steam-engine-2.jpg)
 
-* node.js http(s) - RESTful interface
-* routing layer - URI pathing that make up the desired image operations
-  * device aware - Supports implied optimizations based on the given request (notably `webp` support)
-* throttling layer - Quality of service management
-* security layer - Allows protecting resources behind the tranformations via signed requests
-* optimized original - Optimization of uploaded originals
-* storage - Storage engine for reads (original or cache) and writes (cache)
-  * caching - Don't re-process the same operation more than once
-  * s3, fs, custom, etc
-* processor layer - Image operations (resize, crop, etc) go here
-  * sharp - High level, fast image processing wrapper - http://sharp.dimens.io/en/stable/
-    * libvips - Low level, fast image processing library, optimized for on-demand requests - https://github.com/jcupitt/libvips/
+```
+http://localhost:13337/my-app/some-path/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
+```
+
+Consider the above isteam example, by allowing clients to directly request any variation of an image using few or many image instructions, and in near realtime. This opens the doors to improved user and developer experiences. The above example takes the requested image `some-path/my-image.jpg`, resizes to a fixed width (preserving aspect, by default), crops around the edges like a picture frame, applies greyscale effects, and will auto-select the most optimal image format supported by the requesting device -- all without developer support, and in (near) realtime.
+
+| Layer | Info |
+| --- | --- |
+| node.js http(s) | RESTful interface |
+| routing | URI pathing that make up the desired image operations. Device aware - Supports implied optimizations based on the given request (notably `webp` support) |
+| throttling | Quality of service management |
+| security | Allows protecting resources behind the tranformations via signed requests |
+| optimized original | Optimization of uploaded originals |
+| storage | Storage engine for reads (original or cache) and writes (cache). Extensible storage clients for storage and caching |
+| processor | Image operations (resize, crop, etc) go here, powered by [Sharp](http://sharp.dimens.io/en/stable/) and [libvips](https://github.com/jcupitt/libvips/) |
 
 
 # Why Image Steam?
 
-![NPM](https://raw.githubusercontent.com/asilvas/node-image-steam/master/test/files/steam-engine.jpg)
+There are a number of options out there, but isteam differentiates itself by:
 
-There are a number of options out there, but differentiates itself by:
-
-* Separating itself from a Web Server, so core logic can be used elsewhere.
-  Routing, throttling, image processing, storage make up the core components.
-* Optimizes originally uploaded asset to account for large uploads, enabling
-  a higher quality service by making the pipeline for image operations
-  substantially faster.
-* Quality of service features such as throttling and memory thresholds, to best
-  take advantage of your hardware under ideal and non ideal scenarios.
-* Highly configurable. Everything all the way down to how image operations are mapped
-  can be overridden. Most solutions are very prescriptive on how it must work.
-* Supports, but does not require a CDN to front it.
-* Provides an abstraction atop image processing libraries, enabling per-operation
-  level of control to enable using the right tool for the given operation. Bugs,
-  features, performance are a few of the factors that may influence this.
-* Friendly CLI to create your web server. No custom app required.
-* Good *Nix & Windows support.
-* Device centric responses, where more than a URI may influence response.
-  Compression and Accepts header (i.e. WebP) being examples.
-
+| Feature | Info |
+| --- | --- |
+| Highly configurable | Everything all the way down to how image operations are mapped can be overridden. Most solutions are very prescriptive on how it must work. *isteam* is intended to adhere to *your* architecture, *your* storage, *your* caching, *your* replication patterns |
+| Optimized | Optimizes originally uploaded asset to account for large uploads, enabling a higher quality service by making the pipeline for image operations substantially faster. A critical feature in supporting large media of todays modern devices |
+| QoS | Quality of service features such as throttling and memory thresholds, to best take advantage of your hardware under ideal and non ideal scenarios |
+| Device Aware | Device centric responses, where more than a URI may influence response. Compression and Accepts header (i.e. WebP) being examples |
+| CDN Support | Supported, but not required |
+| Library Agnostic | Provides an abstraction atop image processing libraries, enabling per-operation level of control to enable using the right tool for the given operation. Bugs, features, performance are a few of the factors that may influence this |
+| Friendly CLI | No custom app required to create your image API |
+| Platform Agnostic | Good *Nix & Windows support |
 
 
 # Installation
@@ -74,10 +63,10 @@ a basic usage example that pulls everything together can be as simple as:
 
 ```
 npm install image-steam -g
-isteam --isConfig './myconfig.json'
+isteam --isConfig './myconfig.json' --isConfig './mydefaults.json'
 ```
 
-Config can also be a CommonJS file:
+Defaults are optional. Config can also be a CommonJS file:
 
 ```
 isteam --isConfig './myconfig.js'
@@ -126,86 +115,130 @@ and libvips: http://sharp.dimens.io/en/stable/performance/#performance
 isteam --isConfig './myconfig.json'
 ```
 
-## Http Options
+## HTTP Options
 
 ```
-{ "http": { "port": 80 } }
+{
+  "http": [
+    { "port": 80 },
+    { "port": 443, "ssl": {} }
+  ]
+}
 ```
 
-* `http.port` (default: `13337`) - Port to bind to.
-* `http.host` (default: `"localhost"`) - Host to bind to.
-* `http.backlog` (default: `511`) - [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback).
-* `http.ssl` (optional) - If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener).
-* `http.ssl.pfx` - If string, will auto-load from file system.
-* `http.ssl.key` - If string, will auto-load from file system.
-* `http.ssl.cert` - If string, will auto-load from file system.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| port | `number` | `13337` | Port to bind to |
+| host | `string` | `"localhost"` | Host to bind to |
+| backlog | `number` | `511` | [TCP backlog](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) |
+| ssl | [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) | `undefined` | If object provided, will bind with [TLS Options](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) |
+| ssl.pfx | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| ssl.key | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| ssl.cert | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
 
-***Optionally an array of bindings may be passed in ala `"http": [{ "port": 80 }, { "port": 443, "ssl": {} }]`***
 
 ## Storage Options
 
 ```
 {
   "storage": {
-    "driver": "s3",
-    "endpoint": "s3.amazonaws.com",
-    "accessKey": "abc",
-    "secretKey": "123"
+    "defaults": {
+      "driverPath": "image-steam-s3",
+      "endpoint": "s3.amazonaws.com",
+      "accessKey": "abc",
+      "secretKey": "123"
+    }
   }
 }
 ```
 
-Bundled storage support includes:
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| defaults | `StorageOptions` | *optional* | If provided, these options will be the defaults applied to all StorageOptions. **Note:** At least one of `defaults`, `app`, `domain`, or `header` are required |
+| app | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the route. If no match is found, the original options provided at initialization will be used. Example: `{ "some-app": StorageOptions } }`. |
+| domain | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on the host header. If no match is found, the original options provided at initialization will be used. Example: `{ "somedomain.com": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| header | `Object<StorageOptions>` | *optional* | If provided, allows for driver-specific options to be applied on a per-request basis, based on `x-isteam-app` header. If no match is found, the original options provided at initialization will be used. Example: `{ "some-other-app": StorageOptions }`. **Note:** You must still provide root level `storage` options to act as defaults |
+| cache | `StorageOptions` | *optional* | If provided, allows for driver-specific options to be applied for all cache objects. This effectively puts the api into a read-only mode for original assets, with all writes going exclusively to a single cache store |
+| cacheOptimized | `StorageOptions` | *optional* | If provided, will attempt to access *only* optimized original assets from this storage. This permits splitting of cache for sake of replication or eviction policies. If supplied, this also means delete requests will be supplied to both caches |
+| cacheTTS | `number` | *optional* | If provided, when artifacts or optimized originals (unless `cacheOptimizedTTS` is also provided) are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request |
+| cacheOptimizedTTS | `number` | *optional* | If provided, when *optimized original* are fetched from cache, if the age of the object exceeds this time-to-stale value (in seconds), it's age will be reset (implementation varies by storage client, but defaults to copying onto itself). This is a powerful pattern in cases where the cache storage leverages time-to-live, but you do not want active objects to be deleted at the expense of the user experience (and cost). When an object is "refreshed", it will only impact the storage of the stale object, ignoring `replicas` option. A refresh is out-of-band of the request |
+| replicas | `Object<StorageReplica>` | *optional* | If provided, all cache writes will also be written (out-of-band) to the desired storage replicas. Example: `{ remoteCache: { cache: { /* options */ }, cacheOptimized: { /* options */ } } }`. Where `remoteCache` is the name of a storage I want to forward my writes to. This feature provides a high degree of flexibility when determining your distribution of data across the globe, without the fixed replication that may be permitted by the storage provided (ala S3 replication). |
+| replicas[].cache | `StorageOptions` | *optional* | Same behavior as `storage.cache` |
+| replicas[].cacheOptimized | `StorageOptions` | *optional* | Same behavior as `storage.cacheOptimized` |
+| replicas[].replicateArtifacts | `boolean` | `true` | In some cases it may be too costly to replicate all image artifacts, especially when the location you're replicating to may receive small amounts of traffic for the same images. By disabling this flag, only optimized original images will be written to replicas |
 
-* `storage.driver` (default: `"fs"`) - Storage driver to use.
-* `storage.driverPath` (optional) - If provided, will load a custom driver
-  from the desired path, ignoring the `driver` option.
-* `storage.app` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on the route.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `/some-app/file-path/:/image-options`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.domain` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on the host header.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `{ "somedomain.com": { /* opts */ } }`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.header` (object) - If provided, allows for driver-specific
-  options to be applied on a per-request basis, based on `x-isteam-app` header.
-  If no match is found, the original options provided at initialization
-  will be used.
-  Example: `{ "some-other-app": { /* opts */ } }`
-  **Note:** You must still provide root level `storage` options
-  to act as defaults.
-* `storage.driver=fs` - File System driver.
-  * `storage.path` (***required***) - Root path on file system.
-* `storage.driver=s3` - Should work with any S3-compatible storage.
-  * `storage.endpoint` (default: `"s3.amazonaws.com"`) - Endpoint of S3 service.
-  * `storage.port` (default: `443`) - Non-443 port will auto-default secure to `false`.
-  * `storage.secure` (default: `true` only if port `443`) - Override as needed.
-  * `storage.accessKey` (***required***) - S3 access key.
-  * `storage.secretKey` (***required***) - S3 secret key.
-  * `storage.style` (default: `"path"`) - May use `virtualHosted` if bucket is not in path.
-  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
-* `storage.driver=http` - ***Read-Only*** driver for web resource.
-  * `storage.endpoint` (***required***) - Endpoint of http(s) service.
-  * `storage.bucket` (optional) - If provided, will not attempt to take bucket from path.
-* `storage.cache` (object) - If provided, allows for driver-specific
-  options to be applied for all cache objects. This effectively puts the api
-  into a read-only mode for original assets, with all writes going exclusively
-  to a single cache store.
+### StorageOptions
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| driver | `string` | `driver` or `driverPath` ***required*** | Bundled storage driver to use |
+| driverPath | `string` | `driver` or `driverPath` ***required*** | Load a custom driver from the desired path, ignoring the `driver` option |
+| *(driver options)* | | | All other options will be supplied to the storage driver indicated by `driver` or `driverPath` |
+
+***Advanced*** storage example:
+
+```
+{
+  "storage": {
+    "defaults": {
+      "driverPath": "image-steam-s3",
+      "endpoint": "s3.amazonaws.com
+    },
+    "app": {
+      "app1": {
+        "accessKey": "key1",
+        "secretKey": "secret1"
+      }
+    },
+    "cache": {
+      "endpoint": "<dc1 endpoint>",
+      "accessKey": "key2",
+      "secretKey": "secret2"
+    },
+    "cacheTTS": 86400, /* 24 hrs */
+    "cacheOptimizedTTS": 43200, /* 12 hrs */
+    "replicas": {
+      "dc2Cache": {
+        "cache": {
+          "endpoint": "<dc2 endpoint>",
+          "accessKey": "key3",
+          "secretKey": "secret3"
+        }
+      }
+    }
+  }
+}
+```
+
+
+### Bundled Storage Clients
+
+#### Storage Client - File System
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| driver=fs | | | File System |
+| path | `string` | ***required*** | Root path on file system |
+
+#### Storage Client - HTTP
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| driver=http |  | | ***Read-Only*** driver for web resource |
+| endpoint | `string` | ***required*** | Endpoint of http(s) service |
+| bucket | `string` | *optional* | If provided, will not attempt to take bucket from path |
+
+#### Custom Client
 
 Custom storage types can easily be added via exporting `fetch` and `store`.
-See `lib/storage/fs` or  `lib/storage/http` or `lib/storage/s3` for reference.
+See `lib/storage/fs` (read/write/delete) or  `lib/storage/http` (read only) for reference.
+
 
 ### External Storage Clients
 
+* https://github.com/asilvas/image-steam-s3 - S3 client built on [knox](https://github.com/Automattic/knox)
 * https://github.com/asilvas/image-steam-redis - Redis client built on [ioredis](https://github.com/luin/ioredis)
-* https://github.com/asilvas/image-steam-blobby - Blobby client over HTTP(S)
+* https://github.com/asilvas/image-steam-blobby - [Blobby](https://github.com/asilvas/blobby) client over HTTP(S)
 
 
 ## Throttle Options
@@ -222,14 +255,11 @@ Throttling allows for fine grain control over quality of service, as well as opt
 }
 ```
 
-* `throttle.ccProcessors` (default: `4`) - Number of concurrent image processing operations.
-  Anything to exceed this value will wait (via semaphore) for next availability.
-* `throttle.ccPrefetchers` (default: `20`) - Number of concurrent storage request operations.
-  This helps prevent saturation of your storage and/or networking interfaces to provide the
-  optimal experience.
-  Anything to exceed this value will wait (via semaphore) for next availability.
-* `throttle.ccRequests` (default: `100`) - Number of concurrent http requests.
-  Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| ccProcessors | `number` | `4` | Number of concurrent image processing operations. Anything to exceed this value will wait (via semaphore) for next availability |
+| ccPrefetchers | `number` | `20` | Number of concurrent storage request operations. This helps prevent saturation of your storage and/or networking interfaces to provide the optimal experience |
+| ccRequests | `number` | `100` | Number of concurrent http requests. Anything to exceed this value will result in a 503 (too busy), to avoid an indefinite pileup |
 
 
 ## Router Options
@@ -248,15 +278,16 @@ Most router defaults should suffice, but you have full control over routing. See
 }
 ```
 
-Options:
-* `router.pathDelimiter` (default: `"/:/"`) - Unique (uri-friendly) string to break apart image path, and image steps.
-* `router.cmdKeyDelimiter` (default: `"/"`) - Separator between commands (aka image steps).
-* `router.cmdValDelimiter` (default: `"="`) - Separator between a command and its parameters.
-* `router.paramKeyDelimiter` (default: `","`) - Separator between command parameters.
-* `router.paramValDelimiter` (default: `":"`) - Separator between a parameter key and its value.
-* `router.signatureDelimiter` (default: `"/-/"`) - Separator between steps and the signed url
-* `router.originalSteps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images.
-* `router.steps` (default: [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js)) - Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| pathDelimiter | `string` | `"/:/"` | Unique (uri-friendly) string to break apart image path, and image steps |
+| cmdKeyDelimiter | `string` | `"/"` | Separator between commands (aka image steps) |
+| cmdValDelimiter | `string` | `"="` | Separator between a command and its parameters |
+| paramKeyDelimiter | `string` | `","` | Separator between command parameters |
+| paramValDelimiter | `string` | `":"` | Separator between a parameter key and its value |
+| signatureDelimiter | `string` | `"/-/"` | Separator between steps and the signed url |
+| originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
+| steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
 
 
 # Routing
@@ -265,15 +296,21 @@ Routing is left-to-right for legibility.
 
 Routing format:
 
-  `{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}{signatureDelimiter}{signature}?{queryString}`
+```
+{path}{pathDelimiter}{cmd1}{cmdValDelimiter}{cmd1Param1Key}{paramValDelimiter}{cmd1Param1Value}{paramKeyDelimiter}{cmdKeyDelimiter}{signatureDelimiter}{signature}?{queryString}
+```
 
 Example URI using [Default Options](#router-options):
 
-  `some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false`
+```
+some/image/path/:/cmd1=param1:val,param2:val,param3noVal/cmd2NoParams?cache=false
+```
 
 Or a more real-world example:  
 
-  `/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25`
+```
+/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25
+```
 
 See [Things to Try](#things-to-try) for many more examples.
 
@@ -283,26 +320,21 @@ See [Things to Try](#things-to-try) for many more examples.
 
 Resize an image, preserving aspect or not.
 
-Arguments:
-
-* Width (`w`, optional*) - Width of new size. Supports Dimension Modifiers.
-* Height (`h`, optional*) - Height of new size. Supports Dimension Modifiers.
-* Max (`mx`, default) - Retain aspect and use dimensions as the maximum
-  permitted during resize.
-* Min (`m`, optional) - Retain aspect and use dimensions as the minimum
-  permitted during resize. Set to any value to enable.
-* Ignore Aspect Ratio (`i`, default: `false`) - If true will break aspect and
-  resize to exact dimensions.
-* Can Grow (`cg`, default: `false`) - If `true`, will allow image to exceed the dimensions of the original.
-* Interpolator (`int`, default: `bicubic`) - Process to use for resizing, from fastest to slowest:
-  * nearest - Use nearest neighbour interpolation, suitable for image enlargement only.
-  * bilinear - Use bilinear interpolation, the default and fastest image reduction interpolation.
-  * bicubic - Use bicubic interpolation, which typically reduces performance by 5%.
-  * vertexSplitQuadraticBasisSpline (`vsqbs`) - Use VSQBS interpolation, which prevents "staircasing" and typically reduces performance by 5%.
-  * locallyBoundedBicubic (`lbb`) - Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2.
-  * nohalo - Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3.
-
-Note: Width or Height are optional, but at least one must be provided.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `w` | Number/Unit | `w` OR `h` **required** | Width of new size. Supports Dimension Modifiers |
+| `h` | Number/Unit | `w` OR `h` **required** | Height of new size. Supports Dimension Modifiers |
+| `mx` | n/a | **default** | Retain aspect and use dimensions as the maximum permitted during resize |
+| `m` | n/a | *optional* | Retain aspect and use dimensions as the minimum permitted during resize. Set to any value to enable |
+| `i` | Boolean | `false` | If `true` will break aspect and resize to exact dimensions |
+| `cg` | Boolean | `false` | If `true`, will allow image to exceed the dimensions of the original |
+| `int` | String | `bicubic` | Process to use for resizing, from fastest to slowest |
+| | | `nearest` | Use nearest neighbour interpolation, suitable for image enlargement only |
+| | | `bilinear` | Use bilinear interpolation, the default and fastest image reduction interpolation |
+| | | `bicubic` | Use bicubic interpolation, which typically reduces performance by 5% |
+| | | `vsqbs` |  Use vertexSplitQuadraticBasisSpline interpolation, which prevents "staircasing" and typically reduces performance by 5% |
+| | | `lbb` | Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2 |
+| | | `nohalo` | Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3 |
 
 ### Examples
 
@@ -315,22 +347,15 @@ Note: Width or Height are optional, but at least one must be provided.
 
 Crop an image to an exact size.
 
-Arguments:
-
-* Top (`t`, default: `0`) - Offset from top. Supports Dimension Modifiers.
-* Left (`l`, default: `0`) - Offset from left. Supports Dimension Modifiers.
-* Width (`w`, default: width-left) - Width of new size. Supports Dimension Modifiers.
-* Height (`h`, default: height-top) - Height of new size. Supports Dimension Modifiers.
-* Anchor (`a`, default: `cc`) - Where to anchor from, using center-center by default. Top
-  and Left are applied from the anchor. Possible horizontal axis
-  values include left (l), center (c), and right (r). Possible vertical axis
-  values include top (t), center (c), and bottom (b).
-* Anchor Y (`ay`, default: `50%`) - Can be used to absolutely position the
-  anchor offset vertically using either percentage or pixel values. Also supports offsets
-  relative to the Anchor value.
-* Anchor X (`ax`, default: `50%`) - Can be used to absolutely position the
-  anchor offset horizontally using either percentage or pixel values. Also supports offsets
-  relative to the Anchor value.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `t` | Number/Unit | `0` | Offset from top. Supports Dimension Modifiers |
+| `l` | Number/Unit | `0` | Offset from left. Supports Dimension Modifiers |
+| `w` | Number/Unit | `width-left` | Width of new size. Supports Dimension Modifiers |
+| `h` | Number/Unit | `height-top` | Height of new size. Supports Dimension Modifiers |
+| `a` | String | `cc` | Where to anchor from, using center-center by default. Top and Left are applied from the anchor. Possible horizontal axis values include left (l), center (c), and right (r). Possible vertical axis values include top (t), center (c), and bottom (b) |
+| `ay` | Number/Unit | `50%` | Can be used to absolutely position the anchor offset vertically using either percentage or pixel values. Also supports offsets relative to the Anchor value |
+| `ax` | Number/Unit | `50%` | Can be used to absolutely position the anchor offset horizontally using either percentage or pixel values. Also supports offsets relative to the Anchor value |
 
 ### Examples
 
@@ -355,10 +380,9 @@ at a factor of gamma.
 This can improve the perceived brightness of a resized image
 in non-linear colour spaces.
 
-Arguments:
-
-* Gamma (`g`, default: `2.2`) - A float between 1 and 3. The default value is 2.2,
-  a suitable approximation for sRGB images.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `g` | Number | `2.2` | A float between 1 and 3. The default value is 2.2, a suitable approximation for sRGB images |
 
 JPEG input images will not take advantage of the shrink-on-load
 performance optimisation when applying a gamma correction.
@@ -366,23 +390,13 @@ performance optimisation when applying a gamma correction.
 
 ## Background (bg)
 
-Arguments:
-
-* Red (`r`) - Red component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Green (`g`) - Green component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Blue (`b`) - Blue component of the RGB(A) spectrum.
-  An integer between 0 and 255.
-  Do not use in conjunction with Hex color.
-* Alpha (`a`) - Optional Alpha component of the RGB(A) spectrum.
-  A float value between 0 (transparent) and 1 (opaque).
-  Can be used in conjunction with Hex color.
-* Hex (`#`) - Full hex color (i.e. `ffffff`).
-  Partial (i.e. `fff`) not supported.
-  Do not use in conjunction with RGB color. Alpha is OK.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `r` | Number | **required** | Red component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `g` | Number | **required** | Green component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `b` | Number | **required** | Blue component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
+| `a` | Number | *optional* | Optional Alpha component of the RGB(A) spectrum. A float value between 0 (transparent) and 1 (opaque). Can be used in conjunction with Hex color |
+| `#` | Number | *optional* | Full hex color (i.e. `ffffff`). Partial (i.e. `fff`) not supported. Do not use in conjunction with RGB color. Alpha is OK |
 
 
 ## Flatten (ft)
@@ -392,11 +406,9 @@ Merge alpha transparency channel, if any, with background.
 
 ## Rotate (rt)
 
-Arguments:
-
-* Degrees (`d`) - Degrees to rotate the image, in increments of 90.
-  Future implementations may support non-optimized degrees of rotation.
-  Specify `auto` to auto-rotate based on orientation.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `d` | Number | `0` | Degrees to rotate the image, in increments of 90. Future implementations may support non-optimized degrees of rotation. Specify `0` to auto-rotate based on orientation |
 
 ### Examples
 
@@ -408,10 +420,10 @@ Arguments:
 Not to be confused with rotation, flipping is the process of flipping
 an image on its horizontal and/or vertical axis.
 
-Arguments:
-
-* X (`x`) - Flip on the horizontal axis. No value required.
-* Y (`y`) - Flip on the vertical axis. No value required.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `x` | n/a | *optional* | Flip on the horizontal axis. No value required |
+| `y` | n/a | *optional* | Flip on the vertical axis. No value required |
 
 ### Examples
 
@@ -423,8 +435,9 @@ Arguments:
 
 The output quality to use for lossy JPEG, WebP and TIFF output formats.
 
-* Quality (`q`, default: `80`) - Value between 1 (worst, smallest) and
-  100 (best, largest).  
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `q` | Number | `80` | Value between 1 (worst, smallest) and 100 (best, largest) |
 
 
 ## Compression (cp)
@@ -432,7 +445,9 @@ The output quality to use for lossy JPEG, WebP and TIFF output formats.
 An advanced setting for the zlib compression level of the lossless
 PNG output format. The default level is 6.
 
-* Compression (`c`, default: `6`) - Number between 0 and 9.  
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `c` | Number | `6` | Number between 0 and 9 |
 
 
 ## Progressive (pg)
@@ -459,28 +474,27 @@ best determined by the individual request.
 Override the auto-detected optimal format to output. Do not use this unless
 you have good reason.
 
-Arguments:
-
-* Format (`f`, required) - Format to output: "jpeg", "png", or "webp".
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `f` | String | **required** | Format to output: `"jpeg"`, `"png"`, or `"webp"` |
 
 
 ## Metadata (md)
 
 Carry metadata from the original image into the outputted image. Enabled by default.
 
-Arguments:
-
-* Enabled (`e`, default: 'true') - Set to `false` to not preserve metadata from original.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `e` | Boolean | `true` | Set to `false` to not preserve metadata from original |
 
 
 ## Sharpen (fx-sp)
 
-Arguments:
-
-* Radius (`r`, optional) - Sharpening mask to apply in pixels, but comes at
-  a performance cost.
-* Flat (`f`, default: `1.0`) - Sharpening to apply to flat areas.
-* Jagged (`j`, default: `2.0`) - Sharpening to apply to jagged areas.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `r` | Number | *optional* | Sharpening mask to apply in pixels, but comes at a performance cost |
+| `f` | Number | `1.0` | Sharpening to apply to flat areas |
+| `j` | Number | `2.0` | Sharpening to apply to jagged areas |
 
 ### Examples
 
@@ -492,9 +506,9 @@ Arguments:
 Fast mild blur by default, but can override the default sigma for more
 control (at cost of performance).
 
-Arguments:
-
-* Sigma (`s`, default: `2.0`) - The approximate blur radius in pixels, from 0.3 to 1000.
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `s` | Number | `2.0` | The approximate blur radius in pixels, from 0.3 to 1000 |
 
 ### Examples
 
@@ -518,12 +532,12 @@ A new (ALPHA) command to retrieve a list of palette colors from image in JSON fo
 
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
-| w | Number | `100` | Width of image. `w` OR `h` must be set. |
-| h | Number | undefined | Height of image. `w` OR `h` must be set. |
-| mc | Number | `10` | Max colors to return |
-| cc | Number | `4` | Cubic cells (3 or 4) |
-| mn | Boolean | `true` | Use mean color (`true`) or median color (`false`) |
-| o | String | `distance` | Order of results, `distance` between colors, or based on cell `density` |
+| `w` | Number | `100` | Width of image. `w` OR `h` must be set. |
+| `h` | Number | undefined | Height of image. `w` OR `h` must be set. |
+| `mc` | Number | `10` | Max colors to return |
+| `cc` | Number | `4` | Cubic cells (3 or 4) |
+| `mn` | Boolean | `true` | Use mean color (`true`) or median color (`false`) |
+| `o` | String | `distance` | Order of results, `distance` between colors, or based on cell `density` |
 
 See [Image-Pal](https://github.com/asilvas/image-pal#options) for more details.
 
@@ -588,12 +602,15 @@ Relying on sharp/libvips, and potentially other image processors in the future.
 }
 ```
 
-Options:
-* `processor.sharp.cache.memory` (default: `50`) - Maximum memory in MB to use for this cache.
-* `processor.sharp.cache.files` (default: `20`) - Maximum number of files to hold open.
-* `processor.sharp.cache.items` (default: `200`) - Maximum number of operations to cache.
-* `processor.sharp.concurrency` (default: `0`) - Defaults to number of cores. http://sharp.dimens.io/en/stable/api/#sharpconcurrencythreads
-* `processor.sharp.simd` (default: `false`) - SIMD vector optimization. http://sharp.dimens.io/en/stable/api/#sharpsimdenable
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| sharp | [SharpOptions](http://sharp.pixelplumbing.com/en/stable/api-utility/) | | |
+| sharp.cache | [CacheOptions](http://sharp.pixelplumbing.com/en/stable/api-utility/#cache) | | |
+| sharp.cache.memory | `number` | `50` | Maximum memory in MB to use for this cache |
+| sharp.cache.files | `number` | `20` | Maximum number of files to hold open |
+| sharp.cache.items | `number` | `200` | Maximum number of operations to cache |
+| sharp.concurrency | `number` | `0` | Number of threads to process each image in parallel. A value of 0 will use all available cores |
+| sharp.simd | `boolean` | `false` | Improves the performance of resize, blur and sharpen operations by taking advantage of the SIMD vector unit of the CPU, e.g. Intel SSE and ARM NEON |
 
 
 
@@ -654,7 +671,9 @@ Security allows protecting the image resources behind each tranformation. This w
 
 A signed url would look like this:
 
-`/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9`
+```
+/my-s3-bucket/big-image.jpg/:/rs=w:640/cr=w:90%25,h:90%25/-/k5G5dlr9
+```
 
 ```
 {
@@ -666,11 +685,13 @@ A signed url would look like this:
 }
 ```
 
-* `security.enabled` (default: `false`) - Security enabled.
-* `security.secret` - The signing secret.
-* `security.algorigthm` (default: `sha1`) - The hashing algorithm. Complete list: `openssl list-cipher-algorithms`.
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| enabled | `boolean` | `false` | If this feature is enabled, all requests urls will must be signed |
+| secret | `string` | ***required*** | The signing secret |
+| algorigthm | `string` | `sha1` | The hashing algorithm. Complete list: `openssl list-cipher-algorithms` |
 
-If this feature is enabled, all requests urls will must be signed. The following snippet shows how to sign a url (using the library defaults).
+The following snippet shows how to sign a url (using the library defaults).
 
 ```
 var crypto = require('crypto');

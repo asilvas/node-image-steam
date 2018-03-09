@@ -38,6 +38,7 @@ describe('#Image Server Security', function () {
 
   serverRequests.forEach(function (serverRequest) {
     var url = getUrlFromImageSteps(serverRequest);
+    if (!url) return;
     it(serverRequest.label + ', url: ' + url + ' good signature', function (url, cb) {
       getResponse(url, function (err, res) {
         expect(res.statusCode).to.be.equal(200);
@@ -51,6 +52,7 @@ describe('#Image Server Security', function () {
 
   serverRequests.forEach(function (serverRequest) {
     var url = getUrlFromImageSteps(serverRequest, 'bogussig');
+    if (!url) return;
     it(serverRequest.label + ', url: ' + url + ' bad signature', function (url, cb) {
       getResponse(url, function (err, res) {
         expect(res.statusCode).to.be.equal(401);
@@ -60,6 +62,8 @@ describe('#Image Server Security', function () {
   });
 
   function getUrlFromImageSteps(serverRequest, signature) {
+    var options = serverRequest.options || {};
+    if (options.security === false) return;
     var steps = serverRequest.steps;
     var imgName = serverRequest.imageName || 'UP_steam_loco.jpg';
 

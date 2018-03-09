@@ -1,7 +1,7 @@
 {
   "name": "image-steam",
-  "version": "0.40.1",
-  "description": "A simple, fast, and highly customizable on-the-fly image manipulation web server built atop Node.js.",
+  "version": "0.41.0",
+  "description": "A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js.",
   "main": "index.js",
   "scripts": {
     "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
@@ -36,16 +36,27 @@
     "isteam": "./bin/isteam",
     "isteamd": "./bin/isteamd"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "index.js",
+    "LICENSE.txt",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
   "dependencies": {
     "async": "^2.6.0",
     "fs-extra": "^5.0.0",
     "image-pal-sharp": "^1.2.2",
-    "knox": "0.9.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "mime": "^2.2.0",
     "optimist": "0.6.1",
     "semaphore": "^1.1.0",
-    "sharp": "^0.19.0",
+    "sharp": "^0.19.1",
     "xxhash": "0.2.4"
   },
   "devDependencies": {
@@ -57,8 +68,8 @@
     "mocha": "^3.5.3",
     "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
-    "should": "^13.0.1",
-    "sinon": "^3.2.1",
-    "sinon-chai": "^2.8.0"
+    "should": "^13.2.1",
+    "sinon": "^3.3.0",
+    "sinon-chai": "^2.14.0"
   }
 }
