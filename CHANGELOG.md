@@ -1,3 +1,8 @@
+# 0.43.0 - March 2018
+
+* ***(DEPENDENCIES)*** `sharp` - Updated to `v0.20` which requires `libvips` `v8.6.1` or later. 
+
+
 # 0.42.0 - March 2018
 
 * ***(CONFIGURATION)*** `storage.cacheArtifacts` - Caching of image artifacts may now be disabled. 
