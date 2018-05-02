@@ -4,7 +4,7 @@
 * ***(FEATURE)*** Crop auto-focus - An experimental new feature to permit saliency-based auto-focus. Exposed by crop anchor=`auto`.
 * ***(FEATURE)*** `$saliency` command - An experimental new feature to permit retrieving of saliency meta data.
 * ***(FEATURE)*** `$saliencyMap` command - An experimental new feature to permit retrieving of saliency map.
-* ***(DEPENDENCIES)*** `salient-autofocus` - **New** to support the new saliency auto-focus feature. 
+* ***(DEPENDENCIES)*** `salient-autofocus` - Required by the new saliency auto-focus feature. 
 
 
 # 0.43.0 - March 2018
