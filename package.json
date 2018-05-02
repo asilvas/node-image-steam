@@ -55,8 +55,9 @@
     "lodash": "^4.17.5",
     "mime": "^2.2.0",
     "optimist": "0.6.1",
+    "salient-autofocus": "^0.7.1",
     "semaphore": "^1.1.0",
-    "sharp": "^0.19.1",
+    "sharp": "^0.20.2",
     "xxhash": "0.2.4"
   },
   "devDependencies": {
@@ -71,5 +72,9 @@
     "should": "^13.2.1",
     "sinon": "^3.3.0",
     "sinon-chai": "^2.14.0"
+  },
+  "optionalDependencies": {
+    "opencv4nodejs": "^4.4.0",
+    "salient-maps": "^0.1.5"
   }
 }

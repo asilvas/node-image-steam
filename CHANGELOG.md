@@ -1,3 +1,12 @@
+# 0.44.0 - May 2018
+
+* ***(FEATURE)*** `$info` command - Returns all known information about the image, including saliency (new) if available.
+* ***(FEATURE)*** Crop auto-focus - An experimental new feature to permit saliency-based auto-focus. Exposed by crop anchor=`auto`.
+* ***(FEATURE)*** `$saliency` command - An experimental new feature to permit retrieving of saliency meta data.
+* ***(FEATURE)*** `$saliencyMap` command - An experimental new feature to permit retrieving of saliency map.
+* ***(DEPENDENCIES)*** `salient-autofocus` - **New** to support the new saliency auto-focus feature. 
+
+
 # 0.43.0 - March 2018
 
 * ***(DEPENDENCIES)*** `sharp` - Updated to `v0.20` which requires `libvips` `v8.6.1` or later. 

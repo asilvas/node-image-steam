@@ -527,6 +527,69 @@ Enhance output image contrast by stretching its luminance to cover the full
 dynamic range. This typically reduces performance by 30%.
 
 
+## Info ($info)
+
+Returns all known information about the image, including [Saliency](#saliency) if available.
+
+```
+{
+  "info": {
+    "path": "family.jpg",
+    "lastModified": "2017-10-30T23:27:06.000Z",
+    "format": "webp",
+    "width": 1706,
+    "height": 2560,
+    "space": "srgb",
+    "channels": 3,
+    "depth": "uchar",
+    "density": 600,
+    "hasProfile": true,
+    "hasAlpha": false,
+    "orientation": 1,
+    "hash": 3979799324,
+    "byteSize": 1337334,
+    "saliency": {
+      "v": 1,
+      "c": {
+        "x": 0.488,
+        "y": 0.4576
+      },
+      "r25th": {
+        "l": 0.45,
+        "t": 0.4,
+        "w": 0.25,
+        "h": 0.2
+      },
+      "r40th": {
+        "l": 0.4,
+        "t": 0.35,
+        "w": 0.3,
+        "h": 0.25
+      },
+      "r50th": {
+        "l": 0.35,
+        "t": 0.35,
+        "w": 0.35,
+        "h": 0.3
+      },
+      "r75th": {
+        "l": 0.3,
+        "t": 0.1,
+        "w": 0.45,
+        "h": 0.7
+      },
+      "r90th": {
+        "l": 0.2,
+        "t": 0.05,
+        "w": 0.65,
+        "h": 0.8
+      }
+    }
+  }
+}
+```
+
+
 ## Colors ($colors)
 
 A new (ALPHA) command to retrieve a list of palette colors from image in JSON format.
@@ -546,6 +609,30 @@ See [Image-Pal](https://github.com/asilvas/image-pal#options) for more details.
 
 1. `$colors` - Get colors using default options.
 2. `$colors=mn:false` - Get colors using median color logic (ideal for logos).
+
+
+## Saliency ($saliency)
+
+***Experimental***
+
+Return data that describes the salient regions of an image in JSON format.
+
+See [Saliency](#saliency) for more details.
+
+
+## Saliency Map ($saliencyMap)
+
+***Experimental*** For TESTING only. Very CPU intensive, and should not be enabled in production.
+
+Return saliency image to better understand how the configured model is performing.
+
+See [Saliency](#saliency) for more details.
+
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `w` | Number | `200` | Width of saliency image |
+| `h` | Number | `200` | Height of saliency image |
+| `m` | String | `"deep"` | Saliency model to use |
 
 
 # Dimension Modifiers
@@ -701,6 +788,50 @@ shasum.update('/' + IMAGE_PATH + '/:/' + IMAGE_STEPS + YOUR_SECRET);
 var signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
 var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
 ```
+
+
+# Saliency
+
+A new and ***experimental*** feature that allows intellegent auto-focus during crop operations
+to avoid cropping critical regions of an image. Disabled by default, and requires installation
+of optional packages `opencv4nodejs` and `salient-maps`. See [Saliency Options](#saliency-options)
+for how to enable and configure this feature.
+
+## Examples
+
+1. `cr=w:50%,h:50%,a:auto` - Crop at 50% and set anchor to auto-focus the most salient region.
+2. `$saliency` - Return data to describe the saliency regions.
+3. `$saliencyMap` - Get a visual representation of what the computer sees as salient.
+
+## Saliency Options
+
+```
+{
+  "saliency": {
+    enabled: true,
+    version: 1,
+    autoCrop: true,
+    alwaysOn: true,
+    model: 'deep',
+    map: false,
+    options: {
+      width: 200,
+      height: 200
+    }
+  }
+}
+```
+
+| Option | Type | Default | Info |
+| --- | --- | --- | --- |
+| enabled | `boolean` | `false` | Enables saliency which depends on installation of optional packages `opencv4nodejs` and `salient-maps` |
+| version | `number` | `1` | Used for evicting old saliency caches when making upgrades. Should only be used if a breaking change is made |
+| autoCrop | `boolean` | `true` | If enabled, `crop` will set `anchor` to `auto` by default, auto-cropping based on salient region. May want to disable if already using previous defaults |
+| alwaysOn | `boolean` | `true` | If enabled, all optimized images generated will process saliency data to be cached. Should be enabled unless rolling out to a small percentage of users |
+| model | `string` | `"deep"` | See [Salient Models](https://github.com/asilvas/salient-maps#models) for other options |
+| map | `boolean` | `false` | Enables the `$salientMap` command. Should not be enabled in production environments |
+| options.width | `number` | `200` | Width of saliency map generated. Different models produce higher quality saliency with more pixels, but at the cost of performance |
+| options.height | `number` | `200` | Height of saliency map generated. Different models produce higher quality saliency with more pixels, but at the cost of performance |
 
 
 # Things to try:
