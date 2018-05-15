@@ -287,6 +287,7 @@ Most router defaults should suffice, but you have full control over routing. See
 | paramKeyDelimiter | `string` | `","` | Separator between command parameters |
 | paramValDelimiter | `string` | `":"` | Separator between a parameter key and its value |
 | signatureDelimiter | `string` | `"/-/"` | Separator between steps and the signed url |
+| supportWebP | `boolean` | `true` | Support for WebP format |
 | originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
 | steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
 

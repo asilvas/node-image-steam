@@ -1,3 +1,11 @@
+# 0.45.0 - May 2018
+
+* ***(CONFIGURATION)*** `router.supportWebP` - WebP may not be explicitly disabled, but remains enabled by default
+  to avoid breakages. If performance is critical, disabling this option has been known to speed up image operations
+  by 2 to 4 times.
+* ***(FIX)*** Saliency - Minor fixes to enabling/disabling this feature.
+
+
 # 0.44.0 - May 2018
 
 * ***(FEATURE)*** `$info` command - Returns all known information about the image, including saliency (new) if available.
