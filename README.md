@@ -633,6 +633,7 @@ See [Saliency](#saliency) for more details.
 | `w` | Number | `200` | Width of saliency image |
 | `h` | Number | `200` | Height of saliency image |
 | `m` | String | `"deep"` | Saliency model to use |
+| `af` | n/a | n/a | Shows bounding regions of auto-focus |
 
 
 # Dimension Modifiers
