@@ -12,7 +12,7 @@ module.exports = {
     version: 1,
     autoCrop: true,
     alwaysOn: true,
-    model: 'deep',
+    model: 'spectral',
     map: true,
     options: {
       width: 200,

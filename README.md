@@ -827,7 +827,6 @@ for how to enable and configure this feature.
 | Option | Type | Default | Info |
 | --- | --- | --- | --- |
 | enabled | `boolean` | `false` | Enables saliency which depends on installation of optional packages `opencv4nodejs` and `salient-maps` |
-| version | `number` | `1` | Used for evicting old saliency caches when making upgrades. Should only be used if a breaking change is made |
 | autoCrop | `boolean` | `true` | If enabled, `crop` will set `anchor` to `auto` by default, auto-cropping based on salient region. May want to disable if already using previous defaults |
 | alwaysOn | `boolean` | `true` | If enabled, all optimized images generated will process saliency data to be cached. Should be enabled unless rolling out to a small percentage of users |
 | model | `string` | `"deep"` | See [Salient Models](https://github.com/asilvas/salient-maps#models) for other options |

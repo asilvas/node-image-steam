@@ -1,3 +1,9 @@
+# 0.46.0 - June 2018
+
+* ***(ENHANCEMENT)*** Crop auto-focus - Greatly improved accuracy/consistency after being trained with hundreds of
+  thousands of data points, which also allowed for the switch to a far more efficient (~10x) saliency mode (spectral).
+
+
 # 0.45.0 - May 2018
 
 * ***(CONFIGURATION)*** `router.supportWebP` - WebP may not be explicitly disabled, but remains enabled by default
