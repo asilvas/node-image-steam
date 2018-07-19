@@ -49,15 +49,15 @@
     "package.json"
   ],
   "dependencies": {
-    "async": "^2.6.0",
-    "fs-extra": "^6.0.1",
+    "async": "^2.6.1",
+    "fs-extra": "^7.0.0",
     "image-pal-sharp": "^1.2.2",
     "lodash": "^4.17.10",
     "mime": "^2.3.1",
     "optimist": "0.6.1",
     "salient-autofocus": "^0.9.1",
     "semaphore": "^1.1.0",
-    "sharp": "^0.20.2",
+    "sharp": "^0.20.5",
     "xxhash": "0.2.4"
   },
   "devDependencies": {
@@ -66,12 +66,12 @@
     "istanbul": "^0.4.4",
     "jscs": "^3.0.7",
     "jshint": "^2.9.2",
-    "mocha": "^3.5.3",
+    "mocha": "^5.2.0",
     "mocha-istanbul": "^0.3.0",
     "open": "0.0.5",
     "should": "^13.2.1",
-    "sinon": "^3.3.0",
-    "sinon-chai": "^2.14.0"
+    "sinon": "^6.1.3",
+    "sinon-chai": "^3.2.0"
   },
   "optionalDependencies": {
     "opencv4nodejs": "^4.4.0",
