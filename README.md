@@ -135,6 +135,7 @@ isteam --isConfig './myconfig.json'
 | ssl.pfx | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
 | ssl.key | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
 | ssl.cert | `Buffer` or `string` | `undefined` | If string, will auto-load from file system |
+| globalAgent | `AgentKeepAlive` | [Defaults](https://github.com/node-modules/agentkeepalive#new-agentoptions) | If object, will initialize the global http(s) agents |
 
 
 ## Storage Options

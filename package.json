@@ -49,6 +49,7 @@
     "package.json"
   ],
   "dependencies": {
+    "agentkeepalive": "^4.0.0",
     "async": "^2.6.1",
     "fs-extra": "^7.0.0",
     "image-pal-sharp": "^1.2.2",
