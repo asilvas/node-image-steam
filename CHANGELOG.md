@@ -1,3 +1,13 @@
+# 0.48.0 - October 2018
+
+* ***(ENHANCEMENT)*** HTTP Agent - Utilize a more optimized HTTP(S) agent by default, including connection reuse.
+
+
+# 0.47.0 - October 2018
+
+* ***(ENHANCEMENT)*** Sharp - Upgrade to latest Sharp (`0.21.0`) for greater platform support.
+
+
 # 0.46.0 - June 2018
 
 * ***(ENHANCEMENT)*** Crop auto-focus - Greatly improved accuracy/consistency after being trained with hundreds of
