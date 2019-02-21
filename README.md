@@ -702,6 +702,7 @@ Relying on sharp/libvips, and potentially other image processors in the future.
 | sharp.cache.items | `number` | `200` | Maximum number of operations to cache |
 | sharp.concurrency | `number` | `0` | Number of threads to process each image in parallel. A value of 0 will use all available cores |
 | sharp.simd | `boolean` | `false` | Improves the performance of resize, blur and sharpen operations by taking advantage of the SIMD vector unit of the CPU, e.g. Intel SSE and ARM NEON |
+| sharp.defaults | [SharpConstructor](https://github.com/lovell/sharp/blob/master/docs/api-constructor.md#parameters) | `undefined` | Options supplied to constructor |
 
 
 
