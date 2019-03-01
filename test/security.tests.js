@@ -79,6 +79,7 @@ describe('#Image Server Security', function () {
   function getResponse(url, cb) {
     http.get(url, function (res) {
       cb(null, res);
+      res.resume(); // free the response
     }).on('error', function (err) {
       cb(err);
     });

@@ -1,3 +1,14 @@
+# 0.49.0 - March 2019
+
+* ***(BREAKING)*** `background` is no longer a standalone image operation, which is not in a useful state anyway.
+* ***(FEATURE)*** `extend` - New operation allows extending the image.
+* ***(ENHANCEMENT)*** `resize.fit` - Resize now allows `fit` to be overridden.
+* ***(ENHANCEMENT)*** `resize.position` - Resize now allows `position` to be overridden.
+* ***(ENHANCEMENT)*** `resize.background` - Permits background to be applied to resize operation when applicable.
+* ***(FIX)*** `+/-` on percentage dimensions is now working. Was only working on fixed (px) dimensions prior.
+* ***(FIX)*** Various test fixes.
+
+
 # 0.48.0 - October 2018
 
 * ***(ENHANCEMENT)*** HTTP Agent - Utilize a more optimized HTTP(S) agent by default, including connection reuse.

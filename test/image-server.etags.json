@@ -1,6 +1,6 @@
 [
 	{
-		"url": "DELETE http://localhost:13337/UP_steam_loco.jpg/:/fm=f:jpeg?cache=false"
+		"url": "DELETE http://localhost:13337/UP_steam_loco.jpg/:/fm=f:raw?cache=false"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/?cache=false",
@@ -159,6 +159,12 @@
 		"etag": "1078154964"
 	},
 	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/$colors=mn:false?cache=false"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/$colors?cache=false"
+	},
+	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/?useOriginal=true&cache=false"
 	},
 	{
@@ -170,147 +176,143 @@
 		"etag": "1678377820"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:5%25,t:10%25,w:90%25,h:80%25/fm=f:jpeg?cache=false",
-		"etag": "1996182060"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:5%25,t:10%25,w:90%25,h:80%25/fm=f:raw?cache=false",
+		"etag": "1731825353"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50,w:-100,h:-100/fm=f:jpeg?cache=false",
-		"etag": "3020368278"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50,w:-100,h:-100/fm=f:raw?cache=false",
+		"etag": "1557693605"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50/fm=f:jpeg?cache=false",
-		"etag": "1679413821"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:50,t:50/fm=f:raw?cache=false",
+		"etag": "3924104748"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:br/fm=f:jpeg?cache=false",
-		"etag": "1931603762"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:br/fm=f:raw?cache=false",
+		"etag": "1157143581"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:tl/fm=f:jpeg?cache=false",
-		"etag": "1874439274"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,a:tl/fm=f:raw?cache=false",
+		"etag": "1845800811"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,ay:500,ax:300/fm=f:jpeg?cache=false",
-		"etag": "832788564"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=w:50%25,h:50%25,ay:500,ax:300/fm=f:raw?cache=false",
+		"etag": "2477029687"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x,y/fm=f:jpeg?cache=false",
-		"etag": "2460633755"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x,y/fm=f:raw?cache=false",
+		"etag": "3707840555"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x/fm=f:jpeg?cache=false",
-		"etag": "3399087111"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=x/fm=f:raw?cache=false",
+		"etag": "447520354"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=y/fm=f:jpeg?cache=false",
-		"etag": "3445101753"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fl=y/fm=f:raw?cache=false",
+		"etag": "2810114383"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:jpeg?cache=false",
-		"etag": "1765216085"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:jpeg?cache=false",
-		"etag": "3437798705"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:raw?cache=false",
+		"etag": "4192804121"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl=s:5/fm=f:jpeg?cache=false",
-		"etag": "1875462514"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl=s:5/fm=f:raw?cache=false",
+		"etag": "9854864"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:1/fm=f:jpeg?cache=false",
-		"etag": "1765216085"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:1/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:3/fm=f:jpeg?cache=false",
-		"etag": "2135105648"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/gm=g:3/fm=f:raw?cache=false",
+		"etag": "436882104"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:false/fm=f:jpeg?cache=false",
-		"etag": "3178162870"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:false/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:true/fm=f:jpeg?cache=false",
-		"etag": "1765216085"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/md=e:true/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/qt=q:20/fm=f:jpeg?cache=false",
-		"etag": "340305608"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/qt=q:20/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:jpeg?cache=false",
-		"etag": "235015665"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:raw?cache=false",
+		"etag": "530669442"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$badCommand/fm=f:jpeg?cache=false"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:320/exd=l:10%25,t:10%25,r:10%25,b:10%25,bg:hex(aaaaaa)/fm=f:raw?cache=false",
+		"etag": "459815875"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$colors/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:320/exd=l:50,t:50,r:50,b:50,bg:rgba(80;60;120;0.5)/fm=f:raw?cache=false",
+		"etag": "2500106730"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$colors=mn:false/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$badCommand/fm=f:raw?cache=false"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:-10%25,l:-10%25,w:-10%25,h:-10%25/fm=f:jpeg?cache=false",
-		"etag": "2684341598"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=t:-10%25,l:-10%25,w:-20%25,h:-20%25/fm=f:raw?cache=false",
+		"etag": "3946888789"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:-10,l:-10,w:-10,h:-10/fm=f:jpeg?cache=false",
-		"etag": "2146136140"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=t:-10,l:-10,w:-20,h:-20/fm=f:raw?cache=false",
+		"etag": "50508534"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=w:200,t:50,l:50,w:+10,h:+10/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=true",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?cache=true",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?download=true&cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:jpeg?download=true&cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fx-sp=r:5/fm=f:raw?cache=false",
+		"etag": "3468619477"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fx-sp=r:5/fm=f:jpeg?cache=false",
-		"etag": "162319664"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip/fm=f:raw?cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bicubic/fm=f:raw?cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bicubic/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bilinear/fm=f:raw?cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bilinear/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:nearest/fm=f:raw?cache=false",
+		"etag": "2182995401"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:nearest/fm=f:jpeg?cache=false",
-		"etag": "2964796450"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:180/fm=f:raw?cache=false",
+		"etag": "3707840555"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:180/fm=f:jpeg?cache=false",
-		"etag": "2460633755"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:270/fm=f:raw?cache=false",
+		"etag": "1493718540"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:270/fm=f:jpeg?cache=false",
-		"etag": "2139076912"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:360/fm=f:raw?cache=false",
+		"etag": "1128312641"
 	},
 	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:360/fm=f:jpeg?cache=false",
-		"etag": "1765216085"
-	},
-	{
-		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:90/fm=f:jpeg?cache=false",
-		"etag": "173905429"
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:90/fm=f:raw?cache=false",
+		"etag": "564229212"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",

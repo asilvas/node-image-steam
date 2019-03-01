@@ -338,6 +338,9 @@ Resize an image, preserving aspect or not.
 | | | `vsqbs` |  Use vertexSplitQuadraticBasisSpline interpolation, which prevents "staircasing" and typically reduces performance by 5% |
 | | | `lbb` | Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2 |
 | | | `nohalo` | Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3 |
+| `bg` | String | *optional* | Supply a background color if applicable. Works in `hex(123123)` or `rgb(123; 123; 123)` or `rgba(123; 123; 123; 0.5)` formats |
+| `ft` | String | `fill` | How to fit the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
+| `ps` | String | `centre` | How to position the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
 
 ### Examples
 
@@ -391,17 +394,6 @@ JPEG input images will not take advantage of the shrink-on-load
 performance optimisation when applying a gamma correction.
 
 
-## Background (bg)
-
-| Argument | Type | Default | Desc |
-| --- | --- | --- | --- |
-| `r` | Number | **required** | Red component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
-| `g` | Number | **required** | Green component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
-| `b` | Number | **required** | Blue component of the RGB(A) spectrum. An integer between 0 and 255. Do not use in conjunction with Hex color |
-| `a` | Number | *optional* | Optional Alpha component of the RGB(A) spectrum. A float value between 0 (transparent) and 1 (opaque). Can be used in conjunction with Hex color |
-| `#` | Number | *optional* | Full hex color (i.e. `ffffff`). Partial (i.e. `fff`) not supported. Do not use in conjunction with RGB color. Alpha is OK |
-
-
 ## Flatten (ft)
 
 Merge alpha transparency channel, if any, with background.
@@ -432,6 +424,23 @@ an image on its horizontal and/or vertical axis.
 
 1. `fl=x` - Flip horizontally.
 2. `fl=x,y` - Flip on x and y axis.
+
+
+## Extend (exd)
+
+Extend the size of the image, placing a background in the directions specified.
+
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `t` | Number | `0` | Extend up |
+| `l` | Number | `0` | Extend left |
+| `b` | Number | `0` | Extend down |
+| `r` | Number | `0` | Extend right |
+| `bg` | String | *optional* | Supply a background color if applicable. Works in `hex(123123)` or `rgb(123; 123; 123)` or `rgba(123; 123; 123; 0.5)` formats. |
+
+### Examples
+
+1. `exd=l:10%,t:10%;r:10%;b:10%,bg:hex(123123)` - Extend the image by 10% on all sides and apply a background color `#123123`.
 
 
 ## Quality (qt)
