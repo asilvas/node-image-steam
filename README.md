@@ -8,7 +8,7 @@ A simple, fast, and highly customizable realtime image manipulation web server b
 
 # What is Image Steam?
 
-![NPM](./test/files/steam-engine-2.jpg)
+![NPM](./test/files/isteam-arch.jpg)
 
 ```
 http://localhost:13337/my-app/some-path/my-image.jpg/:/rs=w:640/cr=l:5%25,t:10%25,w:90%25,h:80%25/fx-gs
