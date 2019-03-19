@@ -1,3 +1,9 @@
+# 0.50.0 - March 2019
+
+* ***(BREAKING)*** `embed` - Removal of deprecated function.
+* ***(ENHANCEMENT)*** Sharp - Upgrade to latest Sharp (`0.22.0`).
+
+
 # 0.49.0 - March 2019
 
 * ***(BREAKING)*** `background` is no longer a standalone image operation, which is not in a useful state anyway.
