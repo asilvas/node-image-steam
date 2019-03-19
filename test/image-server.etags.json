@@ -245,7 +245,7 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:raw?cache=false",
-		"etag": "530669442"
+		"etag": "3824277294"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:320/exd=l:10%25,t:10%25,r:10%25,b:10%25,bg:hex(aaaaaa)/fm=f:raw?cache=false",
@@ -320,6 +320,6 @@
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",
-		"etag": "3121270009"
+		"etag": "780286028"
 	}
 ]
