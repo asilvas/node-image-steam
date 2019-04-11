@@ -10,6 +10,7 @@ module.exports = [
   { steps: 'rs=w:640/cr=t:-10,l:-10,w:-20,h:-20', label: 'top/left/width/height -10px' },
   { steps: 'rs=w:640/cr=t:-10%25,l:-10%25,w:-20%25,h:-20%25', label: 'top/left/width/height -10%' },
   { steps: 'rs=w:640', imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
+  { steps: '', imageName: 'roast.png', label: 'test HQ settings' },
   { steps: 'rs=w:320/exd=l:10%25,t:10%25,r:10%25,b:10%25,bg:hex(aaaaaa)', label: 'extend 10% around all edges with hex' },
   { steps: 'rs=w:320/exd=l:50,t:50,r:50,b:50,bg:rgba(80;60;120;0.5)', label: 'extend 10% around all edges with rgba' },
   // github does not (yet) support these special characters, so opting to skip this for now -- verified locally

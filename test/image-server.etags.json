@@ -315,8 +315,12 @@
 		"etag": "564229212"
 	},
 	{
+		"url": "http://localhost:13337/roast.png/:/?cache=false",
+		"etag": "1343120865"
+	},
+	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
-		"etag": "4099704766"
+		"etag": "2238781129"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",
