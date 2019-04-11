@@ -467,7 +467,8 @@ PNG output format. The default level is 6.
 ## Lossless (ll)
 
 Flag format for lossless. Currently only supported by `webp`, and ignored
-by other formats.
+by other formats. However if the requesting device does not support `webp`,
+and `lossless` is set, it will fallback to `png` for consistent quality.
 
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
