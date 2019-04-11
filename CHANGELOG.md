@@ -1,3 +1,9 @@
+# 0.51.0 - April 2019
+
+* ***(FEATURE)*** `router.hqOriginalSteps` - Support for highest quality optimized originals for smaller images (400x400 by default). Will only impact newly generated OO's.
+* ***(FEATURE)*** `lossless` - Option to enable lossless WebP via `/ll` path.
+
+
 # 0.50.0 - March 2019
 
 * ***(BREAKING)*** `embed` - Removal of deprecated function.

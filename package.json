@@ -1,6 +1,6 @@
 {
   "name": "image-steam",
-  "version": "0.50.0",
+  "version": "0.51.0",
   "description": "A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js.",
   "main": "index.js",
   "scripts": {
@@ -54,7 +54,7 @@
     "fs-extra": "^7.0.1",
     "image-pal-sharp": "^1.2.2",
     "lodash": "^4.17.11",
-    "mime": "^2.4.0",
+    "mime": "^2.4.2",
     "optimist": "0.6.1",
     "salient-autofocus": "^0.9.1",
     "semaphore": "^1.1.0",
@@ -67,11 +67,11 @@
     "istanbul": "^0.4.5",
     "jscs": "^3.0.7",
     "jshint": "^2.10.2",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.2",
     "mocha-istanbul": "^0.3.0",
-    "open": "0.0.5",
+    "open": "^6.1.0",
     "should": "^13.2.3",
-    "sinon": "^7.2.7",
+    "sinon": "^7.3.1",
     "sinon-chai": "^3.3.0"
   },
   "optionalDependencies": {

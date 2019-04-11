@@ -290,6 +290,8 @@ Most router defaults should suffice, but you have full control over routing. See
 | signatureDelimiter | `string` | `"/-/"` | Separator between steps and the signed url |
 | supportWebP | `boolean` | `true` | Support for WebP format |
 | originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
+| hqOriginalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Identical behavior to `originalSteps`, but with lossless defaults and reserved only for images smaller than `hqOriginalMaxPixels` |
+| hqOriginalMaxPixels | `number` | `400 * 400` | Max threshold of pixels where the higher quality `hqOriginalSteps` are used in place of `originalSteps` |
 | steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
 
 
@@ -460,6 +462,16 @@ PNG output format. The default level is 6.
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
 | `c` | Number | `6` | Number between 0 and 9 |
+
+
+## Lossless (ll)
+
+Flag format for lossless. Currently only supported by `webp`, and ignored
+by other formats.
+
+| Argument | Type | Default | Desc |
+| --- | --- | --- | --- |
+| `n` | Boolean | `false` | Near lossless |
 
 
 ## Progressive (pg)
