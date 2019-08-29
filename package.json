@@ -59,7 +59,7 @@
     "salient-autofocus": "^0.9.1",
     "semaphore": "^1.1.0",
     "sharp": "^0.22.0",
-    "xxhash": "0.2.4"
+    "xxhash": "0.3.0"
   },
   "devDependencies": {
     "browser-launcher": "^1.0.1",
