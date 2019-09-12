@@ -2,7 +2,7 @@
 
 Benchmark for Image Steam to help determine ideal hardware configurations and load levels.
 
-![Dashboard](./docs/dashboard.jpg)
+![Dashboard](https://raw.githubusercontent.com/asilvas/node-image-steam/master/packages/image-steam-bench/docs/dashboard.jpg)
 
 
 ## Getting Started
