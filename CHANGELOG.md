@@ -1,3 +1,7 @@
+# September 11 2019
+
+* ***(FEATURE)*** Full benchmark suite now available, [check it out](./packages/image-steam-bench)! `npm i -g image-steam-bench`
+
 # 0.51.0 - April 2019
 
 * ***(FEATURE)*** `router.hqOriginalSteps` - Support for highest quality optimized originals for smaller images (400x400 by default). Will only impact newly generated OO's.

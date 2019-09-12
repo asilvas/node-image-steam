@@ -1,0 +1,32 @@
+{
+  "name": "image-steam-bench",
+  "version": "1.0.0",
+  "description": "Benchmark for Image Steam to help determine ideal hardware configurations and load levels",
+  "main": "src/cli.js",
+  "scripts": {
+    "start": "node ./ run http://localhost:13337/isteamb",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "image-steam-bench": "./bin/isteamb",
+    "isteamb": "./bin/isteamb"
+  },
+  "files": [
+    "bin",
+    "files",
+    "src",
+    "README.md",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asilvas/node-image-steam/tree/master/packages/image-steam-bench"
+  },
+  "author": "Aaron Silvas",
+  "license": "MIT",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.16",
+    "yargs": "^14.0.0"
+  }
+}
