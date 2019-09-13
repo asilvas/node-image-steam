@@ -13,7 +13,7 @@ module.exports = {
     const closeServer = await server(bench);
 
     await verifyISteam(bench);
-    
+
     for (var i = 0; i < tests.length; i++) {
       await runTest(bench, tests[i]);
     }

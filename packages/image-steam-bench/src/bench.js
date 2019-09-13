@@ -1,125 +1,16 @@
-const blessed = require('blessed');
-const contrib = require('blessed-contrib');
-const tests = require('./test');
-
-const screen = blessed.screen();
-
-screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-  return process.exit(0);
-});
-
-const grid = new contrib.grid({ rows: 12, cols: 12, screen });
-
-const screenLog = grid.set(8, 8, 4, 4, contrib.log, {
-  padding: 1,
-  fg: 'white',
-  selectedFg: 'green',
-  label: 'Activity Log'
-});
-
-const screenThroughput = grid.set(0, 0, 8, 8, contrib.line, {
-  style: {
-    text: 'white',
-    baseline: 'black'
-  },
-  xLabelPadding: 3,
-  xPadding: 5,
-  showLegend: false,
-  wholeNumbersOnly: true,
-  numYLabels: 8,
-  showNthLabel: 10,
-  legend: { width: 20 },
-  label: 'Throughput (rps)'
-});
-
-// hacky labels due to limitations of line widget
-const timeLabels = Array.from(Array(60)).map((v, i) => ` `);
-timeLabels[30] = 'time';
-
-const throughputData = {
-  style: { line: 'green' },
-  x: timeLabels,
-  y: Array.from(Array(60)).map(() => 0)
-};
-
-const screenLatency = grid.set(4, 8, 4, 4, contrib.line, {
-  style: {
-    text: 'white',
-    baseline: 'black'
-  },
-  xLabelPadding: 3,
-  xPadding: 5,
-  showLegend: false,
-  wholeNumbersOnly: true,
-  numYLabels: 5,
-  showNthLabel: 10,
-  maxY: 400, // origin hits can easily make this axis useless, so let's cap it
-  legend: { width: 20 },
-  label: 'Latency (ms)'
-});
-
-const latencyData = {
-  style: { line: 'yellow' },
-  x: timeLabels,
-  y: Array.from(Array(60)).map(() => 0)
-};
-
-const screenErrorsConcurrency = grid.set(0, 8, 4, 4, contrib.line, {
-  style: {
-    text: 'white',
-    baseline: 'black'
-  },
-  xLabelPadding: 3,
-  xPadding: 5,
-  showLegend: false,
-  wholeNumbersOnly: true,
-  numYLabels: 4,
-  showNthLabel: 10,
-  legend: { width: 15 },
-  label: 'Concurrency / Errors'
-});
-
-const errorsData = {
-  title: 'Errors',
-  style: { line: 'red' },
-  x: timeLabels,
-  y: Array.from(Array(60)).map(() => 0)
-};
-const concurrencyData = {
-  title: 'Concurrency',
-  style: { line: 'yellow' },
-  x: timeLabels,
-  y: Array.from(Array(60)).map(() => 0)
-};
-
-const screenScores = grid.set(8, 0, 4, 8, contrib.table, {
-  keys: true,
-  fb: 'white',
-  label: 'Test Scores',
-  columnSpacing: 1,
-  columnWidth: [10, 10, 30, 30, 30, 30]
-});
-const scoreHeaders = [
-  'Name',
-  'Status',
-  'TTFB @ 50th / 75th / 90th',
-  'Min Load',
-  'Optimal Load',
-  'Max Load'
-];
+const Screen = require('./screen');
 
 module.exports = class Bench {
   constructor(argv) {
     this.argv = argv;
-    this.concurrency = 0;
     this.testReset();
     this.scores = {};
+
+    this.screen = new Screen(this);
   }
 
   log(msg, type = 'log') {
-    screenLog.log(msg.toString());
-    screenLog.select(screenLog.logLines.length - 1); // unsure why this isn't showing selected
-    this.updateScreen();
+    this.screen.log(msg, type);
   }
 
   testStart(name) {
@@ -127,22 +18,24 @@ module.exports = class Bench {
     this.concurrency = 0;
     this.rps = 0;
     this.eps = 0; // errors per second
-    this.latency = 0;
+    this.kbps = 0; // Kbit/s
+    this.ttfb50th = 0;
+    this.ttfb75th = 0;
+    this.ttfb90th = 0;
     this.log(`${this.testName} starting...`);
     this.testReset();
+    this.scores[this.testName] = this.testData.score;
   }
 
   testReset() {
     this.testData = {
       lastUpdate: Date.now(),
       ttfbMean: 0,
-      ttfbSlow: 0,
-      percent: 0,
       score: {
-        perf: { ttfb50th: 0, ttfb75th: 0, ttfb90th: 0 },
-        min: { rps: 0, ttfb: 0 },
-        max: { rps: 0, ttfb: 0 },
-        optimal: { rps: 0, ttfb: 0 }
+        perf: { ttfb50th: 0, ttfb75th: 0, ttfb90th: 0, kbps: 0 },
+        min: { rps: 0, ttfb: 0, concurrency: 0, kbps: 0 },
+        max: { rps: 0, ttfb: 0, concurrency: 0, kbps: 0 },
+        optimal: { rps: 0, ttfb: 0, concurrency: 0, kbps: 0 }
       },
       isOver: false,
       requests: [],
@@ -153,11 +46,10 @@ module.exports = class Bench {
   }
 
   testEnd() {
-    const scores = this.testData.score;
-    this.scores[this.testName] = scores;
     this.log(`${this.testName} test complete`);
 
     this.testReset();
+    this.testName = null;
   }
 
   onTestData({ workerIndex }, { requests, errors }) {
@@ -172,49 +64,7 @@ module.exports = class Bench {
   updateScreen() {
     this.updateTestStats();
 
-    throughputData.y.push(this.rps);
-    if (throughputData.y.length > 60) {
-      throughputData.y.shift();
-    }
-    screenThroughput.setData([throughputData]);
-
-    latencyData.y.push(this.latency);
-    if (latencyData.y.length > 60) {
-      latencyData.y.shift();
-    }
-    screenLatency.setData([latencyData]);
-
-    errorsData.y.push(this.eps);
-    if (errorsData.y.length > 60) {
-      errorsData.y.shift();
-    }
-    concurrencyData.y.push(this.concurrency);
-    if (concurrencyData.y.length > 60) {
-      concurrencyData.y.shift();
-    }
-    screenErrorsConcurrency.setData([errorsData, concurrencyData]);
-
-    let scoreIndex = 0;
-    screenScores.setData({
-      headers: scoreHeaders,
-      data: tests.map((testName, idx) => {
-        const scores = this.scores[testName];
-
-        if (scores) scoreIndex = idx + 1;
-
-        const state = scores ? 'complete' : this.testName === testName ? `${this.testData.percent}%` : 'pending';
-
-        const perf = scores ? `${scores.perf.ttfb50th}ms / ${scores.perf.ttfb75th}ms / ${scores.perf.ttfb90th}ms` : '';
-        const minLoad = scores ? `${scores.min.rps}rps @ ${scores.min.concurrency}cc, ${scores.min.ttfb}ms` : '';
-        const optimalLoad = scores ? `${scores.optimal.rps}rps @ ${scores.optimal.concurrency}cc, ${scores.optimal.ttfb}ms` : '';
-        const maxLoad = scores ? `${scores.max.rps}rps @ ${scores.max.concurrency}cc, ${scores.max.ttfb}ms` : '';
-
-        return [testName, state, perf, minLoad, optimalLoad, maxLoad];
-      })
-    });
-    screenScores.rows.select(scoreIndex);
-
-    screen.render();
+    this.screen.render();
   }
 
   updateTestStats() {
@@ -224,63 +74,64 @@ module.exports = class Bench {
       this.testData.isOver = true;
     }
 
-    // don't process fewer than 10 updates at a time
-    if (!this.testData.isOver && this.testData.lastTickRequests.length < 10) return;
+    // don't process fewer than 8 updates at a time
+    if (!this.testData.isOver && this.testData.lastTickRequests.length < 8) return;
 
     this.testData.errors += this.testData.lastTickErrors;
 
     const ttfbSorted = this.testData.lastTickRequests.sort((a, b) => a.ttfb < b.ttfb ? -1 : 1);
-    const ttfb50th = this.latency = ttfbSorted[Math.floor(ttfbSorted.length / 2)].ttfb;
+    const ttfb50th = this.ttfb50th = ttfbSorted[Math.floor(ttfbSorted.length / 2)].ttfb;
+    const ttfb75th = this.ttfb75th = ttfbSorted[Math.floor(ttfbSorted.length * 0.75)].ttfb;
+    const ttfb90th = this.ttfb90th = ttfbSorted[Math.floor(ttfbSorted.length * 0.90)].ttfb;
     const elapsed = Date.now() - this.testData.lastUpdate;
     const rpsFactor = 1000 / elapsed;
-    const rps = this.rps = this.testData.lastTickRequests.length * rpsFactor;
+    const rps = this.rps = Math.round(this.testData.lastTickRequests.length * rpsFactor);
     this.eps = Math.round(this.testData.lastTickErrors * rpsFactor);
+    const totalKb = ttfbSorted.reduce((total, { size }) => {
+      return total + ((size * 8) / 1000); // bits / kilo
+    }, 0);
+    const kbps = this.kbps = Math.round(totalKb * rpsFactor);
 
     this.testData.requests = this.testData.requests.concat(this.testData.lastTickRequests);
 
     if (!this.testData.ttfbMean) {
-      // calc ttfb mean after the minimum number of requests are recorded
-      const ttfbSorted = this.testData.requests.sort((a, b) => a.ttfb < b.ttfb ? -1 : 1);
+      this.testData.score.perf.ttfb50th = ttfb50th;
+      this.testData.score.perf.ttfb75th = ttfb75th;
+      this.testData.score.perf.ttfb90th = ttfb90th;
+      this.testData.score.perf.kbps = kbps;
 
-      this.testData.score.perf.ttfb50th = ttfbSorted[Math.floor(ttfbSorted.length / 2)].ttfb;
-      this.testData.score.perf.ttfb75th = ttfbSorted[Math.floor(ttfbSorted.length * 0.75)].ttfb;
-      this.testData.score.perf.ttfb90th = ttfbSorted[Math.floor(ttfbSorted.length * 0.90)].ttfb;
+      this.testData.ttfbMean = ttfb50th;
+    }
 
-      this.testData.ttfbMean = this.testData.score.perf.ttfb50th;
-      this.testData.ttfbSlow = Math.max(this.testData.score.perf.ttfb90th * this.argv.maxLoad, 20);
-    } else if (this.testData.ttfbSlow && ttfb50th >= this.testData.ttfbSlow) {
-      // if too slow, signal test is over
+    if (!this.testData.score.min.ttfb && ttfb50th >= (this.testData.score.perf.ttfb50th * this.argv.minLoad)) {
+      this.testData.score.min.ttfb = ttfb50th;
+      this.testData.score.min.rps = rps;
+      this.testData.score.min.concurrency = this.concurrency;
+      this.testData.score.min.kbps = kbps;
+    }
+
+    // optimal load is the point of highest throughput
+    if (!this.testData.score.optimal.rps || rps > this.testData.score.optimal.rps) {
+      this.testData.score.optimal.ttfb = ttfb50th;
+      this.testData.score.optimal.rps = rps;
+      this.testData.score.optimal.concurrency = this.concurrency;
+      this.testData.score.optimal.kbps = kbps;
+      this.testData.score.max.ttfb = 0; // reset anytime new optimal level detected
+    }
+
+    // max load is determined by 2x latency (or whatever `maxLoad` is set to) of optimal TTFB
+    const maxLoadLatency = Math.max(20, Math.floor(this.testData.score.optimal.ttfb * this.argv.maxLoad));
+
+    // take the first round that exceeds threshold, then end it
+    if (!this.testData.score.max.ttfb && ttfb50th >= maxLoadLatency) {
+      this.testData.score.max.ttfb = ttfb50th;
+      this.testData.score.max.rps = rps;
+      this.testData.score.max.concurrency = this.concurrency;
+      this.testData.score.max.kbps = kbps;
       this.testData.isOver = true;
     }
 
-    this.testData.percent = Math.min(100, Math.round(((ttfb50th - this.testData.score.perf.ttfb50th) / this.testData.ttfbSlow) * 100));
-
-    if (!this.testData.score.max.ttfb) {
-      if (!this.testData.score.min.ttfb && ttfb50th >= (this.testData.score.perf.ttfb50th * this.argv.minLoad)) {
-        this.testData.score.min.ttfb = ttfb50th;
-        this.testData.score.min.rps = Math.round(rps);
-        this.testData.score.min.concurrency = this.concurrency;
-      }
-
-      // optimal load is the point of highest throughput
-      if (!this.testData.score.optimal.rps || rps > this.testData.score.optimal.rps) {
-        this.testData.score.optimal.ttfb = ttfb50th;
-        this.testData.score.optimal.rps = Math.round(rps);
-        this.testData.score.optimal.concurrency = this.concurrency;
-      }
-
-      // when things begin to break, that is max load
-      if (!this.testData.score.max.ttfb && this.testIsOver) {
-        this.testData.score.max.ttfb = ttfb50th;
-        this.testData.score.max.rps = Math.round(this.testData.lastTickRequests.length * rpsFactor);
-        this.testData.score.max.concurrency = this.concurrency;
-      }
-    }
-
-    // temporary status
-    //console.log(`last tick: concurrency:${this.concurrency}, 50th TTFB:${ttfb50th}, RPS:${rps}, errors:${this.testData.lastTickErrors}`);
-
-    // TODO: good display of status
+    this.scores[this.testName] = this.testData.score;
 
     // reset tracker
     this.testData.lastUpdate = Date.now();

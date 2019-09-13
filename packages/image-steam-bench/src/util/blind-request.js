@@ -15,9 +15,11 @@ module.exports = (url, { rejectNon200 = true } = {}) => {
 
       if (rejectNon200 && statusCode >= 300) return void reject(new Error(`Unexpected status of ${statusCode} returned`));
 
+      const size = parseInt(headers['content-length']) || 0;
+
       res.resume();
 
-      resolve({ ttfb, statusCode, headers });
+      resolve({ ttfb, size });
     });
 
     req.on('error', reject);

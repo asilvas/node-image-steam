@@ -10,6 +10,7 @@ module.exports = async bench => {
       ...process.env,
       port: bench.argv.port
     },
+    detached: false,
     windowsHide: true
   });
 
@@ -17,6 +18,6 @@ module.exports = async bench => {
     // dumb auto-resolve for now to permit server to do its prep before listening
     setTimeout(() => resolve(() => {
       serverProcess.kill();
-    }), 2000).unref();
+    }), 2000);
   });
 }

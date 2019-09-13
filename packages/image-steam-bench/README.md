@@ -1,15 +1,15 @@
 # isteamb
 
-Benchmark for Image Steam to help determine ideal hardware configurations and load levels.
+Benchmark for Image Steam to help determine ideal hardware configurations and load levels. Designed to support load testing of large configurations, where every simulated user has it's own dedicated thread, and the origin proxy has it's own dedicated process.
 
 ![Dashboard](https://raw.githubusercontent.com/asilvas/node-image-steam/master/packages/image-steam-bench/docs/dashboard.jpg)
 
 
 ## Getting Started
 
-* Add `isteamb` HTTP mapping to your Image-Steam configuration, allowing this benchmark to act as origin.
+* Add `isteamb` HTTP mapping to your [Image-Steam configuration](https://github.com/asilvas/node-image-steam/blob/master/scripts/dev.js#L50-L55), allowing this benchmark to act as origin.
 * Install via `npm i -g image-steam-bench`
-* Run benchmark via `isteamb run http://localhost:8080/isteamb --port 12124`
+* Run benchmark via `isteamb run http://localhost:8080/isteamb --port 12124`, where the URL is pointing to the Image-Steam endpoint, and the port is where Image-Steam is [configured](https://github.com/asilvas/node-image-steam/blob/master/scripts/dev.js#L50-L55) to connect to for `isteamb` requests.
 
 ### CLI Options
 
@@ -17,7 +17,13 @@ Benchmark for Image Steam to help determine ideal hardware configurations and lo
   (same port image-steam should be mapped back to).
 * `format` (default: `webp`) - Image format requested in every test.
 * `minLoad` (default: `1.25`) - Increase in mean response times before considered minimum safe load.
-* `maxLoad` (default: `1.75`) - Increase in mean response times before considered maximum load.
+* `maxLoad` (default: `2.0`) - Max load is determined by optimal TTFB multiplied by this value.
+* `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.
+* `workerSpawnRate` (default: `0.2`) - The rate at which workers are spawned (0.2 being +20% per spawn).
+* `screenRefresh` (default: `1`) - Seconds between updates.
+* `maxLatency` (default: `300`) - Max latency time (ms) displayed.
+* `timeWindow` (default: `30`) - Seconds represented on histograms.
+* `log` (default: `isteamb.log`) - Filename of activity log, or `false` to disable.
 
 
 ## Tests
@@ -32,15 +38,13 @@ Gradual increase in concurrency load until errors or timeouts begin to occur, st
 
 ### Final Scores
 
-Calculated for each of the 5 tests.
+Calculated for each of the 4 tests.
 
 * Performance (50th/75th/90th TTFB ms) - Single concurrency score to demonstrate raw performance.
 * Minimum Load (req/sec @ concurrency, 50th ms) - The level of load before per-request
   response times begin to creep up.
 * Optimal Load (req/sec @ concurrency, 50th ms) - The level of load that is considered ideal maximum
   before throughput begins to drop.
-* Maximum Load (req/sec @ concurrency, 50th ms) - The level of load before things start breaking or
-  becoming very slow.
 
 
 
@@ -55,6 +59,21 @@ A number of real-time data points are available from the dashboard.
 * Scores - See `Final Scores`.
 * Activity Log
 
+
+## Definitions
+
+* `rps` - Requests per second.
+* `cc` - Concurrency, the number of tasks taking place at the same time.
+  In the context of `isteamb`, each task resides on its own worker thread.
+* `Kb` - Kilobit, or 1000 bits, or 125 bytes.
+* `Mb` - Magabit, or 1000 kilobits, or 125 kilobytes.
+* `Gb` - Kilobit, or 1000 megabits, or 125 megabytes.
+* `/s` - Per second.
+* `TTFB` - Time to first byte. The time it takes from initiating a task to receiving the first data of the response.
+  This may also be referred to as latency or response time.
+* `50th` - The sorted 50th percentile of data, or the "mean".
+* `75th` - The sorted 75th percentile of data, or the 25th percentile highest data point. 
+* `90th` - The sorted 90th percentile of data, or the 10th percentile highest data point. 
 
 
 ## Files

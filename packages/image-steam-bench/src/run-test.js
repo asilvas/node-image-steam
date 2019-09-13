@@ -26,15 +26,20 @@ module.exports = async (bench, testName) => {
 
   bench.testReset();
 
-  bench.log(`${testName} initialized, running...`);
+  bench.log(`${testName} running...`);
+
+  let screenUpdate = 0;
 
   do {
-    await sleep(2000);
-    bench.updateScreen();  
-    //await sleep(1000);
-    //bench.updateScreen();  
+    for (let i = 0; i < bench.argv.workerSpawnTime; i++) {
+      await sleep(1000);
 
-    let workersToSpawn = Math.ceil(workers.length * 0.2) || 1;
+      if ((screenUpdate++ % bench.argv.screenRefresh) === 0) {
+        bench.updateScreen();  
+      }
+    }
+
+    let workersToSpawn = Math.ceil(workers.length * bench.argv.workerSpawnRate) || 1;
     for (let i = 0; i < workersToSpawn; i++) {
       workers.push(spawnWorker(bench, testName, { benchKey, workerIndex: workers.length }));
     }
@@ -57,7 +62,7 @@ function spawnWorker(bench, testName, { workerIndex, benchKey }) {
   // a given worker is locked to the same filename
   const fileName = files.byIndex[workerIndex % 3];
   const baseUrl = `${bench.argv.url}/${fileName}/${benchKey}`;
-  const worker = new Worker(workerPath, { workerData: { baseUrl, fileName, workerIndex } });
+  const worker = new Worker(workerPath, { workerData: { argv: bench.argv, baseUrl, fileName, workerIndex } });
   worker.on('message', data => {
     if (data.ready) gReady = true;
     if (data.requests) bench.onTestData({ testName, workerIndex }, data);

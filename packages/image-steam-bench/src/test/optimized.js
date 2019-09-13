@@ -3,7 +3,7 @@ const {
 } = require('worker_threads');
 const request = require('../util/blind-request');
 
-const { baseUrl, workerIndex } = workerData;
+const { argv, baseUrl, workerIndex } = workerData;
 
 let fileIndex = 1;
 let gStats = { requests: [], errors: 0 };
@@ -35,14 +35,14 @@ function sendStats() {
 async function nextRequest() {
   // unique index to avoid collisions with previous tests, workers, and files
   // every hit needs to be an origin hit
-  const url = `${baseUrl}/w:${workerIndex}/:/rs=w:${100+fileIndex++}`;
-  const { ttfb, err } = await request(url).catch(err => ({
+  const url = `${baseUrl}/w:${workerIndex}/:/rs=w:${100+fileIndex++}/fm=f:${argv.format}`;
+  const res = await request(url).catch(err => ({
     err
   }));
 
-  if (err) {
+  if (res.err) {
     gStats.errors++;
   } else {
-    gStats.requests.push({ ttfb });
+    gStats.requests.push(res);
   }
 }
