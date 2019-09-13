@@ -21,7 +21,6 @@ Benchmark for Image Steam to help determine ideal hardware configurations and lo
 * `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.
 * `workerSpawnRate` (default: `0.2`) - The rate at which workers are spawned (0.2 being +20% per spawn).
 * `screenRefresh` (default: `1`) - Seconds between updates.
-* `maxLatency` (default: `300`) - Max latency time (ms) displayed.
 * `timeWindow` (default: `30`) - Seconds represented on histograms.
 * `log` (default: `isteamb.log`) - Filename of activity log, or `false` to disable.
 

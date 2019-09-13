@@ -40,11 +40,6 @@ const args = yargs
     describe: 'Seconds between updates',
     default: 1
   })
-  .option('maxLatency', {
-    type: 'number',
-    describe: 'Max latency time (ms) displayed',
-    default: 300
-  })
   .option('timeWindow', {
     type: 'number',
     describe: 'Seconds represented on histograms',
