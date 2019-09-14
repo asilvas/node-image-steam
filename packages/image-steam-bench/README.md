@@ -38,7 +38,7 @@ Gradual increase in concurrency load until errors or timeouts begin to occur, st
 
 ### Final Scores
 
-Calculated for each of the 4 tests.
+Calculated for each of the tests.
 
 * Performance (50th/75th/90th TTFB ms) - Single concurrency score to demonstrate raw performance.
 * Minimum Load (req/sec @ concurrency, 50th ms) - The level of load before per-request
