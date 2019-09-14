@@ -2,7 +2,7 @@ const Bench = require('./bench');
 const server = require('./server');
 const verifyISteam = require('./verify-isteam');
 const runTest = require('./run-test');
-const tests = require('./test');
+const testsAvailable = require('./test');
 
 module.exports = {
   command: 'run <url>',
@@ -14,8 +14,8 @@ module.exports = {
 
     await verifyISteam(bench);
 
-    for (var i = 0; i < tests.length; i++) {
-      await runTest(bench, tests[i]);
+    for (var i = 0; i < argv.test.length; i++) {
+      await runTest(bench, argv.test[i]);
     }
 
     bench.log('Tests complete.');

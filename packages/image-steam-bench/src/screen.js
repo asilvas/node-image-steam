@@ -1,7 +1,6 @@
 const blessed = require('blessed');
 const contrib = require('blessed-contrib');
 const { writeFileSync, appendFileSync } = require('fs');
-const tests = require('./test');
 
 module.exports = class Screen {
   constructor(bench) {
@@ -188,7 +187,7 @@ module.exports = class Screen {
   getScoreData() {
     this.scoreIndex = 0;
 
-    return tests.map((testName, idx) => {
+    return this.bench.argv.test.map((testName, idx) => {
       let scores = this.scores[testName];
 
       if (scores && scores.max.rps) this.scoreIndex = idx + 1;

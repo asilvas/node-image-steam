@@ -16,6 +16,7 @@ Benchmark for Image Steam to help determine ideal hardware configurations and lo
 * `port` (default: `12124`) - Port for image-steam-bench to listen on
   (same port image-steam should be mapped back to).
 * `format` (default: `webp`) - Image format requested in every test.
+* `test` (default: `origin optimized cached real-90 real-95`) - One or more tests to run.
 * `minLoad` (default: `1.25`) - Increase in mean response times before considered minimum safe load.
 * `maxLoad` (default: `2.0`) - Max load is determined by optimal TTFB multiplied by this value.
 * `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.

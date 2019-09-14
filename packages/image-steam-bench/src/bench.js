@@ -46,7 +46,7 @@ module.exports = class Bench {
   }
 
   testEnd() {
-    this.log(`${this.testName} test complete`);
+    this.log(`${this.testName} complete`);
 
     this.testReset();
     this.testName = null;

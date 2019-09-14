@@ -1,5 +1,6 @@
 const yargs = require('yargs');
 const run = require('./run');
+const tests = require('./test');
 
 const args = yargs
   .option('port', {
@@ -8,10 +9,17 @@ const args = yargs
     describe: 'Port for image-steam-bench to listen on (same port image-steam should be mapped back to)',
     default: 12124
   })
+  .option('test', {
+    alias: 't',
+    type: 'array',
+    choices: [...tests],
+    describe: 'one or more tests to run',
+    default: [...tests]
+  })
   .option('format', {
     alias: 'f',
     type: 'string',
-    options: ['webp', 'jpeg'],
+    choices: ['webp', 'jpeg'],
     describe: 'Image format requested in every test',
     default: 'webp'
   })
