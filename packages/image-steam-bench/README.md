@@ -78,7 +78,7 @@ A number of real-time data points are available from the dashboard.
 
 ## Files
 
-Served from memory to emulate high throughput origin.
+A dedicated worker process, serving files from memory to emulate high throughput origin.
 
 * `http://localhost:12124/isteamb/12mp.jpeg/*` - 12 magapixel (4256x2832) asset
 * `http://localhost:12124/isteamb/18mp.jpeg/*` - 18 magapixel (5184x3456) asset
