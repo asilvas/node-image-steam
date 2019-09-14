@@ -50,7 +50,7 @@ const args = yargs
   })
   .option('timeWindow', {
     type: 'number',
-    describe: 'Seconds represented on histograms',
+    describe: 'Seconds represented on historical graphs',
     default: 40
   })
   .option('log', {

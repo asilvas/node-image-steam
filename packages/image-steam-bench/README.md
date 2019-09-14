@@ -22,7 +22,7 @@ Benchmark for Image Steam to help determine ideal hardware configurations and lo
 * `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.
 * `workerSpawnRate` (default: `0.2`) - The rate at which workers are spawned (0.2 being +20% per spawn).
 * `screenRefresh` (default: `1`) - Seconds between updates.
-* `timeWindow` (default: `30`) - Seconds represented on histograms.
+* `timeWindow` (default: `30`) - Seconds represented on historical graphs.
 * `log` (default: `isteamb.log`) - Filename of activity log, or `false` to disable.
 
 
@@ -52,9 +52,9 @@ Calculated for each of the 4 tests.
 
 A number of real-time data points are available from the dashboard.
 
-* Throughput (per/sec) - Histogram
-* Errors (per/sec) / Concurrency - Histogram
-* Latency (ms) - Histogram
+* Throughput (per/sec) - Historical graph
+* Errors (per/sec) / Concurrency - Historical graph
+* Latency (ms) - Historical graph
 * Test Progress (%) - Progress of all tests
 * Scores - See `Final Scores`.
 * Activity Log
