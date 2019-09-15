@@ -8,22 +8,27 @@ module.exports = {
   command: 'run <url>',
   desc: 'Begin benchmark',
   handler: async argv => {
-    const bench = new Bench(argv);
+    try {
 
-    const closeServer = await server(bench);
+      const bench = new Bench(argv);
 
-    await verifyISteam(bench);
+      const closeServer = await server(bench);
 
-    for (var i = 0; i < argv.test.length; i++) {
-      await runTest(bench, argv.test[i]);
+      await verifyISteam(bench);
+
+      for (var i = 0; i < argv.test.length; i++) {
+        await runTest(bench, argv.test[i]);
+      }
+
+      bench.log('Tests complete.');
+
+      await closeServer();
+
+      bench.log('Press ESC or Q to quit.');
+      bench.updateScreen();
+    } catch (ex) {
+      console.error('Something went wrong!', ex.stack || ex.message || ex);
+      console.log('Press ESC or Q to quit.');
     }
-
-    bench.log('Tests complete.');
-
-    await closeServer();
-
-    bench.log('Press ESC or Q to quit.');
-
-    bench.updateScreen();
   }
 }
