@@ -1,6 +1,6 @@
 {
   "name": "image-steam-bench",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Benchmark for Image Steam to help determine ideal hardware configurations and load levels",
   "main": "src/cli.js",
   "scripts": {
