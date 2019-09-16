@@ -14,7 +14,6 @@
   "files": [
     "bin",
     "files",
-    "docs",
     "src",
     "README.md",
     "package.json"
