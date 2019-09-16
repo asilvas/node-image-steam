@@ -1,6 +1,6 @@
 # isteamb
 
-Benchmark for Image Steam to help determine ideal hardware configurations and load levels. Designed to support load testing of large configurations, where every simulated user has it's own dedicated thread, and the origin proxy has it's own dedicated process.
+Benchmark for [Image Steam](https://github.com/asilvas/node-image-steam) to help determine ideal hardware configurations and load levels. Designed to support load testing of large configurations, where every simulated user has it's own dedicated thread, and the origin proxy has it's own dedicated process.
 
 ![Dashboard](https://raw.githubusercontent.com/asilvas/node-image-steam/master/packages/image-steam-bench/docs/dashboard.jpg)
 
