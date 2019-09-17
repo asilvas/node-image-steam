@@ -29,6 +29,7 @@ module.exports = class Bench {
 
   testReset() {
     this.testData = {
+      start: Date.now(),
       lastUpdate: Date.now(),
       ttfbMean: 0,
       score: {
@@ -91,6 +92,7 @@ module.exports = class Bench {
       return total + ((size * 8) / 1000); // bits / kilo
     }, 0);
     const kbps = this.kbps = Math.round(totalKb * rpsFactor);
+    const timeSinceStart = Date.now() - this.testData.start;
 
     this.testData.requests = this.testData.requests.concat(this.testData.lastTickRequests);
 
@@ -123,7 +125,7 @@ module.exports = class Bench {
     const maxLoadLatency = Math.max(20, Math.floor(this.testData.score.optimal.ttfb * this.argv.maxLoad));
 
     // take the first round that exceeds threshold, then end it
-    if (!this.testData.score.max.ttfb && ttfb50th >= maxLoadLatency) {
+    if (timeSinceStart > 12000 && !this.testData.score.max.ttfb && ttfb50th >= maxLoadLatency) {
       this.testData.score.max.ttfb = ttfb50th;
       this.testData.score.max.rps = rps;
       this.testData.score.max.concurrency = this.concurrency;
