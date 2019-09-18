@@ -19,6 +19,10 @@ Benchmark for [Image Steam](https://github.com/asilvas/node-image-steam) to help
 * `test` (default: `origin optimized cached real-90 real-95`) - One or more tests to run.
 * `minLoad` (default: `1.25`) - Increase in mean response times before considered minimum safe load.
 * `maxLoad` (default: `2.0`) - Max load is determined by optimal TTFB multiplied by this value.
+* `minRunTime` (default: `12000`) - Minimum time (in ms) that a test must run before determinating.
+  If `requests` is specified that will take priority.
+* `requests` - A fixed number of requests before resolving test(s), versus the default
+  behavior of ending on `maxLoad`.
 * `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.
 * `workerSpawnRate` (default: `0.2`) - The rate at which workers are spawned (0.2 being +20% per spawn).
 * `screenRefresh` (default: `1`) - Seconds between updates.

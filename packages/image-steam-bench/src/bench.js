@@ -124,8 +124,20 @@ module.exports = class Bench {
     // max load is determined by 2x latency (or whatever `maxLoad` is set to) of optimal TTFB
     const maxLoadLatency = Math.max(20, Math.floor(this.testData.score.optimal.ttfb * this.argv.maxLoad));
 
+    // fixed request option takes priority over default `maxLoad` behavior
+    if (this.argv.requests && this.testData.requests.length >= this.argv.requests) {
+      if (!this.testData.score.min.ttfb) { // if no minimum yet set, do it now
+        this.testData.score.min.ttfb = ttfb50th;
+        this.testData.score.min.rps = rps;
+        this.testData.score.min.concurrency = this.concurrency;
+        this.testData.score.min.kbps = kbps;
+      }
+  
+      this.testData.isOver = true;
+    }
+
     // take the first round that exceeds threshold, then end it
-    if (timeSinceStart > 12000 && !this.testData.score.max.ttfb && ttfb50th >= maxLoadLatency) {
+    if (!this.argv.requests && timeSinceStart > this.argv.minRunTime && !this.testData.score.max.ttfb && ttfb50th >= maxLoadLatency) {
       this.testData.score.max.ttfb = ttfb50th;
       this.testData.score.max.rps = rps;
       this.testData.score.max.concurrency = this.concurrency;

@@ -33,6 +33,15 @@ const args = yargs
     describe: 'Max load is determined by optimal TTFB multiplied by this value',
     default: 2.0
   })
+  .option('minRunTime', {
+    type: 'number',
+    describe: 'Minimum time (in ms) that a test must run before determinating. If `requests` is specified that will take priority',
+    default: 12000
+  })
+  .option('requests', {
+    type: 'number',
+    describe: 'A fixed number of requests before resolving test(s), versus the default behavior of ending on `maxLoad`'
+  })
   .option('workerSpawnTime', {
     type: 'number',
     describe: 'Seconds before new workers are spawned',
