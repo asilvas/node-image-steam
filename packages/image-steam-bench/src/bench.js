@@ -31,6 +31,7 @@ module.exports = class Bench {
     this.testData = {
       start: Date.now(),
       lastUpdate: Date.now(),
+      lastOptimal: Date.now(),
       ttfbMean: 0,
       score: {
         perf: { ttfb50th: 0, ttfb75th: 0, ttfb90th: 0, kbps: 0 },
@@ -93,6 +94,7 @@ module.exports = class Bench {
     }, 0);
     const kbps = this.kbps = Math.round(totalKb * rpsFactor);
     const timeSinceStart = Date.now() - this.testData.start;
+    const timeSinceLastOptimal = Date.now() - this.testData.lastOptimal;
 
     this.testData.requests = this.testData.requests.concat(this.testData.lastTickRequests);
 
@@ -114,11 +116,15 @@ module.exports = class Bench {
 
     // optimal load is the point of highest throughput
     if (!this.testData.score.optimal.rps || rps > this.testData.score.optimal.rps) {
+      this.testData.lastOptimal = Date.now();
       this.testData.score.optimal.ttfb = ttfb50th;
       this.testData.score.optimal.rps = rps;
       this.testData.score.optimal.concurrency = this.concurrency;
       this.testData.score.optimal.kbps = kbps;
       this.testData.score.max.ttfb = 0; // reset anytime new optimal level detected
+    } else if (timeSinceLastOptimal > 20000) {
+      // if we're not seeing optimal changes for quite a while, end test
+      this.testData.isOver = true;
     }
 
     // max load is determined by 2x latency (or whatever `maxLoad` is set to) of optimal TTFB

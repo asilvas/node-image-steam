@@ -23,6 +23,8 @@ Benchmark for [Image Steam](https://github.com/asilvas/node-image-steam) to help
   If `requests` is specified that will take priority.
 * `requests` - A fixed number of requests before resolving test(s), versus the default
   behavior of ending on `maxLoad`.
+* `workerMin` (default: `1`) - Number of workers to start out with.
+* `workerMax` (default: `999`) - Maximum number of workers allowed.
 * `workerSpawnTime` (default: `3`) - Seconds before new workers are spawned.
 * `workerSpawnRate` (default: `0.2`) - The rate at which workers are spawned (0.2 being +20% per spawn).
 * `screenRefresh` (default: `1`) - Seconds between updates.

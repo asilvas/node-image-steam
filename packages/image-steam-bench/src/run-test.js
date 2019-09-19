@@ -17,7 +17,9 @@ module.exports = async (bench, testName) => {
 
   bench.testStart(testName);
 
-  workers.push(spawnWorker(bench, testName, { benchKey, workerIndex: workers.length }));
+  for (let i = 0; i < bench.argv.workerMin; i++) {
+    workers.push(spawnWorker(bench, testName, { benchKey, workerIndex: workers.length }));
+  }
   bench.concurrency = workers.length;
 
   do {
@@ -41,6 +43,8 @@ module.exports = async (bench, testName) => {
 
     let workersToSpawn = Math.ceil(workers.length * bench.argv.workerSpawnRate) || 1;
     for (let i = 0; i < workersToSpawn; i++) {
+      if (workers.length >= bench.argv.workerMax) break;
+
       workers.push(spawnWorker(bench, testName, { benchKey, workerIndex: workers.length }));
     }
 

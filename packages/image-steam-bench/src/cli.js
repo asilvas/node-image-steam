@@ -42,6 +42,16 @@ const args = yargs
     type: 'number',
     describe: 'A fixed number of requests before resolving test(s), versus the default behavior of ending on `maxLoad`'
   })
+  .option('workerMin', {
+    type: 'number',
+    describe: 'Number of workers to start out with',
+    default: 1
+  })
+  .option('workerMax', {
+    type: 'number',
+    describe: 'Maximum number of workers allowed',
+    default: 999
+  })
   .option('workerSpawnTime', {
     type: 'number',
     describe: 'Seconds before new workers are spawned',
