@@ -13,7 +13,7 @@ files.byIndex.forEach(fn => {
 
 const server = http.createServer(httpHandler);
 
-const port = process.env.port || 12124;
+const port = process.env.PORT || 12124;
 server.listen(port, err => {
   if (err) {
     return void console.error(err.stack);

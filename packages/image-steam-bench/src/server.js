@@ -8,7 +8,7 @@ module.exports = async bench => {
   const serverProcess = spawn('node', [path.resolve(__dirname, './server-process.js')], {
     env: {
       ...process.env,
-      port: bench.argv.port
+      PORT: bench.argv.port
     },
     detached: false,
     windowsHide: true
