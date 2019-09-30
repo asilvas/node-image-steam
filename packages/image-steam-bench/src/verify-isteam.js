@@ -6,7 +6,7 @@ module.exports = async bench => {
 
   let url;
   for (let i = 0; i < files.byIndex.length; i++) {
-    url = `${bench.argv.url}/${files.byIndex[i]}/check`;
+    url = `${bench.argv.url}/${files.byIndex[i]}`;
     bench.log(`Checking ${url}...`);
     await request(url);  
   }
