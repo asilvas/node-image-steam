@@ -122,7 +122,7 @@ module.exports = class Bench {
       this.testData.score.optimal.concurrency = this.concurrency;
       this.testData.score.optimal.kbps = kbps;
       this.testData.score.max.ttfb = 0; // reset anytime new optimal level detected
-    } else if (timeSinceLastOptimal > 20000) {
+    } else if (!this.argv.requests && timeSinceLastOptimal > this.argv.minRunTime) {
       // if we're not seeing optimal changes for quite a while, end test
       this.testData.isOver = true;
     }

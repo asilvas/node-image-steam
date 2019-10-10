@@ -36,7 +36,7 @@ const args = yargs
   .option('minRunTime', {
     type: 'number',
     describe: 'Minimum time (in ms) that a test must run before determinating. If `requests` is specified that will take priority',
-    default: 12000
+    default: 20000
   })
   .option('requests', {
     type: 'number',
