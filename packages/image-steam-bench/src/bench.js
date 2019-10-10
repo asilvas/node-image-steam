@@ -72,10 +72,6 @@ module.exports = class Bench {
   updateTestStats() {
     if (this.testData.isOver) return;
   
-    if (this.testData.lastTickErrors > 0) {
-      this.testData.isOver = true;
-    }
-
     // don't process fewer than 8 updates at a time
     if (!this.testData.isOver && this.testData.lastTickRequests.length < 8) return;
 
