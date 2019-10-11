@@ -1,14 +1,14 @@
 const http = require('http');
 const https = require('https');
 
-
+const agent = new http.Agent({ keepAlive: false, maxSockets: Infinity });
 
 module.exports = (url, { rejectNon200 = true } = {}) => {
 
   return new Promise((resolve, reject) => {
     const start = Date.now();
     const req = (/^https\:/.test(url) ? https : http).request(url, {
-      
+      agent
     }, res => {
       const ttfb = Date.now() - start;
       const { statusCode, headers } = res;
