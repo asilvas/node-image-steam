@@ -50,7 +50,8 @@ module.exports = {
     app: {
       isteamb: {
         driver: 'http',
-        endpoint: 'http://localhost:12124/isteamb'
+        bucket: 'isteamb',
+        endpoint: 'http://localhost:12124'
       }
     },
     replicas: {

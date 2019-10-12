@@ -2,6 +2,7 @@ const {
   parentPort, workerData
 } = require('worker_threads');
 const request = require('../util/blind-request');
+const sleep = require('../util/sleep');
 
 const { argv, baseUrl, workerIndex } = workerData;
 
@@ -26,9 +27,9 @@ const cachedUrls = [];
 
   const statsTimer = setInterval(sendStats, 100);
 
-  do {
+  while (true) {
     await nextRequest();
-  } while (!gStats.errors);
+  }
 
   clearInterval(statsTimer);
   sendStats(); // final push
@@ -50,6 +51,7 @@ async function nextRequest() {
 
   if (res.err) {
     gStats.errors++;
+    await sleep(100);
   } else {
     gStats.requests.push(res);
   }

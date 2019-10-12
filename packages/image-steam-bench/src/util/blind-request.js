@@ -8,7 +8,8 @@ module.exports = (url, { rejectNon200 = true } = {}) => {
   return new Promise((resolve, reject) => {
     const start = Date.now();
     const req = (/^https\:/.test(url) ? https : http).request(url, {
-      agent
+      agent,
+      timeout: 20000
     }, res => {
       const ttfb = Date.now() - start;
       const { statusCode, headers } = res;
@@ -22,7 +23,8 @@ module.exports = (url, { rejectNon200 = true } = {}) => {
       resolve({ ttfb, size });
     });
 
-    req.on('error', reject);
+    req.once('error', reject);
+    req.once('timeout', reject);
 
     req.end();
   });
