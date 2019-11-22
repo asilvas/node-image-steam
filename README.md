@@ -63,7 +63,7 @@ a basic usage example that pulls everything together can be as simple as:
 
 ```
 npm install image-steam -g
-isteam --isConfig './myconfig.json' --isConfig './mydefaults.json'
+isteam --isConfig './myconfig.json' --isDefaults './mydefaults.json'
 ```
 
 Defaults are optional. Config can also be a CommonJS file:
