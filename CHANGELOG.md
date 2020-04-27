@@ -1,3 +1,8 @@
+# 0.53.0 - April 27 2020
+
+* ***(FEATURE)*** Direct support for `isteamb` [driver](./lib/storage/isteamb), removing the need to use `http` proxy mode.
+
+
 # September 11 2019
 
 * ***(FEATURE)*** Full benchmark suite now available, [check it out](./packages/image-steam-bench)! `npm i -g image-steam-bench`

@@ -49,9 +49,7 @@ module.exports = {
     cacheOptimizedTTS: 300,
     app: {
       isteamb: {
-        driver: 'http',
-        bucket: 'isteamb',
-        endpoint: 'http://localhost:12124'
+        driver: 'isteamb'
       }
     },
     replicas: {
