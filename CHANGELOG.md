@@ -1,3 +1,11 @@
+# 0.54.0 - May 18 2020
+
+* ***(ENHANCEMENT)*** Sharp - Upgrade to latest Sharp (`0.25.3`).
+* ***(DEPRECATION)*** Saliency was always experimental. Now it's been deprecated and will be removed
+  in future version. Warning provided at startup.
+* ***(CHANGE)*** `globalAgent` - Option is still adhered to, but no longer defaults to use
+  `agentkeepalive` until explicitly provided.
+
 # 0.53.0 - April 27 2020
 
 * ***(FEATURE)*** Direct support for `isteamb` [driver](./lib/storage/isteamb), removing the need to use `http` proxy mode.
