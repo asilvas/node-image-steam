@@ -1,3 +1,10 @@
+# 0.55.0 - May 26 2020
+
+* ***(ENHANCEMENT)*** Option to set `isteamEndpoint=true` on the `http` storage client, allowing
+  multiple regions to be chained together for speed and/or cost savings. This in effect permits
+  multi-layered proxies to drastically reduce the volume of origin hits.
+
+
 # 0.54.0 - May 18 2020
 
 * ***(ENHANCEMENT)*** Sharp - Upgrade to latest Sharp (`0.25.3`).

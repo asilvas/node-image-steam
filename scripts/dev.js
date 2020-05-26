@@ -48,6 +48,11 @@ module.exports = {
     cacheTTS: 600,
     cacheOptimizedTTS: 300,
     app: {
+      proxy: {
+        driver: 'http',
+        isteamEndpoint: true,
+        endpoint: 'http://localhost:13337'
+      },
       isteamb: {
         driver: 'isteamb'
       }
