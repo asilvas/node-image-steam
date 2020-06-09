@@ -1,3 +1,10 @@
+# 0.56.0 - June 9 2020
+
+* ***(MINOR FIX)*** Support for scoped driver options. This prevents reusing the same driver
+  across apps to avoid polluting of options. This was not a problem with most pre-existing drivers,
+  but will make things safer.
+
+
 # 0.55.0 - May 26 2020
 
 * ***(ENHANCEMENT)*** Option to set `isteamEndpoint=true` on the `http` storage client, allowing
