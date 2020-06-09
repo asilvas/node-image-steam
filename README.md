@@ -238,6 +238,7 @@ See `lib/storage/fs` (read/write/delete) or  `lib/storage/http` (read only) for 
 
 ### External Storage Clients
 
+* https://github.com/asilvas/image-steam-aws-s3 - S3 client built on [AWS S3](https://www.npmjs.com/package/aws-sdk)
 * https://github.com/asilvas/image-steam-s3 - S3 client built on [knox](https://github.com/Automattic/knox)
 * https://github.com/asilvas/image-steam-redis - Redis client built on [ioredis](https://github.com/luin/ioredis)
 * https://github.com/asilvas/image-steam-blobby - [Blobby](https://github.com/asilvas/blobby) client over HTTP(S)
