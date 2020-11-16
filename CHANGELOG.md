@@ -1,3 +1,9 @@
+# 0.56.1 - November 4 2020
+
+* ***(FIX)*** Images rotated prior to optimized original would result in optimized losing their
+  orientation and resulting in unpredictable orientations.
+
+
 # 0.56.0 - June 9 2020
 
 * ***(MINOR FIX)*** Support for scoped driver options. This prevents reusing the same driver
