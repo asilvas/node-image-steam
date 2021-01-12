@@ -54,9 +54,9 @@
     "fs-extra": "^9.0.1",
     "image-pal-sharp": "^1.2.2",
     "lodash": "^4.17.15",
-    "mime": "^2.4.6",
+    "mime": "^2.4.7",
     "semaphore": "^1.1.0",
-    "sharp": "^0.25.3",
+    "sharp": "^0.27.0",
     "xxhash": "^0.3.0",
     "yargs": "^15.3.1"
   },
@@ -68,9 +68,9 @@
     "jshint": "^2.11.1",
     "mocha": "^7.2.0",
     "mocha-istanbul": "^0.3.0",
-    "open": "^7.0.4",
+    "open": "^7.3.1",
     "should": "^13.2.3",
-    "sinon": "^9.0.2",
+    "sinon": "^9.2.3",
     "sinon-chai": "^3.5.0"
   },
   "optionalDependencies": {
