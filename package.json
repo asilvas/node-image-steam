@@ -4,6 +4,7 @@
   "description": "A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js.",
   "main": "index.js",
   "scripts": {
+    "bench": "./packages/image-steam-bench/bin/isteamb run http://localhost:13337/isteamb",
     "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
     "start": "node ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
     "nodemo": "node ./scripts/server.js --isConfig ./scripts/dev.js",
@@ -49,28 +50,28 @@
     "package.json"
   ],
   "dependencies": {
-    "agentkeepalive": "^4.1.2",
+    "agentkeepalive": "^4.1.4",
     "async": "^3.2.0",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "image-pal-sharp": "^1.2.2",
     "lodash": "^4.17.15",
-    "mime": "^2.4.7",
+    "mime": "^2.5.2",
     "semaphore": "^1.1.0",
-    "sharp": "^0.27.0",
+    "sharp": "^0.27.1",
     "xxhash": "^0.3.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
     "browser-launcher": "^2.0.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.0",
     "istanbul": "^0.4.5",
     "jscs": "^3.0.7",
     "jshint": "^2.11.1",
     "mocha": "^7.2.0",
     "mocha-istanbul": "^0.3.0",
-    "open": "^7.3.1",
+    "open": "^7.4.2",
     "should": "^13.2.3",
-    "sinon": "^9.2.3",
+    "sinon": "^9.2.4",
     "sinon-chai": "^3.5.0"
   },
   "optionalDependencies": {

@@ -24,7 +24,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rs=w:320?cache=false",
-		"etag": "3050311119"
+		"etag": "3057511164"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:180?cache=false",
@@ -44,7 +44,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rs=w:320?cache=false",
-		"etag": "358441915"
+		"etag": "1459769722"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:180?cache=false",
@@ -64,7 +64,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rs=w:320?cache=false",
-		"etag": "2616365040"
+		"etag": "1435719202"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:180?cache=false",
@@ -84,7 +84,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rs=w:320?cache=false",
-		"etag": "879102826"
+		"etag": "252802307"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:180?cache=false",
@@ -104,7 +104,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rs=w:320?cache=false",
-		"etag": "1196812001"
+		"etag": "1655231421"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:180?cache=false",
@@ -124,7 +124,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rs=w:320?cache=false",
-		"etag": "3862878032"
+		"etag": "2435103251"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:180?cache=false",
@@ -144,7 +144,7 @@
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rs=w:320?cache=false",
-		"etag": "1481949612"
+		"etag": "2075349874"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:180?cache=false",
@@ -245,58 +245,58 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:128,h:128,m/cr=w:128,h:128/fx-gs/fm=f:raw?cache=false",
-		"etag": "1966289730"
+		"etag": "3593753577"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:320/exd=l:10%25,t:10%25,r:10%25,b:10%25,bg:hex(aaaaaa)/fm=f:raw?cache=false",
-		"etag": "3182248596"
+		"etag": "1025107497"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:320/exd=l:50,t:50,r:50,b:50,bg:rgba(80;60;120;0.5)/fm=f:raw?cache=false",
-		"etag": "816656075"
+		"etag": "613958223"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/$badCommand/fm=f:raw?cache=false"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=t:-10%25,l:-10%25,w:-20%25,h:-20%25/fm=f:raw?cache=false",
-		"etag": "2571807800"
+		"etag": "3097375712"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/cr=t:-10,l:-10,w:-20,h:-20/fm=f:raw?cache=false",
-		"etag": "1562229424"
+		"etag": "2756345557"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=true",
-		"etag": "2658831656"
+		"etag": "1490828608"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?download=true&cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fx-sp=r:5/fm=f:raw?cache=false",
-		"etag": "2245996493"
+		"etag": "1410228629"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip/fm=f:raw?cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bicubic/fm=f:raw?cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:bilinear/fm=f:raw?cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/ip=i:nearest/fm=f:raw?cache=false",
-		"etag": "340585072"
+		"etag": "3629176274"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rt=d:180/fm=f:raw?cache=false",
@@ -316,7 +316,7 @@
 	},
 	{
 		"url": "http://localhost:13337/roast.png/:/?cache=false",
-		"etag": "1475425582"
+		"etag": "3351503385"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
@@ -324,6 +324,6 @@
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",
-		"etag": "4100359195"
+		"etag": "2045150596"
 	}
 ]
