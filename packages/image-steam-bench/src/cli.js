@@ -31,12 +31,12 @@ const args = yargs
   .option('maxLoad', {
     type: 'number',
     describe: 'Max load is determined by optimal TTFB multiplied by this value',
-    default: 2.0
+    default: 2.5
   })
   .option('minRunTime', {
     type: 'number',
     describe: 'Minimum time (in ms) that a test must run before determinating. If `requests` is specified that will take priority',
-    default: 20000
+    default: 15000
   })
   .option('requests', {
     type: 'number',
@@ -55,12 +55,12 @@ const args = yargs
   .option('workerSpawnTime', {
     type: 'number',
     describe: 'Seconds before new workers are spawned',
-    default: 3
+    default: 5
   })
   .option('workerSpawnRate', {
     type: 'number',
     describe: 'The rate at which workers are spawned (0.2 being +20% per spawn)',
-    default: 0.2
+    default: 0.25
   })
   .option('screenRefresh', {
     type: 'number',

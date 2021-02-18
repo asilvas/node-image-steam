@@ -147,6 +147,22 @@ module.exports = class Bench {
       this.testData.isOver = true;
     }
 
+    // if the test is over but min/max have not yet been determined, set to current state
+    if (this.testData.isOver) {
+      if (!this.testData.score.min.ttfb) {
+        this.testData.score.min.ttfb = ttfb50th;
+        this.testData.score.min.rps = rps;
+        this.testData.score.min.concurrency = this.concurrency;
+        this.testData.score.min.kbps = kbps;
+      }
+      if (!this.testData.score.min.ttfb) {
+        this.testData.score.max.ttfb = ttfb50th;
+        this.testData.score.max.rps = rps;
+        this.testData.score.max.concurrency = this.concurrency;
+        this.testData.score.max.kbps = kbps;
+      }
+    }
+
     this.scores[this.testName] = this.testData.score;
 
     // reset tracker
