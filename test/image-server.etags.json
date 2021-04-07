@@ -169,11 +169,11 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:1/fm=f:png?cache=false",
-		"etag": "3346756267"
+		"etag": "2573815992"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cp=c:2/pg/fm=f:png?cache=false",
-		"etag": "2981257288"
+		"etag": "1499458214"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/cr=l:5%25,t:10%25,w:90%25,h:80%25/fm=f:raw?cache=false",
@@ -316,7 +316,7 @@
 	},
 	{
 		"url": "http://localhost:13337/roast.png/:/?cache=false",
-		"etag": "3351503385"
+		"etag": "1634536696"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
@@ -324,6 +324,6 @@
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",
-		"etag": "2045150596"
+		"etag": "1958309847"
 	}
 ]
