@@ -294,7 +294,7 @@ Most router defaults should suffice, but you have full control over routing. See
 | hqOriginalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Identical behavior to `originalSteps`, but with lossless defaults and reserved only for images smaller than `hqOriginalMaxPixels` |
 | hqOriginalMaxPixels | `number` | `400 * 400` | Max threshold of pixels where the higher quality `hqOriginalSteps` are used in place of `originalSteps` |
 | steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
-
+| `beforeProcess` | `function` | `null` | A function having the signature `(routeInfo, options) => null` that can manipulate request parameters before the processing starts |
 
 # Routing
 
@@ -344,6 +344,7 @@ Resize an image, preserving aspect or not.
 | `bg` | String | *optional* | Supply a background color if applicable. Works in `hex(123123)` or `rgb(123; 123; 123)` or `rgba(123; 123; 123; 0.5)` formats |
 | `ft` | String | `fill` | How to fit the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
 | `ps` | String | `centre` | How to position the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
+
 
 ### Examples
 
