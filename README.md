@@ -294,7 +294,7 @@ Most router defaults should suffice, but you have full control over routing. See
 | hqOriginalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Identical behavior to `originalSteps`, but with lossless defaults and reserved only for images smaller than `hqOriginalMaxPixels` |
 | hqOriginalMaxPixels | `number` | `400 * 400` | Max threshold of pixels where the higher quality `hqOriginalSteps` are used in place of `originalSteps` |
 | steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
-| `beforeProcess` | `function` | `null` | A function having the signature `(routeInfo, options) => null` that can manipulate request info before the processing starts |
+| `beforeProcess` | `function` | `undefined` | A function having the signature `(routeInfo, options) => null` that can manipulate request info before the processing starts |
 
 # Routing
 
