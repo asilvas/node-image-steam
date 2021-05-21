@@ -3,6 +3,18 @@
 		"url": "DELETE http://localhost:13337/UP_steam_loco.jpg/:/fm=f:raw?cache=false"
 	},
 	{
+		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=h400/fm=f:raw?cache=false",
+		"etag": "52392350"
+	},
+	{
+		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s400/fm=f:raw?cache=false",
+		"etag": "1297587068"
+	},
+	{
+		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=w400/fm=f:raw?cache=false",
+		"etag": "1297587068"
+	},
+	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/?cache=false",
 		"etag": "1933798097"
 	},
