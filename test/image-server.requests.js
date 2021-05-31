@@ -7,6 +7,11 @@ module.exports = [
   { steps: '$colors=mn:false', label: 'get color palette with mean disabled', options: { disableFormat: true } },
   { steps: 'rs=w:640', label: 'cache on', qs: { cache: 'true' } },
   { steps: 'rs=w:640', label: 'download', qs: { download: 'true' } },
+  { steps: 'gis=s400', label : 'use google image service param to indicate that the length on the longer side is 400', options: { method: 'GET', statusCode: 200 } },
+  { steps: 'gis=w400', label : 'use google image service param to indicate that the width is 400', options: { method: 'GET', statusCode: 200 } },
+  { steps: 'gis=h400', label : 'use google image service param to indicate that the height is 400', options: { method: 'GET', statusCode: 200 } },
+  { steps: 'gis=s0', label : 'use google image service param to indicate to return default image', options: { method: 'GET', statusCode: 200, disableFormat: true }, qs: { cache: 'true' } },
+  { steps: 'gis', label : 'Return default image if only gis is specified', options: { method: 'GET', statusCode: 200, disableFormat: true }, qs: { cache: 'true' } },
   { steps: 'rs=w:640/cr=t:-10,l:-10,w:-20,h:-20', label: 'top/left/width/height -10px' },
   { steps: 'rs=w:640/cr=t:-10%25,l:-10%25,w:-20%25,h:-20%25', label: 'top/left/width/height -10%' },
   { steps: 'rs=w:640', imageName: 'steam-engine.jpg', label: 'resize max to 640 width on alternate image' },
@@ -84,5 +89,5 @@ module.exports = [
   { steps: 'rs=w:320', imageName: 'Portrait_5.jpg', label: 'Verify Orientation 5 resized' },
   { steps: 'rs=w:320', imageName: 'Portrait_6.jpg', label: 'Verify Orientation 6 resized' },
   { steps: 'rs=w:320', imageName: 'Portrait_7.jpg', label: 'Verify Orientation 7 resized' },
-  { steps: 'rs=w:320', imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8 resized' }
+  { steps: 'rs=w:320', imageName: 'Portrait_8.jpg', label: 'Verify Orientation 8 resized' },
 ];
