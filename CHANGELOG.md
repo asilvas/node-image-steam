@@ -1,3 +1,8 @@
+# 0.59.0 - May 31 2021
+
+* ***(ENHANCEMENT)*** Support for `route.beforeProcess` custom handler.
+
+
 # 0.56.1 - November 4 2020
 
 * ***(FIX)*** Images rotated prior to optimized original would result in optimized losing their
