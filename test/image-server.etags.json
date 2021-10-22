@@ -12,7 +12,7 @@
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s0?cache=true",
-		"etag": "2228523114"
+		"etag": "4126025781"
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s400/fm=f:raw?cache=false",
@@ -28,163 +28,163 @@
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis?cache=true",
-		"etag": "2228523114"
+		"etag": "4126025781"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/?cache=false",
-		"etag": "1933798097"
+		"etag": "3404268280"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:180?cache=false",
-		"etag": "1816146136"
+		"etag": "3723581968"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:270?cache=false",
-		"etag": "3713009507"
+		"etag": "1557736784"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/rt=d:90?cache=false",
-		"etag": "591246057"
+		"etag": "534410746"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/?cache=false",
-		"etag": "1367319390"
+		"etag": "68404234"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rs=w:320?cache=false",
-		"etag": "3057511164"
+		"etag": "3359108367"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:180?cache=false",
-		"etag": "1177594338"
+		"etag": "1667780271"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:270?cache=false",
-		"etag": "3223324071"
+		"etag": "1923789818"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_2.jpg/:/rt=d:90?cache=false",
-		"etag": "405589998"
+		"etag": "2748434599"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/?cache=false",
-		"etag": "2019704733"
+		"etag": "1527207247"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rs=w:320?cache=false",
-		"etag": "1459769722"
+		"etag": "4197998805"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:180?cache=false",
-		"etag": "3743876500"
+		"etag": "100051795"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:270?cache=false",
-		"etag": "3390589816"
+		"etag": "3710356246"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_3.jpg/:/rt=d:90?cache=false",
-		"etag": "1681252188"
+		"etag": "3504932039"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/?cache=false",
-		"etag": "1472352087"
+		"etag": "3054910667"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rs=w:320?cache=false",
-		"etag": "1435719202"
+		"etag": "296811035"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:180?cache=false",
-		"etag": "2838678122"
+		"etag": "3583666735"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:270?cache=false",
-		"etag": "650558304"
+		"etag": "3166989112"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_4.jpg/:/rt=d:90?cache=false",
-		"etag": "2198223550"
+		"etag": "2684372362"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/?cache=false",
-		"etag": "4284879699"
+		"etag": "3099977239"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rs=w:320?cache=false",
-		"etag": "252802307"
+		"etag": "2998110627"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:180?cache=false",
-		"etag": "2657566030"
+		"etag": "877152734"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:270?cache=false",
-		"etag": "1822456526"
+		"etag": "2216791739"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_5.jpg/:/rt=d:90?cache=false",
-		"etag": "1119385618"
+		"etag": "2526738979"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/?cache=false",
-		"etag": "3734870753"
+		"etag": "209285270"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rs=w:320?cache=false",
-		"etag": "1655231421"
+		"etag": "2353525323"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:180?cache=false",
-		"etag": "2638167746"
+		"etag": "3231327901"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:270?cache=false",
-		"etag": "2091359396"
+		"etag": "3331411625"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_6.jpg/:/rt=d:90?cache=false",
-		"etag": "725597747"
+		"etag": "2014426459"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/?cache=false",
-		"etag": "3682606606"
+		"etag": "1633813092"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rs=w:320?cache=false",
-		"etag": "2435103251"
+		"etag": "1318152296"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:180?cache=false",
-		"etag": "986001542"
+		"etag": "3517205671"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:270?cache=false",
-		"etag": "1870679878"
+		"etag": "559483239"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_7.jpg/:/rt=d:90?cache=false",
-		"etag": "598354297"
+		"etag": "4231016551"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/?cache=false",
-		"etag": "818070018"
+		"etag": "3370911325"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rs=w:320?cache=false",
-		"etag": "2075349874"
+		"etag": "2189954923"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:180?cache=false",
-		"etag": "1381162473"
+		"etag": "2401438373"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:270?cache=false",
-		"etag": "3227354047"
+		"etag": "3819548756"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_8.jpg/:/rt=d:90?cache=false",
-		"etag": "1796496741"
+		"etag": "467425306"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/$colors=mn:false?cache=false"
@@ -348,10 +348,10 @@
 	},
 	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
-		"etag": "2708374494"
+		"etag": "2751760695"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",
-		"etag": "1958309847"
+		"etag": "489561721"
 	}
 ]
