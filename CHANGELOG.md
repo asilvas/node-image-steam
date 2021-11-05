@@ -1,3 +1,8 @@
+# 0.60.0 - November 5 2021
+
+* ***(ENHANCEMENT)*** Support for `avif` compression format, enabled by default
+  for supporting browsers. Optimized originals will remain `webp` for the time being.
+
 # 0.59.0 - May 31 2021
 
 * ***(ENHANCEMENT)*** Support for `route.beforeProcess` custom handler.

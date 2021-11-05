@@ -240,8 +240,16 @@
 		"etag": "3791216710"
 	},
 	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:avif?cache=false",
+		"etag": "1611579325"
+	},
+	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:raw?cache=false",
 		"etag": "1736867771"
+	},
+	{
+		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:webp?cache=false",
+		"etag": "1295091687"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:raw?cache=false",

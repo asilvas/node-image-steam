@@ -33,6 +33,8 @@ module.exports = [
   { steps: 'qt=q:20', label: 'apply low quality' },
   { steps: 'cp=c:1/fm=f:png', label: 'output png and use compression', contentType: 'image/png' },
   { steps: 'cp=c:2/pg/fm=f:png', label: 'output png with compression and progressive rendering', contentType: 'image/png' },
+  { steps: 'fm=f:webp', label: 'use webp format', contentType: 'image/webp' },
+  { steps: 'fm=f:avif', label: 'use avif format', contentType: 'image/avif' },
   { steps: 'rt=d:90', label: 'rotate 90 degrees' },
   { steps: 'rt=d:180', label: 'rotate 180 degrees' },
   { steps: 'rt=d:270', label: 'rotate 270 degrees' },

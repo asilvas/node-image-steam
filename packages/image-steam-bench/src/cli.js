@@ -19,7 +19,7 @@ const args = yargs
   .option('format', {
     alias: 'f',
     type: 'string',
-    choices: ['webp', 'jpeg'],
+    choices: ['webp', 'avif', 'jpeg'],
     describe: 'Image format requested in every test',
     default: 'webp'
   })
