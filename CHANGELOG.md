@@ -1,3 +1,13 @@
+# 0.61.0 -
+
+* ***(ENHANCEMENT)*** Default resize limits increased from 2K to 4K resolution. Default
+  optimized original size remains unchanged (2K), so this primarily benefits special
+  usage of `?useOriginal=true`.
+* ***(BUG FIX)*** When `?useOriginal=true` is supplied the hash will reflect this
+  modification to permit the same operations generating unique artifacts. Primarily
+  benefits the above enhancement.
+
+
 # 0.60.0 - November 5 2021
 
 * ***(ENHANCEMENT)*** Support for `avif` compression format, enabled by default
