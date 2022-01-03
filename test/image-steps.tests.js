@@ -3,12 +3,12 @@
 var path = require('path');
 var chai = require('chai');
 var expect = chai.expect;
-var getHashFromSteps = require('../lib/helpers/image-steps.js').getHashFromSteps;
+var getHashFromSteps =
+  require('../lib/helpers/image-steps.js').getHashFromSteps;
 
 var filesPath = path.resolve(__dirname, './files');
 
 describe('#XXHash', function () {
-
   it('Any object', function () {
     const res = getHashFromSteps({ hello: 'world' });
     expect(res).to.equal(623007140);
@@ -28,6 +28,4 @@ describe('#XXHash', function () {
     const res = getHashFromSteps({ something: 'unique2' });
     expect(res).to.equal(422463611);
   });
-
 });
-

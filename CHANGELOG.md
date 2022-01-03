@@ -1,4 +1,11 @@
-# 0.61.0 -
+# 0.61.1 - January 3 2022
+
+* ***(SECURITY)*** All dependencies updated with latest security patches.
+* ***(CLEANUP)*** Removal of unused `jscs` & `jshint` deps, addition of `prettier`,
+  and updates to Travis CI config.
+
+
+# 0.61.0 - November 30 2021
 
 * ***(ENHANCEMENT)*** Default resize limits increased from 2K to 4K resolution. Default
   optimized original size remains unchanged (2K), so this primarily benefits special

@@ -11,27 +11,27 @@ describe('#Dimension utilities', function () {
       expect(dimension.getInfo('1.5%')).to.deep.equal({
         unit: '%',
         modifier: null,
-        value: 1.5
+        value: 1.5,
       });
       expect(dimension.getInfo('+2.%')).to.deep.equal({
         unit: '%',
         modifier: '+',
-        value: 2
+        value: 2,
       });
       expect(dimension.getInfo('.25%')).to.deep.equal({
         unit: '%',
         modifier: null,
-        value: 0.25
+        value: 0.25,
       });
       expect(dimension.getInfo('0.5%')).to.deep.equal({
         unit: '%',
         modifier: null,
-        value: 0.5
+        value: 0.5,
       });
       expect(dimension.getInfo('-1.5%')).to.deep.equal({
         unit: '%',
         modifier: '-',
-        value: 1.5
+        value: 1.5,
       });
     });
 
@@ -39,12 +39,12 @@ describe('#Dimension utilities', function () {
       expect(dimension.getInfo('1.5px')).to.deep.equal({
         unit: 'px',
         modifier: null,
-        value: 1
+        value: 1,
       });
       expect(dimension.getInfo('0.5')).to.deep.equal({
         unit: 'px',
         modifier: null,
-        value: 0
+        value: 0,
       });
     });
   });
@@ -54,21 +54,21 @@ describe('#Dimension utilities', function () {
       var originalImage = {
         info: {
           width: 2000,
-          height: 1000
-        }
+          height: 1000,
+        },
       };
       var imageStep = {
         top: '10.5%',
         left: '50%',
         width: '22.5%',
-        height: '0.5%'
+        height: '0.5%',
       };
       dimension.resolveStep(originalImage, imageStep);
       expect(imageStep).to.deep.equal({
         top: 105,
         left: 1000,
         width: 450,
-        height: 5
+        height: 5,
       });
     });
 
@@ -76,8 +76,8 @@ describe('#Dimension utilities', function () {
       var originalImage = {
         info: {
           width: 2000,
-          height: 1000
-        }
+          height: 1000,
+        },
       };
 
       it('should handle percentage values', function () {
@@ -85,14 +85,14 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '30%',
-          anchorY: '70%'
+          anchorY: '70%',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 600,
-          anchorY: 700
+          anchorY: 700,
         });
       });
 
@@ -101,14 +101,14 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '300px',
-          anchorY: '500px'
+          anchorY: '500px',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 300,
-          anchorY: 500
+          anchorY: 500,
         });
       });
 
@@ -117,14 +117,14 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '+10%',
-          anchorY: '+20%'
+          anchorY: '+20%',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 1200,
-          anchorY: 700
+          anchorY: 700,
         });
       });
 
@@ -133,14 +133,14 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '+100px',
-          anchorY: '+200px'
+          anchorY: '+200px',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 1100,
-          anchorY: 700
+          anchorY: 700,
         });
       });
 
@@ -149,14 +149,14 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '-10%',
-          anchorY: '-25%'
+          anchorY: '-25%',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 800,
-          anchorY: 250
+          anchorY: 250,
         });
       });
 
@@ -165,24 +165,25 @@ describe('#Dimension utilities', function () {
           width: '200',
           height: '100',
           anchorX: '-100px',
-          anchorY: '-200px'
+          anchorY: '-200px',
         };
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
           width: 200,
           height: 100,
           anchorX: 900,
-          anchorY: 300
+          anchorY: 300,
         });
       });
 
       it('should handle offset values with anchor specified', function () {
-        var imageStep, defaults = {
-          width: '200',
-          height: '100',
-          anchorX: '+10%',
-          anchorY: '+25%'
-        };
+        var imageStep,
+          defaults = {
+            width: '200',
+            height: '100',
+            anchorX: '+10%',
+            anchorY: '+25%',
+          };
         imageStep = _.assign({}, defaults, { anchor: 'bl', anchorY: '-25%' });
         dimension.resolveStep(originalImage, imageStep);
         expect(imageStep).to.deep.equal({
@@ -190,7 +191,7 @@ describe('#Dimension utilities', function () {
           height: 100,
           anchorX: 300,
           anchorY: 700,
-          anchor: 'bl'
+          anchor: 'bl',
         });
         imageStep = _.assign({}, defaults, { anchor: 'tr', anchorX: '-10%' });
         dimension.resolveStep(originalImage, imageStep);
@@ -199,7 +200,7 @@ describe('#Dimension utilities', function () {
           height: 100,
           anchorX: 1700,
           anchorY: 300,
-          anchor: 'tr'
+          anchor: 'tr',
         });
         imageStep = _.assign({}, defaults, { anchor: 'bc', anchorY: '-25%' });
         dimension.resolveStep(originalImage, imageStep);
@@ -208,7 +209,7 @@ describe('#Dimension utilities', function () {
           height: 100,
           anchorX: 1200,
           anchorY: 700,
-          anchor: 'bc'
+          anchor: 'bc',
         });
         imageStep = _.assign({}, defaults, { anchor: 'cr', anchorX: '-400px' });
         dimension.resolveStep(originalImage, imageStep);
@@ -217,7 +218,7 @@ describe('#Dimension utilities', function () {
           height: 100,
           anchorX: 1500,
           anchorY: 750,
-          anchor: 'cr'
+          anchor: 'cr',
         });
       });
     });

@@ -10,13 +10,15 @@ var serverRequests = require('./image-server.requests.js');
 var crypto = require('crypto');
 
 describe('#Image Server Security', function () {
-
   it('Throws an error if options.secret is not defined', function () {
     expect(function () {
       new Security({
-        enabled: true
+        enabled: true,
       });
-    }).to.throw(Security.SecurityError, 'You must set a secret to enable Security');
+    }).to.throw(
+      Security.SecurityError,
+      'You must set a secret to enable Security'
+    );
   });
 
   var server;
@@ -26,7 +28,7 @@ describe('#Image Server Security', function () {
     serverOptions.security = {
       enabled: true,
       secret: secret,
-      algorithm: 'sha256'
+      algorithm: 'sha256',
     };
 
     server = isteam.http.start(serverOptions);
@@ -39,26 +41,34 @@ describe('#Image Server Security', function () {
   serverRequests.forEach(function (serverRequest) {
     var url = getUrlFromImageSteps(serverRequest);
     if (!url) return;
-    it(serverRequest.label + ', url: ' + url + ' good signature', function (url, cb) {
-      getResponse(url, function (err, res) {
-        expect(res.statusCode).to.be.equal(200);
-        if (serverRequest.contentType) {
-          expect(res.headers['content-type']).to.be.equal(serverRequest.contentType);
-        }
-        cb();
-      });
-    }.bind({}, url));
+    it(
+      serverRequest.label + ', url: ' + url + ' good signature',
+      function (url, cb) {
+        getResponse(url, function (err, res) {
+          expect(res.statusCode).to.be.equal(200);
+          if (serverRequest.contentType) {
+            expect(res.headers['content-type']).to.be.equal(
+              serverRequest.contentType
+            );
+          }
+          cb();
+        });
+      }.bind({}, url)
+    );
   });
 
   serverRequests.forEach(function (serverRequest) {
     var url = getUrlFromImageSteps(serverRequest, 'bogussig');
     if (!url) return;
-    it(serverRequest.label + ', url: ' + url + ' bad signature', function (url, cb) {
-      getResponse(url, function (err, res) {
-        expect(res.statusCode).to.be.equal(401);
-        cb();
-      });
-    }.bind({}, url));
+    it(
+      serverRequest.label + ', url: ' + url + ' bad signature',
+      function (url, cb) {
+        getResponse(url, function (err, res) {
+          expect(res.statusCode).to.be.equal(401);
+          cb();
+        });
+      }.bind({}, url)
+    );
   });
 
   function getUrlFromImageSteps(serverRequest, signature) {
@@ -70,20 +80,32 @@ describe('#Image Server Security', function () {
     if (!signature) {
       var shasum = crypto.createHash('sha256');
       shasum.update('/' + imgName + '/:/' + steps + secret);
-      signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
+      signature = shasum
+        .digest('base64')
+        .replace(/\//g, '_')
+        .replace(/\+/g, '-')
+        .substring(0, 8);
     }
 
-    return 'http://localhost:13337/' + imgName + '/:/' + steps + '/-/' + signature + '?cache=false';
+    return (
+      'http://localhost:13337/' +
+      imgName +
+      '/:/' +
+      steps +
+      '/-/' +
+      signature +
+      '?cache=false'
+    );
   }
 
   function getResponse(url, cb) {
-    http.get(url, function (res) {
-      cb(null, res);
-      res.resume(); // free the response
-    }).on('error', function (err) {
-      cb(err);
-    });
+    http
+      .get(url, function (res) {
+        cb(null, res);
+        res.resume(); // free the response
+      })
+      .on('error', function (err) {
+        cb(err);
+      });
   }
-
 });
-

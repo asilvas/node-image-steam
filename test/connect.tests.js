@@ -8,7 +8,6 @@ var Connect = require('../lib/http/connect');
 var filesPath = path.resolve(__dirname, './files');
 
 describe('#Image Server Security', function () {
-
   var connect, connectOptions;
 
   before(function () {
@@ -16,21 +15,17 @@ describe('#Image Server Security', function () {
       stepTimeout: 1000,
       storage: {
         driver: 'fs',
-        path: filesPath
-      }
+        path: filesPath,
+      },
     };
 
     connect = new Connect(connectOptions);
   });
 
-  after(function () {
-
-  });
+  after(function () {});
 
   it('Default options.stepTimeout', function () {
     connect = new Connect(); // default
     expect(connect.options.stepTimeout).to.equal(60000);
   });
-
 });
-
