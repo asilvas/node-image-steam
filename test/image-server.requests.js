@@ -120,7 +120,6 @@ module.exports = [
     contentType: 'image/png',
   },
   { steps: 'fm=f:webp', label: 'use webp format', contentType: 'image/webp' },
-  { steps: 'fm=f:avif', label: 'use avif format', contentType: 'image/avif' },
   { steps: 'rt=d:90', label: 'rotate 90 degrees' },
   { steps: 'rt=d:180', label: 'rotate 180 degrees' },
   { steps: 'rt=d:270', label: 'rotate 270 degrees' },
@@ -151,7 +150,6 @@ module.exports = [
   },
   // { steps: 'fx-nm', label: 'normalize' },
   { steps: 'fx-bl', label: 'default blur' },
-  { steps: 'fx-bl=s:5', label: 'sigma 5 blur' },
   { steps: '', imageName: 'Portrait_1.jpg', label: 'Verify Orientation 1' },
   {
     steps: 'rt=d:90',
@@ -316,3 +314,15 @@ module.exports = [
     label: 'Verify Orientation 8 resized',
   },
 ];
+
+if (process.env.TRAVIS === undefined) {
+  // not supported by travis CI
+  module.exports = module.exports.concat([
+    {
+      steps: 'fm=f:avif',
+      label: 'use avif format',
+      contentType: 'image/avif',
+    },
+    { steps: 'fx-bl=s:5', label: 'sigma 5 blur' },
+  ]);
+}

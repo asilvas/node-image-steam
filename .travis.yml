@@ -4,3 +4,5 @@ node_js:
   - '14'
   - '16'
 npm_args: '--no-optional'
+env:
+  - TRAVIS="1"
