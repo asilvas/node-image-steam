@@ -5,16 +5,15 @@
   "main": "index.js",
   "scripts": {
     "bench": "./packages/image-steam-bench/bin/isteamb run http://localhost:13337/isteamb",
-    "check-cov": "istanbul check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
+    "check-cov": "nyc check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
     "start": "node ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
     "nodemo": "node ./scripts/server.js --isConfig ./scripts/dev.js",
     "mocha": "mocha -w -R spec",
     "prettier": "npx prettier --write lib test",
-    "report": "istanbul report cobertura && istanbul report lcov",
+    "report": "nyc report --reporter=cobertura && nyc report --reporter=lcov",
     "test": "npm run prettier && npm run test-and-check && npm outdated",
     "test-and-check": "npm run unit && npm run report && npm run check-cov",
-    "unit": "npm run unit-cov",
-    "unit-cov": "istanbul cover --dir coverage-unit ./node_modules/mocha/bin/_mocha"
+    "unit": "npx nyc ./node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -65,9 +64,8 @@
   "devDependencies": {
     "browser-launcher": "^4.0.0",
     "chai": "^4.3.4",
-    "istanbul": "^0.4.5",
     "mocha": "^9.1.3",
-    "mocha-istanbul": "^0.3.0",
+    "nyc": "^15.1.0",
     "open": "^8.4.0",
     "prettier": "^2.5.1",
     "should": "^13.2.3",

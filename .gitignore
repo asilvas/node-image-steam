@@ -23,8 +23,9 @@ npm-debug.log
 !.idea/inspectionProfiles
 !.idea/jsLinters
 
-# Istanbul Output
+# Coverage
 coverage*/
+.nyc_output/
 
 # NPM Dependencies
 node_modules/

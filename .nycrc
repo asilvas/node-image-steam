@@ -1,0 +1,13 @@
+{
+  "nyc": {
+    "all": true,
+    "include": [
+      "test/**.js"
+    ],
+    "exclude": [
+    ],
+    "reporter": [
+      "lcov"
+    ]
+  }
+}

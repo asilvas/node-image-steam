@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - '12'
   - '14'
-  - '16'
 npm_args: '--no-optional'
 env:
   - TRAVIS="1"
