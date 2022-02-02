@@ -69,7 +69,7 @@
     "open": "^8.4.0",
     "prettier": "^2.5.1",
     "should": "^13.2.3",
-    "sinon": "^12.0.1",
+    "sinon": "^13.0.1",
     "sinon-chai": "^3.7.0"
   },
   "optionalDependencies": {
