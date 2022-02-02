@@ -241,7 +241,7 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:avif?cache=false",
-		"etag": "1611579325"
+		"etag": "3435717348"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:raw?cache=false",
@@ -308,7 +308,7 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=true",
-		"etag": "1490828608"
+		"etag": "1093979100"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?download=true&cache=false",
@@ -356,7 +356,7 @@
 	},
 	{
 		"url": "http://localhost:13337/steam-engine.jpg/:/rs=w:640?cache=false",
-		"etag": "2751760695"
+		"etag": "383607730"
 	},
 	{
 		"url": "http://localhost:13337/steam-engine11.png/:/rs=w:640?cache=false",

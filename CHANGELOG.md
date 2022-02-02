@@ -1,3 +1,9 @@
+# 0.61.2 - February 2 2022
+
+* ***(SECURITY)*** Do not track "author".
+* ***(SECURITY)*** All dependencies updated with latest security patches.
+
+
 # 0.61.1 - January 3 2022
 
 * ***(SECURITY)*** All dependencies updated with latest security patches.
