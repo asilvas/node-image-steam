@@ -16,11 +16,11 @@
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s400/fm=f:raw?cache=false",
-		"etag": "1297587068"
+		"etag": "2226622219"
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=w400/fm=f:raw?cache=false",
-		"etag": "1297587068"
+		"etag": "2226622219"
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis?cache=false",
