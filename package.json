@@ -71,10 +71,5 @@
     "should": "^13.2.3",
     "sinon": "^14.0.0",
     "sinon-chai": "^3.7.0"
-  },
-  "optionalDependencies": {
-    "opencv4nodejs": "^4.4.0",
-    "salient-autofocus": "^0.9.1",
-    "salient-maps": "^0.1.6"
   }
 }

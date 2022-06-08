@@ -7,18 +7,6 @@ module.exports = {
   log: {
     warnings: true
   },
-  /*saliency: {
-    enabled: true,
-    version: 1,
-    autoCrop: true,
-    alwaysOn: true,
-    model: 'spectral',
-    map: true,
-    options: {
-      width: 200,
-      height: 200
-    }
-  },*/
   processor: {
     sharp: {
       cache: false,

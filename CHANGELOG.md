@@ -1,3 +1,8 @@
+# 0.63.0 - June 8 2022
+
+* ***(BREAKING)*** `saliency` was deprecated 2 years ago, and is now removed.
+
+
 # 0.62.0 - June 8 2022
 
 * ***(ENHANCEMENT)*** `fallback` storage option to support multi-tiered
