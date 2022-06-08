@@ -55,6 +55,15 @@ module.exports = {
       },
       isteamb: {
         driver: 'isteamb'
+      },
+      failApp: {
+        driver: 'http',
+        endpoint: 'https://badhost123123',
+        fallback: 'fallbackApp'
+      },
+      fallbackApp: {
+        driver: 'fs',
+        path: path.resolve(__dirname, '../test/files')
       }
     },
     replicas: {

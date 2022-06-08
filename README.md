@@ -176,6 +176,7 @@ isteam --isConfig './myconfig.json'
 | --- | --- | --- | --- |
 | driver | `string` | `driver` or `driverPath` ***required*** | Bundled storage driver to use |
 | driverPath | `string` | `driver` or `driverPath` ***required*** | Load a custom driver from the desired path, ignoring the `driver` option |
+| fallback | `string` *optional* | The `app` storage to use if reads fail. This is especially useful for proxy scenarios to avoid dependency on a single region |
 | *(driver options)* | | | All other options will be supplied to the storage driver indicated by `driver` or `driverPath` |
 
 ***Advanced*** storage example:
