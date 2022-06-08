@@ -1,3 +1,9 @@
+# 0.62.0 - June 8 2022
+
+* ***(ENHANCEMENT)*** `fallback` storage option to support multi-tiered
+  storage architectures.
+
+
 # 0.61.2 - February 2 2022
 
 * ***(SECURITY)*** Do not track "author".
