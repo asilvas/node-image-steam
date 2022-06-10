@@ -1,3 +1,8 @@
+# 0.63.2 - June 10 2022
+
+* ***(FIX)*** Rare crash fix when initializing `sharp` if invalid input.
+
+
 # 0.63.1 - June 9 2022
 
 * ***(FIX)*** `http` storage exception.
