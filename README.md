@@ -505,7 +505,7 @@ you have good reason.
 
 | Argument | Type | Default | Desc |
 | --- | --- | --- | --- |
-| `f` | String | **required** | Format to output: `"jpeg"`, `"png"`, or `"webp"` |
+| `f` | String | **required** | Format to output: `"jpeg"`, `"png"`, `"webp"`, or `"gif"` |
 
 
 ## Metadata (md)

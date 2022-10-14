@@ -1,3 +1,8 @@
+# 0.64.0 - October 14 2022
+
+* ***(ENHANCEMENT)*** Format (`fm`) now supports `gif` as output.
+
+
 # 0.63.2 - June 10 2022
 
 * ***(FIX)*** Rare crash fix when initializing `sharp` if invalid input.
