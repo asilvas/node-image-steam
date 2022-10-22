@@ -1,4 +1,4 @@
-# 0.64.1 - June 10 2022
+# 0.64.1 - October 22 2022
 
 * ***(FIX)*** Fix height calculation error for animated images.
 
