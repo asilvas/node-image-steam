@@ -1,3 +1,8 @@
+# 0.64.1 - June 10 2022
+
+* ***(FIX)*** Fix height calculation error for animated images.
+
+
 # 0.64.0 - October 14 2022
 
 * ***(ENHANCEMENT)*** Format (`fm`) now supports `gif` as output.

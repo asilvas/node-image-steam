@@ -12,7 +12,7 @@
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s0?cache=true",
-		"etag": "4126025781"
+		"etag": "4116916225"
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s400/fm=f:raw?cache=false",
@@ -28,7 +28,7 @@
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis?cache=true",
-		"etag": "4126025781"
+		"etag": "4116916225"
 	},
 	{
 		"url": "http://localhost:13337/Portrait_1.jpg/:/?cache=false",
@@ -249,7 +249,7 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fm=f:webp?cache=false",
-		"etag": "1295091687"
+		"etag": "543516397"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/fx-bl/fm=f:raw?cache=false",
@@ -308,7 +308,7 @@
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?cache=true",
-		"etag": "1093979100"
+		"etag": "4220613508"
 	},
 	{
 		"url": "http://localhost:13337/UP_steam_loco.jpg/:/rs=w:640/fm=f:raw?download=true&cache=false",
