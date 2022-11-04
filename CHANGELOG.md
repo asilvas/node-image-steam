@@ -1,3 +1,9 @@
+# 0.63.3 - June 10 2022
+
+* ***(FIX)*** `sharp@0.31.2` resolves [rotation bug](https://github.com/lovell/sharp/issues/3391).
+* ***(FIX)*** Orientations for 5 & 7 were computed incorrectly.
+
+
 # 0.63.2 - June 10 2022
 
 * ***(FIX)*** Rare crash fix when initializing `sharp` if invalid input.

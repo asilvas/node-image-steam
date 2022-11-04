@@ -45,7 +45,7 @@ describe('#Image Server', function () {
       serverRequest.reqOptions = getReqFromImageSteps(serverRequest);
       it(`${
         serverRequest.label
-      }, request: ${serverRequest.reqOptions.method || 'GET'} ${serverRequest.reqOptions.url.replace('fm=f:raw', 'fm=f:png')}`, function (cb) {
+      }, request: ${serverRequest.reqOptions.method || 'GET'} ${serverRequest.reqOptions.url.replace('fm=f:raw', 'fm=f:png')} `, function (cb) {
         getResponse(serverRequest.reqOptions, function (err, res) {
           expect(res.statusCode).to.be.equal(
             serverRequest.options.statusCode || 200
