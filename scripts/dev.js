@@ -11,7 +11,8 @@ module.exports = {
     sharp: {
       cache: false,
       concurrency: 0,
-      simd: true
+      simd: true,
+      defaults: { animated: true }
     }
   },
   router: {

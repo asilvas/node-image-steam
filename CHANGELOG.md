@@ -1,7 +1,17 @@
-# 0.63.3 - June 10 2022
+# 0.64.2 - November 4 2022
 
 * ***(FIX)*** `sharp@0.31.2` resolves [rotation bug](https://github.com/lovell/sharp/issues/3391).
 * ***(FIX)*** Orientations for 5 & 7 were computed incorrectly.
+
+
+# 0.64.1 - October 22 2022
+
+* ***(FIX)*** Fix height calculation error for animated images.
+
+
+# 0.64.0 - October 14 2022
+
+* ***(ENHANCEMENT)*** Format (`fm`) now supports `gif` as output.
 
 
 # 0.63.2 - June 10 2022
