@@ -53,7 +53,17 @@ module.exports = {
       fallbackApp: {
         driver: 'fs',
         path: path.resolve(__dirname, '../test/files')
-      }
+      },
+      A: {
+        driver: 'fs',
+        path: path.resolve(__dirname, '../test/files'),
+        maxSize: { width: 38400, height: 3840 },
+      },
+      B: {
+        driver: 'fs',
+        path: path.resolve(__dirname, '../test/files'),
+        maxSize: { width: 3840, height: 38400 },
+      },
     },
     replicas: {
       otherPlace: {
