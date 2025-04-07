@@ -57,12 +57,17 @@ module.exports = {
       A: {
         driver: 'fs',
         path: path.resolve(__dirname, '../test/files'),
-        maxSize: { width: 38400, height: 3840 },
+        maxSize: { width: 51200, height: 5120 },
+        router: {
+          originalSteps: {
+            resize: { width: '5120', height: '5120' }
+          },
+        }
       },
       B: {
         driver: 'fs',
         path: path.resolve(__dirname, '../test/files'),
-        maxSize: { width: 3840, height: 38400 },
+        maxSize: { width: 5120, height: 51200 },
       },
     },
     replicas: {
