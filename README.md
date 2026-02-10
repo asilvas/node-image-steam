@@ -344,8 +344,8 @@ Resize an image, preserving aspect or not.
 | | | `lbb` | Use LBB interpolation, which prevents some "acutance" and typically reduces performance by a factor of 2 |
 | | | `nohalo` | Use Nohalo interpolation, which prevents acutance and typically reduces performance by a factor of 3 |
 | `bg` | String | *optional* | Supply a background color if applicable. Works in `hex(123123)` or `rgb(123; 123; 123)` or `rgba(123; 123; 123; 0.5)` formats |
-| `ft` | String | `fill` | How to fit the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
-| `ps` | String | `centre` | How to position the image. See [available options](https://sharp.pixelplumbing.com/en/stable/api-resize/#resize) |
+| `ft` | String | `fill` | How to fit the image. See [available options](https://sharp.pixelplumbing.com/api-resize/#resize) |
+| `ps` | String | `centre` | How to position the image. See [available options](https://sharp.pixelplumbing.com/api-resize/#resize) |
 
 
 ### Examples
@@ -777,3 +777,4 @@ var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
 ## License
 
 [MIT](https://github.com/asilvas/node-image-steam/blob/master/LICENSE.txt)
+
