@@ -1,3 +1,10 @@
+# 0.65.0 - March 13 2025
+
+* ***(ENHANCEMENT)*** Node.js engine support updated to `>=18.0.0` (tested on Node 24).
+* ***(CLEANUP)*** Replaced Travis CI with GitHub Actions; CI matrix runs on Node 18, 20, 22, and 24.
+* ***(CLEANUP)*** Dependencies updated to latest within current semver ranges.
+
+
 # 0.64.2 - November 4 2022
 
 * ***(FIX)*** `sharp@0.31.2` resolves [rotation bug](https://github.com/lovell/sharp/issues/3391).
