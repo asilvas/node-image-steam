@@ -1,5 +1,5 @@
 # image-steam
-[![Build Status](https://app.travis-ci.com/asilvas/node-image-steam.svg?branch=master)](https://app.travis-ci.com/asilvas/node-image-steam)
+[![CI](https://github.com/asilvas/node-image-steam/actions/workflows/ci.yml/badge.svg)](https://github.com/asilvas/node-image-steam/actions)
 
 A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js. Serving (many) millions of images daily by way of simple (single DC, simple storage) and advanced (multi-DC geo-distributed, replicated storage, multi-tier caching) configurations. Responsible in part for this [white paper](https://www.godaddy.com/garage/site-speed-small-business-website-white-paper/).
 
