@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      IS_CI_ENV: '1'
     strategy:
       fail-fast: false
       matrix:
@@ -24,7 +26,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --no-optional
+        run: npm ci
 
       - name: Test
         run: npm test
