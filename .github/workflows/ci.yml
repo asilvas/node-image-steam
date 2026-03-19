@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      IS_CI_ENV: '1'
     strategy:
       fail-fast: false
       matrix:

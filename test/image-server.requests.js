@@ -315,8 +315,8 @@ module.exports = [
   },
 ];
 
-if (process.env.TRAVIS === undefined) {
-  // not supported by travis CI
+if (process.env.IS_CI_ENV === undefined) {
+  // Some image formats/steps are slower or not supported in CI.
   module.exports = module.exports.concat([
     {
       steps: 'fm=f:avif',
