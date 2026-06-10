@@ -1,19 +1,38 @@
 {
   "name": "image-steam",
-  "version": "0.65.0",
+  "version": "1.0.0",
   "description": "A simple, fast, and highly customizable realtime image manipulation web server built atop Node.js.",
-  "main": "index.js",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "bench": "./packages/image-steam-bench/bin/isteamb run http://localhost:13337/isteamb",
-    "check-cov": "nyc check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser",
-    "start": "node ./scripts/server.js --isConfig ./scripts/dev.js --isDemo true",
-    "nodemo": "node ./scripts/server.js --isConfig ./scripts/dev.js",
+    "bench": "node ./packages/image-steam-bench/bin/isteamb.ts run http://localhost:13337/isteamb",
+    "bench:bun": "bun ./packages/image-steam-bench/bin/isteamb.ts run http://localhost:13337/isteamb",
+    "build": "tsc -p tsconfig.build.json",
+    "check-cov": "c8 check-coverage --statements 70 --functions 75 --branches 50 --lines 70 || node scripts/launch-coverage-in-browser.ts",
+    "start": "node ./scripts/server.ts --isConfig ./scripts/dev.ts --isDemo true",
+    "start:bun": "bun ./scripts/server.ts --isConfig ./scripts/dev.ts --isDemo true",
+    "nodemo": "node ./scripts/server.ts --isConfig ./scripts/dev.ts",
+    "nodemo:bun": "bun ./scripts/server.ts --isConfig ./scripts/dev.ts",
     "mocha": "mocha -w -R spec",
-    "prettier": "npx prettier --write lib test",
-    "report": "nyc report --reporter=cobertura && nyc report --reporter=lcov",
-    "test": "npm run prettier && npm run test-and-check && (npm outdated || true)",
+    "prettier": "npx prettier --write lib test scripts",
+    "report": "c8 report --reporter=cobertura && c8 report --reporter=lcov",
+    "test": "npm run prettier && npm run typecheck && npm run test-and-check && (npm outdated || true)",
     "test-and-check": "npm run unit && npm run report && npm run check-cov",
-    "unit": "npx nyc ./node_modules/mocha/bin/_mocha"
+    "typecheck": "tsc -p tsconfig.json",
+    "unit": "c8 mocha",
+    "prepare": "node scripts/fix-yargs-node26.ts",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,43 +52,43 @@
   },
   "homepage": "https://github.com/asilvas/node-image-steam#readme",
   "bin": {
-    "image-steam": "./bin/isteam",
-    "isteam": "./bin/isteam",
-    "isteamd": "./bin/isteamd"
+    "image-steam": "./bin/isteam.js",
+    "isteam": "./bin/isteam.js",
+    "isteamd": "./bin/isteamd.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "files": [
     "bin",
-    "lib",
-    "index.js",
+    "dist",
     "LICENSE.txt",
     "README.md",
     "CHANGELOG.md",
     "package.json"
   ],
   "dependencies": {
-    "agentkeepalive": "^4.2.1",
-    "async": "^3.2.3",
-    "fs-extra": "^10.0.1",
+    "agentkeepalive": "^4.6.0",
+    "async": "^3.2.6",
+    "fs-extra": "^10.1.0",
     "image-pal-sharp": "^1.2.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "mime": "^3.0.0",
     "semaphore": "^1.1.0",
-    "sharp": "^0.33.3",
-    "xxhash": "^0.3.0",
-    "yargs": "^17.3.1"
+    "sharp": "^0.34.5",
+    "xxhash-wasm": "^1.1.0",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "browser-launcher": "^4.0.0",
-    "chai": "^4.3.6",
-    "mocha": "^10.0.0",
-    "nyc": "^15.1.0",
-    "open": "^8.4.0",
-    "prettier": "^2.5.1",
-    "should": "^13.2.3",
-    "sinon": "^14.0.0",
-    "sinon-chai": "^3.7.0"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.0.0",
+    "c8": "^11.0.0",
+    "chai": "^4.5.0",
+    "mocha": "^11.7.6",
+    "open": "^8.4.2",
+    "prettier": "^2.8.8",
+    "sinon": "^14.0.2",
+    "sinon-chai": "^3.7.0",
+    "typescript": "^5.9.3"
   }
 }

@@ -67,7 +67,7 @@ npm install image-steam -g
 isteam --isConfig './myconfig.json' --isDefaults './mydefaults.json'
 ```
 
-Defaults are optional. Config can also be a CommonJS file:
+Defaults are optional. Config can also be a JS module:
 
 ```
 isteam --isConfig './myconfig.js'
@@ -78,12 +78,12 @@ isteam --isConfig './myconfig.js'
 Or if you prefer to incorporate into your own app:
 
 ```
-var http = require('http');
-var imgSteam = require('image-steam');
+import http from 'node:http';
+import imgSteam from 'image-steam';
 
-http.createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
-  .listen(13337, '127.0.0.1')
-;
+http
+  .createServer(new imgSteam.http.Connect({ /* options */ }).getHandler())
+  .listen(13337, '127.0.0.1');
 ```
 
 Which is equivalent of cloning this repo and invoking `npm start`.
@@ -292,10 +292,10 @@ Most router defaults should suffice, but you have full control over routing. See
 | paramValDelimiter | `string` | `":"` | Separator between a parameter key and its value |
 | signatureDelimiter | `string` | `"/-/"` | Separator between steps and the signed url |
 | supportWebP | `boolean` | `true` | Support for WebP format |
-| originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
-| hqOriginalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Identical behavior to `originalSteps`, but with lossless defaults and reserved only for images smaller than `hqOriginalMaxPixels` |
+| originalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.ts) | Steps performed on the original asset to optimize subsequent image processing operations. This can greatly improve the user experience for very large, uncompressed, or poorly compressed images |
+| hqOriginalSteps | `object` | [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.ts) | Identical behavior to `originalSteps`, but with lossless defaults and reserved only for images smaller than `hqOriginalMaxPixels` |
 | hqOriginalMaxPixels | `number` | `400 * 400` | Max threshold of pixels where the higher quality `hqOriginalSteps` are used in place of `originalSteps` |
-| steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.js) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
+| steps | `object` |  [Full Defaults](https://github.com/asilvas/node-image-steam/blob/master/lib/router/router-defaults.ts) | Mapping of URI image step commands and their parameters. This allows you to be as verbose or laconic as desired |
 | `beforeProcess` | `function` | `undefined` | A function having the signature `(routeInfo, options) => null` that can manipulate request info before the processing starts |
 
 # Routing
@@ -682,9 +682,9 @@ The next level down is Connect, and all child classes (shown below) will
 bubble up through this class:
 
 ```
-var http = require('image-steam').http;
-var connect = new http.Connect();
-connect.on('error', function(err) { /* do something */ });
+import { http } from 'image-steam';
+const connect = new http.Connect();
+connect.on('error', (err) => { /* do something */ });
 ```
 
 
@@ -693,9 +693,9 @@ connect.on('error', function(err) { /* do something */ });
 A lower level class with no children:
 
 ```
-var http = require('image-steam').http;
-var throttle = new http.Throttle();
-throttle.on('error', function(err) { /* do something */ });
+import { throttle as Throttle } from 'image-steam';
+const throttle = new Throttle();
+throttle.on('error', (err) => { /* do something */ });
 ```
 
 
@@ -704,9 +704,9 @@ throttle.on('error', function(err) { /* do something */ });
 A lower level class with no children:
 
 ```
-var Processor = require('image-steam').Processor;
-var processor = new Processor();
-processor.on('error', function(err) { /* do something */ });
+import { processor as Processor } from 'image-steam';
+const processor = new Processor();
+processor.on('error', (err) => { /* do something */ });
 ```
 
 
@@ -715,9 +715,9 @@ processor.on('error', function(err) { /* do something */ });
 A lower level class with no children:
 
 ```
-var Storage = require('image-steam').Storage;
-var storage = new Storage();
-storage.on('error', function(err) { /* do something */ });
+import { storage as Storage } from 'image-steam';
+const storage = new Storage();
+storage.on('error', (err) => { /* do something */ });
 ```
 
 
@@ -750,11 +750,11 @@ A signed url would look like this:
 The following snippet shows how to sign a url (using the library defaults).
 
 ```
-var crypto = require('crypto');
-var shasum = crypto.createHash(YOUR_HASHING_ALGORITHM); // sha256 recommended
+import crypto from 'node:crypto';
+const shasum = crypto.createHash(YOUR_HASHING_ALGORITHM); // sha256 recommended
 shasum.update('/' + IMAGE_PATH + '/:/' + IMAGE_STEPS + YOUR_SECRET);
-var signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
-var url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
+const signature = shasum.digest('base64').replace(/\//g, '_').replace(/\+/g, '-').substring(0, 8);
+const url = '/' + YOUR_IMAGE_PATH + '/:/' + YOUR_IMAGE_STEPS + '/-/' + signature;
 ```
 
 

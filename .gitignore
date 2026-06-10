@@ -48,3 +48,4 @@ test/cache/
 test/cacheOptimized/
 test/replica-cache/
 test/replica-cacheOptimized/
+dist/

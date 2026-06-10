@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noEmit": true,
+    "types": ["node", "mocha"]
+  },
+  "include": [
+    "lib/**/*.ts",
+    "test/**/*.ts",
+    "scripts/**/*.ts",
+    "packages/image-steam-bench/src/**/*.ts",
+    "packages/image-steam-bench/bin/**/*.ts"
+  ]
+}

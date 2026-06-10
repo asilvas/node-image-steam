@@ -1,3 +1,33 @@
+# 1.0.0 - June 10 2026
+
+* ***(BREAKING)*** Entire codebase converted from CommonJS JavaScript to TypeScript (ESM).
+  Published artifacts are now compiled to `dist/` (`main`/`exports` updated accordingly);
+  deep requires into `lib/` are no longer supported.
+* ***(BREAKING)*** Node.js engine support updated to `>=24.0.0` (native TypeScript type
+  stripping). Tested on Node 24/26.
+* ***(ENHANCEMENT)*** First-class **Bun** support — the server, tests, and benchmark all run
+  under Bun (`npm run start:bun`, `nodemo:bun`, `bench:bun`).
+* ***(ENHANCEMENT)*** Full **Windows** support — `npm start`, `npm test`, and `npm run bench`
+  all work on Windows.
+* ***(ENHANCEMENT)*** Hashing is now a runtime-resolved helper (`lib/helpers/xxhash.ts`):
+  `Bun.hash.xxHash32` when running under Bun, otherwise `xxhash-wasm`. The legacy `xxhash`
+  native addon dependency is gone (no more node-gyp). Both paths produce identical
+  xxHash32 values with the same seed, so **cache keys are unchanged** — existing caches
+  remain valid.
+* ***(ENHANCEMENT)*** New CLI bins (`bin/isteam.js`, `bin/isteamd.js`); fixed long-standing
+  `isteamd` bug where the daemon spawn never received the bin path.
+* ***(FIX)*** `fs` storage driver now percent-encodes characters that are invalid in Windows
+  filenames (`<>:"|?*`, control chars) when running on Windows, so cache writes no longer
+  fail for paths containing e.g. `:`. Non-Windows path mapping is unchanged.
+* ***(FIX)*** Node 26 compatibility: `scripts/fix-yargs-node26.ts` (run on `prepare`) patches
+  yargs' extensionless CJS entry, which Node >=26 misclassifies as ESM (breaks `require('yargs/yargs')`
+  in c8). mocha upgraded to v11 and c8 to v11 for the same reason.
+* ***(CLEANUP)*** sharp `^0.34.5`, fresh ETag snapshots, dependencies updated; GitHub Actions
+  CI matrix runs on Node 24 and 26.
+* ***(CLEANUP)*** `image-steam-bench` workspace package converted to TypeScript/ESM (v2.0.0);
+  benchmark scores are now also written to the log file for non-interactive runs.
+
+
 # 0.65.0 - March 13 2025
 
 * ***(ENHANCEMENT)*** Node.js engine support updated to `>=18.0.0` (tested on Node 24).

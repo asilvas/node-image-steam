@@ -1,0 +1,3 @@
+export default {
+  maxSize: { width: 3840, height: 3840 }, // 4K
+};

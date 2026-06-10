@@ -1,15 +1,16 @@
 {
   "name": "image-steam-bench",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "Benchmark for Image Steam to help determine ideal hardware configurations and load levels",
-  "main": "src/cli.js",
+  "type": "module",
+  "main": "src/cli.ts",
   "scripts": {
-    "start": "node ./ run http://localhost:13337/isteamb",
+    "start": "node ./bin/isteamb.ts run http://localhost:13337/isteamb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "image-steam-bench": "./bin/isteamb",
-    "isteamb": "./bin/isteamb"
+    "image-steam-bench": "./bin/isteamb.ts",
+    "isteamb": "./bin/isteamb.ts"
   },
   "files": [
     "bin",
@@ -24,9 +25,12 @@
   },
   "author": "Aaron Silvas",
   "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "dependencies": {
     "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.16",
-    "yargs": "^14.0.0"
+    "blessed-contrib": "^4.11.0",
+    "yargs": "^17.7.2"
   }
 }
