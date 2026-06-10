@@ -7,10 +7,6 @@
 		"etag": "4192721505"
 	},
 	{
-		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s0?cache=false",
-		"etag": "3401005584"
-	},
-	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=s0?cache=true",
 		"etag": "422219860"
 	},
@@ -21,10 +17,6 @@
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis=w400/fm=f:raw?cache=false",
 		"etag": "801286402"
-	},
-	{
-		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis?cache=false",
-		"etag": "3401005584"
 	},
 	{
 		"url": "GET http://localhost:13337/UP_steam_loco.jpg/:/gis?cache=true",

@@ -30,3 +30,14 @@ jobs:
 
       - name: Test
         run: npm test
+
+      # etag snapshots are platform-specific; tests regenerate the snapshot for
+      # the current platform. Upload it so a changed/missing snapshot (e.g.
+      # after a sharp upgrade) can be downloaded and committed to the repo.
+      - name: Upload regenerated etag snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-server-etags-${{ runner.os }}-node${{ matrix.node-version }}
+          path: test/image-server.etags.*.json
+          if-no-files-found: ignore

@@ -8,8 +8,16 @@ import serverRequests from './image-server.requests.ts';
 
 const dirname = import.meta.dirname;
 
-const etags: Record<string, string> = JSON.parse(
-  fs.readFileSync(path.join(dirname, './image-server.etags.json'), 'utf8')
+// etags vary by platform (sharp/libvips output differs slightly), so each
+// platform pins its own snapshot. A missing snapshot means every entry is
+// treated as new (no validation) and the after() hook writes a fresh file.
+const etagsFile = path.join(
+  dirname,
+  `./image-server.etags.${process.platform}.json`
+);
+
+const etags: Record<string, string> = (
+  fs.existsSync(etagsFile) ? JSON.parse(fs.readFileSync(etagsFile, 'utf8')) : []
 ).reduce(function (state: Record<string, string>, o: any) {
   state[o.url] = o.etag;
   return state;
@@ -33,7 +41,7 @@ describe('#Image Server', function () {
         })
         .sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0)); // ordered
       fs.writeFileSync(
-        path.join(dirname, './image-server.etags.json'),
+        etagsFile,
         JSON.stringify(sortedUrls, null, '\t'),
         'utf8'
       );
