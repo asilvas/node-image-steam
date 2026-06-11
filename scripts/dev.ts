@@ -40,6 +40,8 @@ export default {
     },
     cacheTTS: 600,
     cacheOptimizedTTS: 300,
+    memCache: {}, // in-memory artifact cache, default 100MB / 30s
+
     app: {
       proxy: {
         driver: 'http',

@@ -2,6 +2,7 @@ import { EventEmitter } from 'node:events';
 import { createRequire } from 'node:module';
 import _ from 'lodash';
 import Image from '../image.ts';
+import MemCache from './mem-cache.ts';
 import StorageBase from './storage-base.ts';
 import StorageFs from './fs/index.ts';
 import StorageHttp from './http/index.ts';
@@ -22,6 +23,9 @@ export default class Storage extends EventEmitter {
   artifactReplicas: any[];
   optimizedReplicas: any[];
   drivers: Record<string, any>;
+  memCache: MemCache | null;
+  #mergedOptsCache = new Map<string, any>();
+  #explicitOptsCache = new WeakMap<any, any>();
 
   constructor(options?: any) {
     super();
@@ -46,6 +50,11 @@ export default class Storage extends EventEmitter {
 
     // drivers will be initialized on-demand due to the light weight nature of design
     this.drivers = {};
+
+    // opt-in in-memory cache of processed artifacts
+    this.memCache = this.options.memCache
+      ? new MemCache(this.options.memCache)
+      : null;
   }
 
   getDriver(options: any, prefix?: string) {
@@ -87,6 +96,15 @@ export default class Storage extends EventEmitter {
 
     const { originalPath, hashFromOptimizedOriginal, urlInfo } = reqOptions;
     const { hash, useFallback = false } = fetchOptions;
+
+    // serve hot artifacts straight from memory when enabled
+    const memKey = this.memCache && hash && `${originalPath}|${hash}`;
+    if (memKey) {
+      const memImage = this.memCache!.get(memKey);
+      if (memImage) {
+        return void cb(null, memImage);
+      }
+    }
 
     const $this = this;
     let driverInfo: any;
@@ -136,6 +154,10 @@ export default class Storage extends EventEmitter {
           img = new Image(img, imgData);
         }
 
+        if (memKey) {
+          $this.memCache!.set(memKey, img);
+        }
+
         cb(null, img);
       }
     );
@@ -162,6 +184,11 @@ export default class Storage extends EventEmitter {
       return cb && cb(ex);
     }
     image.info.lastModified = new Date(); // auto-tracking of lastModified in meta unless storage client overrides
+
+    if (this.memCache && hash && !touch && !replica) {
+      // freshly processed artifacts are the hottest -- cache immediately
+      this.memCache.set(`${originalPath}|${hash}`, image);
+    }
 
     driverInfo.driver[touch ? 'touch' : 'store'](
       driverInfo.options,
@@ -205,6 +232,11 @@ export default class Storage extends EventEmitter {
   deleteCache(req: any, { originalPath, useOptimized }: any, cb: any): void {
     cb = _.once(cb); // account for flaky error handling within storage clients to avoid internal failures
 
+    if (this.memCache) {
+      // coarse but correct -- cache deletes are rare
+      this.memCache.clear();
+    }
+
     const $this = this;
     let driverInfo: any;
     try {
@@ -246,6 +278,17 @@ export default class Storage extends EventEmitter {
     );
   }
 
+  // all merge inputs are static config -- memoize the expensive deep merges
+  // and hand out shallow copies so per-request mutations cannot leak
+  #mergedOpts(key: string, source: any) {
+    let merged = this.#mergedOptsCache.get(key);
+    if (!merged) {
+      merged = _.merge({}, this.options.defaults || {}, source);
+      this.#mergedOptsCache.set(key, merged);
+    }
+    return { ...merged };
+  }
+
   getDriverInfo(
     originalPath: string,
     req: any,
@@ -257,52 +300,67 @@ export default class Storage extends EventEmitter {
 
     const firstPart = this.options.app && originalPath.split('/')[0];
 
-    if (req.headers && req.headers['x-track-origin-referer']) {
-      opts['x-track-origin-referer'] = req.headers['x-track-origin-referer'];
-    }
-
     let prefix = '';
 
     if (options) {
       // use explicit options if provided
-      opts = _.merge({}, defaults, options);
+      if (typeof options === 'object') {
+        let merged = this.#explicitOptsCache.get(options);
+        if (!merged) {
+          merged = _.merge({}, defaults, options);
+          this.#explicitOptsCache.set(options, merged);
+        }
+        opts = { ...merged };
+      } else {
+        opts = _.merge({}, defaults, options);
+      }
     } else if (
       !!hash &&
       this.options.cacheOptimized &&
       hash === hashFromOptimizedOriginal
     ) {
       // use cacheOptimized if enabled
-      opts = _.merge({}, defaults, this.options.cacheOptimized);
+      opts = this.#mergedOpts('cacheOptimized', this.options.cacheOptimized);
     } else if (!!hash && this.options.cache) {
       // use cache if enabled
-      opts = _.merge({}, defaults, this.options.cache);
+      opts = this.#mergedOpts('cache', this.options.cache);
     } else if (this.options.app && firstPart in this.options.app) {
       // if app match, use custom options
       prefix = firstPart;
-      opts = _.merge({}, defaults, this.options.app[firstPart]);
+      opts = this.#mergedOpts(`app:${firstPart}`, this.options.app[firstPart]);
       realPath = originalPath.substr(firstPart.length + 1);
-    } else if (this.options.domain && req.headers.host in opts.domain) {
+    } else if (this.options.domain && req.headers.host in defaults.domain) {
       // if domain match, use custom options
       prefix = req.headers.host;
-      opts = _.merge({}, defaults, this.options.domain[prefix]);
+      opts = this.#mergedOpts(`domain:${prefix}`, this.options.domain[prefix]);
     } else if (
       this.options.header &&
-      req.headers['x-isteam-app'] in opts.header
+      req.headers['x-isteam-app'] in defaults.header
     ) {
       // if `x-isteam-app` header match, use custom options
       prefix = req.headers['x-isteam-app'];
-      opts = _.merge({}, defaults, opts.header[prefix]);
+      opts = this.#mergedOpts(`header:${prefix}`, defaults.header[prefix]);
     }
 
     if (opts.fallback && useFallback) {
       // use fallback instead if available & requested
       if (opts.fallback in this.options.app) {
-        opts = _.merge({}, defaults, this.options.app[opts.fallback]);
+        opts = this.#mergedOpts(
+          `app:${opts.fallback}`,
+          this.options.app[opts.fallback]
+        );
       } else {
         throw new Error(
           `Fallback of '${opts.fallback}' requested but does not exist`
         );
       }
+    }
+
+    if (req.headers && req.headers['x-track-origin-referer']) {
+      // per-request value; opts handed out above are copies so this cannot
+      // leak across requests (previously it leaked into shared defaults)
+      if (opts === defaults) opts = { ...defaults };
+      opts['x-track-origin-referer'] = req.headers['x-track-origin-referer'];
     }
 
     return {

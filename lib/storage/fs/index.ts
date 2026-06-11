@@ -1,6 +1,5 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import _ from 'lodash';
 import StorageBase from '../storage-base.ts';
 
 // chars that are invalid in Windows filenames (excluding path separators).
@@ -24,50 +23,59 @@ export default class StorageFs extends StorageBase {
       stepsHash ? `${safePath}-${stepsHash}` : safePath
     );
 
+    // all three ops are independent -- run them concurrently and respond
+    // once everything has landed
+    const info: any = { path: originalPath, stepsHash: stepsHash };
+    let error: any, infoDone: boolean, fileStats: any, fileData: any;
+
+    const maybeFinish = () => {
+      if (!error && infoDone && fileStats && fileData) {
+        info.lastModified = fileStats.mtime;
+        cb(null, info, fileData);
+      }
+    };
+
     fs.readFile(filename + '.json', 'utf8', function (err: any, data: any) {
-      let info: any = { path: originalPath, stepsHash: stepsHash };
       if (data) {
         try {
-          info = _.merge(info, JSON.parse(data.toString()));
+          Object.assign(info, JSON.parse(data));
         } catch (err) {
-          return cb(err);
+          if (error) return; // cb already called
+          error = err;
+          return void cb(err);
         }
       }
 
-      let error: any, fileStats: any, fileData: any;
+      infoDone = true;
+      maybeFinish();
+    });
 
-      fs.stat(filename, (err: any, stats: any) => {
-        if (err) {
-          if (error) return; // cb already called
+    fs.stat(filename, (err: any, stats: any) => {
+      if (err) {
+        if (error) return; // cb already called
 
-          if (err.code === 'ENOENT') {
-            err.statusCode = 404;
-          }
-
-          error = err;
-          return void cb(err);
+        if (err.code === 'ENOENT') {
+          err.statusCode = 404;
         }
 
-        fileStats = stats;
-        info.lastModified = stats.mtime;
-        if (fileStats && fileData) {
-          cb(null, info, fileData);
-        }
-      });
+        error = err;
+        return void cb(err);
+      }
 
-      fs.readFile(filename, (err: any, data: any) => {
-        if (err) {
-          if (error) return; // cb already called
-          if (err.code === 'ENOENT') err.statusCode = 404;
-          error = err;
-          return void cb(err);
-        }
+      fileStats = stats;
+      maybeFinish();
+    });
 
-        fileData = data;
-        if (fileStats && fileData) {
-          cb(null, info, fileData);
-        }
-      });
+    fs.readFile(filename, (err: any, data: any) => {
+      if (err) {
+        if (error) return; // cb already called
+        if (err.code === 'ENOENT') err.statusCode = 404;
+        error = err;
+        return void cb(err);
+      }
+
+      fileData = data;
+      maybeFinish();
     });
   }
 

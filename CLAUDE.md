@@ -20,6 +20,7 @@ As of v1.0.0 the entire codebase is TypeScript (ESM) and runs on **both Node.js 
 - `scripts/` — dev server (`server.ts`), dev config (`dev.ts`), yargs patcher, hash benchmark
 - `bin/` — published CLI entries (`isteam.js`, `isteamd.js` — plain ESM wrappers around `dist/`)
 - `packages/image-steam-bench/` — workspace package: load-testing/benchmark TUI (blessed), spawns worker threads (`src/test/*.ts`) against a running isteam server
+- `packages/image-steam-aws-s3/` — workspace package (`image-steam-awss3`): AWS S3 storage driver on @aws-sdk/client-s3; TS source in `lib/`, published as compiled `dist/` (external consumers `require()` it from node_modules where Node won't type-strip); tests run via root mocha
 
 ## Commands
 

@@ -1,3 +1,28 @@
+# 1.1.0 - June 11 2026
+
+* ***(ENHANCEMENT)*** Performance overhaul of the request hot path. Measured via
+  `image-steam-bench` (same hardware, before/after): cached throughput +41%
+  (3.9k -> 5.5k rps), 95%-cache-hit workloads +32%, with hot-path latency p50
+  dropping from ~2ms to ~1ms.
+* ***(ENHANCEMENT)*** New opt-in **in-memory artifact cache**: `storage.memCache`
+  (`{ maxSize, tts }`, default 100MB / 30s time-to-stale, LRU eviction). Serves
+  hot processed artifacts without any storage round-trip; cleared on cache
+  deletes. Disabled by default.
+* ***(ENHANCEMENT)*** New workspace package `image-steam-awss3` v2.0.0 (migrated
+  from the now-archived `image-steam-aws-s3` repo): rewritten in TypeScript/ESM
+  on `@aws-sdk/client-s3` v3 (deprecated `aws-sdk` v2 removed), zero-copy fetch
+  buffers, new `endpoint`/`forcePathStyle`/`clientOptions`/`client` options, and
+  unit tests. Fixes a v1 bug where `deleteCache` applied `pathPrefix` twice so
+  cache deletes never matched when a prefix was configured. Object key layout is
+  unchanged.
+* ***(FIX)*** `x-track-origin-referer` header no longer leaks into shared default
+  storage options (previously persisted for all subsequent requests once seen).
+* ***(FIX)*** `processor.sharp.simd` option no longer incorrectly calls
+  `sharp.concurrency()`; sharp >=0.29 always uses SIMD so the option is now a
+  documented no-op.
+* ***(CLEANUP)*** sharp `^0.35.0`; refreshed win32 ETag snapshot accordingly.
+
+
 # 1.0.0 - June 10 2026
 
 * ***(BREAKING)*** Entire codebase converted from CommonJS JavaScript to TypeScript (ESM).

@@ -1,8 +1,5 @@
 {
-  "spec": [
-    "test/**/*.tests.ts",
-    "packages/image-steam-aws-s3/test/**/*.tests.ts"
-  ],
+  "spec": ["test/**/*.tests.ts"],
   "extension": ["ts"],
   "reporter": "spec",
   "ui": "bdd",

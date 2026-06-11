@@ -23,9 +23,8 @@ export default class Processor extends EventEmitter {
       if ('concurrency' in this.options.sharp) {
         sharp.concurrency(this.options.sharp.concurrency);
       }
-      if ('simd' in this.options.sharp) {
-        sharp.concurrency(this.options.sharp.simd);
-      }
+      // note: sharp >=0.29 always uses SIMD; the legacy `simd` option is
+      // accepted but ignored (previously it incorrectly called concurrency())
       if ('defaults' in this.options.sharp) {
         this.defaults = this.options.sharp.defaults;
       }

@@ -1,4 +1,4 @@
-import url from 'node:url';
+import querystring from 'node:querystring';
 import { EventEmitter } from 'node:events';
 import _ from 'lodash';
 import mime from 'mime';
@@ -14,6 +14,7 @@ export default class Router extends EventEmitter {
   appOptions: any;
   options: any;
   canDisableCache: boolean;
+  #appInfoCache = new Map<string, any>();
 
   constructor(options: any) {
     super();
@@ -29,25 +30,59 @@ export default class Router extends EventEmitter {
     }
   }
 
-  getInfo(req: any, opts?: any): any {
-    const urlInfo = url.parse(req.url, true);
-    const appName = urlInfo.pathname.split('/')[1];
+  // merged per-app options and any config-derived steps are static for the
+  // life of the router -- compute once per app and reuse across requests
+  #getAppInfo(appName: string): any {
+    let appInfo = this.#appInfoCache.get(appName);
+    if (appInfo) return appInfo;
+
     const appOptions = this.appOptions[appName] || {};
     const routerOptions = appOptions.router;
     const options = _.merge({}, this.options, routerOptions || {});
 
-    let originalSteps, hashFromOptimizedOriginal, hqOriginalSteps;
+    appInfo = { options };
     if (typeof options.originalSteps === 'object') {
-      originalSteps = this.getStepsFromObject(options.originalSteps, options);
-      hashFromOptimizedOriginal =
-        helpers.imageSteps.getHashFromSteps(originalSteps);
+      appInfo.originalStepsTemplate = this.getStepsFromObject(
+        options.originalSteps,
+        options
+      );
+      appInfo.hashFromOptimizedOriginal = helpers.imageSteps.getHashFromSteps(
+        appInfo.originalStepsTemplate
+      );
     }
-
     if (typeof options.hqOriginalSteps === 'object') {
-      hqOriginalSteps = this.getStepsFromObject(
+      appInfo.hqOriginalStepsTemplate = this.getStepsFromObject(
         options.hqOriginalSteps,
         options
       );
+    }
+
+    // a beforeProcess hook may mutate options per request -- never share
+    // cached state in that case
+    if (typeof options.beforeProcess !== 'function') {
+      this.#appInfoCache.set(appName, appInfo);
+    }
+
+    return appInfo;
+  }
+
+  getInfo(req: any, opts?: any): any {
+    const urlInfo = parseUrl(req.url);
+    const appName = urlInfo.pathname.split('/')[1];
+    const appInfo = this.#getAppInfo(appName);
+    const options = appInfo.options;
+
+    let originalSteps, hashFromOptimizedOriginal, hqOriginalSteps;
+    if (appInfo.originalStepsTemplate) {
+      // step processors mutate step objects -- hand out per-request copies
+      originalSteps = appInfo.originalStepsTemplate.map((s: any) => ({ ...s }));
+      hashFromOptimizedOriginal = appInfo.hashFromOptimizedOriginal;
+    }
+
+    if (appInfo.hqOriginalStepsTemplate) {
+      hqOriginalSteps = appInfo.hqOriginalStepsTemplate.map((s: any) => ({
+        ...s,
+      }));
     }
 
     const routeInfo: any = {
@@ -240,6 +275,21 @@ export default class Router extends EventEmitter {
       return step;
     });
   }
+}
+
+// lean replacement for legacy url.parse(reqUrl, true), which is slow and
+// computes far more than the router needs
+function parseUrl(reqUrl: string): any {
+  const qIdx = reqUrl.indexOf('?');
+  if (qIdx === -1) {
+    return { pathname: reqUrl, search: null, query: {}, path: reqUrl };
+  }
+  return {
+    pathname: reqUrl.slice(0, qIdx),
+    search: reqUrl.slice(qIdx),
+    query: querystring.parse(reqUrl.slice(qIdx + 1)),
+    path: reqUrl,
+  };
 }
 
 function getContentType(req: any, routeInfo: any): string | undefined {

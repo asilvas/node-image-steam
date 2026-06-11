@@ -21,6 +21,8 @@
     "test/**/*.ts",
     "scripts/**/*.ts",
     "packages/image-steam-bench/src/**/*.ts",
-    "packages/image-steam-bench/bin/**/*.ts"
+    "packages/image-steam-bench/bin/**/*.ts",
+    "packages/image-steam-aws-s3/lib/**/*.ts",
+    "packages/image-steam-aws-s3/test/**/*.ts"
   ]
 }
