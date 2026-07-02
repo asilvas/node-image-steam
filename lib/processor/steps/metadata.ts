@@ -5,5 +5,12 @@ export default function metadata(context: any, stepInfo: any) {
 
   // defaults to pulling over meta data
 
-  context.sharp.withMetadata();
+  context.metadataRequested = true;
+
+  // if the rotate step has already baked the EXIF orientation into the
+  // pixels, reset the outgoing Orientation tag so EXIF-honoring browsers
+  // (e.g. Safari with WebP) don't rotate the image a second time
+  context.sharp.withMetadata(
+    context.orientationCorrected ? { orientation: 1 } : {}
+  );
 }
