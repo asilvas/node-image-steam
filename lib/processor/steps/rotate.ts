@@ -40,9 +40,15 @@ export default function rotate(context: any, stepInfo: any) {
       // otherwise do nothing
     }
 
-    // remove orientation now that it's been auto-corrected
-    // to avoid downloaded asset from being rotated again
-    // delete img.info.orientation;
+    // orientation is baked into the pixels from this point on (including
+    // when the net rotation is 0deg), so the EXIF Orientation tag must not
+    // survive into the output or EXIF-honoring browsers (e.g. Safari with
+    // WebP) will rotate the image a second time
+    context.orientationCorrected = true;
+    if (context.metadataRequested) {
+      // metadata step already ran; override the retained Orientation tag
+      context.sharp.withMetadata({ orientation: 1 });
+    }
   }
 
   switch (degrees) {

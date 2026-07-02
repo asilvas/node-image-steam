@@ -1,3 +1,19 @@
+# Unreleased
+
+* ***(FIX)*** EXIF-oriented images no longer double-rotate in EXIF-honoring
+  browsers (e.g. Safari rendering WebP; Chrome ignores the EXIF chunk in WebP,
+  which is why it appeared correct there). The `rotate` step bakes the EXIF
+  orientation into the pixels, but kept metadata still carried the original
+  `Orientation` tag, so browsers honoring it rotated the image a second time.
+  The outgoing tag is now neutralized (`Orientation: 1`) whenever orientation
+  compensation occurs. Optimized originals are intentionally unchanged (no
+  rotate step; their EXIF remains authoritative), so existing optimized caches
+  stay valid. ETags of processed EXIF-oriented images change accordingly
+  (win32 snapshot refreshed; Linux snapshot needs the usual CI-artifact
+  refresh). Regression coverage in `test/image-orientation.tests.ts` using the
+  new `test/files/angel.jpg` (orientation 6) fixture.
+
+
 # 1.1.0 - June 11 2026
 
 * ***(ENHANCEMENT)*** Performance overhaul of the request hot path. Measured via
