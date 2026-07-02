@@ -1,4 +1,4 @@
-# Unreleased
+# 1.1.1 - July 2 2026
 
 * ***(FIX)*** EXIF-oriented images no longer double-rotate in EXIF-honoring
   browsers (e.g. Safari rendering WebP; Chrome ignores the EXIF chunk in WebP,
